@@ -1,0 +1,125 @@
+{
+  "name": "assets/bf0ac12045974068b6fe432f38bb6092",
+  "designSystem": {
+    "displayName": "Tidbit",
+    "styleGuidelines": "## Brand & Style\n\nThe design system is rooted in the \"Quiet Print\" aesthetic—a modern editorial approach that prioritizes cognitive ease and deep focus. It targets readers looking to reclaim their attention span from the chaotic, high-stimulus digital landscape. \n\nThe style is a disciplined **Minimalism** with a tactile, paper-like quality. It avoids the \"glassy\" or \"vibrant\" trends of mobile software, opting instead for the permanence and weight of physical broadsheets and literary journals. There are no shadows, gradients, or glows; depth is communicated solely through hairline borders and subtle shifts in surface tone. The emotional response is one of calm, authority, and intellectual focus.\n\n## Layout & Spacing\n\nThe layout follows a **Fixed Grid** philosophy on desktop (centered reading column) and a **Fluid Margin** on mobile.\n\nThe defining characteristic is the **28px Left Gutter** on content cards. This space is reserved for a vertical \"ink blue\" ruler. The length of this ruler is a direct visualization of the article's length—as the user reads, the ruler fills or a marker moves to indicate depth.\n\nMargins are generous (24px on mobile) to create a sense of \"whitespace luxury,\" emphasizing that the content is worth the reader's time. Avoid dense clusters of information; if two elements can be separated by an extra 8px of whitespace, choose the separation.\n\n## Elevation & Depth\n\nThis system intentionally rejects 3D depth. There are no z-axis shadows. \n\nDepth is achieved through **Tonal Layering**:\n- **Level 0**: Paper stock background (#F4F4F0).\n- **Level 1**: White surface inserts (#FFFFFF) with a 1px hairline border (#DFDFD7).\n\nInteraction states (hover/active) should be signaled by color changes (text turning Ink Blue) or the appearance of a 1px border, rather than a \"lift\" effect.\n\n## Components\n\n### Content Cards\nThe signature component. Must feature the 28px left gutter. The word count (e.g., \"450 WORDS\") must be placed at the top right in `label-mono`. Use a hairline border to separate the card from the background if the card is white.\n\n### Buttons\nButtons are rectangular with a 4px radius. \n- **Primary**: Transparent background, 1px border (#16171B), text in `ui-button`. On hover, the border and text turn Ink Blue.\n- **Ghost**: No border, Ink Blue text, used for secondary navigation.\n\n### Progress Ruler\nA vertical stroke in the card's left gutter. The stroke weight is 2px. Background of the ruler is a faint #DFDFD7, and the \"fill\" (representing reading progress) is Ink Blue (#2F2BC4).\n\n### Input Fields\nSimple underlines (1px) rather than boxes. The label should sit above the underline in `label-mono`. \n\n### Markers\nWhen a user \"saves\" or \"highlights\" text, use the `highlight_marker` color as a background block behind the serif text, mimicking a felt-tip highlighter. The edges of this highlight should be slightly irregular or have a 2px radius to feel manual.",
+    "theme": {
+      "colorMode": "LIGHT",
+      "roundness": "ROUND_FOUR",
+      "customColor": "#2f2bc4",
+      "bodyFont": "NEWSREADER",
+      "namedColors": {
+        "background": "#fcf8ff",
+        "error": "#ba1a1a",
+        "error_container": "#ffdad6",
+        "inverse_on_surface": "#f2effc",
+        "inverse_primary": "#c1c1ff",
+        "inverse_surface": "#302f39",
+        "on_background": "#1b1b23",
+        "on_error": "#ffffff",
+        "on_error_container": "#93000a",
+        "on_primary": "#ffffff",
+        "on_primary_container": "#adaeff",
+        "on_primary_fixed": "#08006c",
+        "on_primary_fixed_variant": "#2e2ac4",
+        "on_secondary": "#ffffff",
+        "on_secondary_container": "#626267",
+        "on_secondary_fixed": "#1a1b1f",
+        "on_secondary_fixed_variant": "#46464b",
+        "on_surface": "#1b1b23",
+        "on_surface_variant": "#464555",
+        "on_tertiary": "#ffffff",
+        "on_tertiary_container": "#ff9c80",
+        "on_tertiary_fixed": "#3b0900",
+        "on_tertiary_fixed_variant": "#872100",
+        "outline": "#767586",
+        "outline_variant": "#c7c4d7",
+        "primary": "#1400aa",
+        "primary_container": "#2f2bc4",
+        "primary_fixed": "#e1dfff",
+        "primary_fixed_dim": "#c1c1ff",
+        "secondary": "#5e5e63",
+        "secondary_container": "#e0dfe4",
+        "secondary_fixed": "#e3e2e7",
+        "secondary_fixed_dim": "#c7c6cb",
+        "surface": "#fcf8ff",
+        "surface_bright": "#fcf8ff",
+        "surface_container": "#efecf9",
+        "surface_container_high": "#eae6f3",
+        "surface_container_highest": "#e4e1ed",
+        "surface_container_low": "#f5f2fe",
+        "surface_container_lowest": "#ffffff",
+        "surface_dim": "#dbd8e5",
+        "surface_tint": "#4949db",
+        "surface_variant": "#e4e1ed",
+        "tertiary": "#611500",
+        "tertiary_container": "#882100",
+        "tertiary_fixed": "#ffdbd1",
+        "tertiary_fixed_dim": "#ffb5a0"
+      },
+      "designMd": "---\nname: Tidbit\ncolors:\n  surface: '#fcf8ff'\n  surface-dim: '#dbd8e5'\n  surface-bright: '#fcf8ff'\n  surface-container-lowest: '#ffffff'\n  surface-container-low: '#f5f2fe'\n  surface-container: '#efecf9'\n  surface-container-high: '#eae6f3'\n  surface-container-highest: '#e4e1ed'\n  on-surface: '#1b1b23'\n  on-surface-variant: '#464555'\n  inverse-surface: '#302f39'\n  inverse-on-surface: '#f2effc'\n  outline: '#767586'\n  outline-variant: '#c7c4d7'\n  surface-tint: '#4949db'\n  primary: '#1400aa'\n  on-primary: '#ffffff'\n  primary-container: '#2f2bc4'\n  on-primary-container: '#adaeff'\n  inverse-primary: '#c1c1ff'\n  secondary: '#5e5e63'\n  on-secondary: '#ffffff'\n  secondary-container: '#e0dfe4'\n  on-secondary-container: '#626267'\n  tertiary: '#611500'\n  on-tertiary: '#ffffff'\n  tertiary-container: '#882100'\n  on-tertiary-container: '#ff9c80'\n  error: '#ba1a1a'\n  on-error: '#ffffff'\n  error-container: '#ffdad6'\n  on-error-container: '#93000a'\n  primary-fixed: '#e1dfff'\n  primary-fixed-dim: '#c1c1ff'\n  on-primary-fixed: '#08006c'\n  on-primary-fixed-variant: '#2e2ac4'\n  secondary-fixed: '#e3e2e7'\n  secondary-fixed-dim: '#c7c6cb'\n  on-secondary-fixed: '#1a1b1f'\n  on-secondary-fixed-variant: '#46464b'\n  tertiary-fixed: '#ffdbd1'\n  tertiary-fixed-dim: '#ffb5a0'\n  on-tertiary-fixed: '#3b0900'\n  on-tertiary-fixed-variant: '#872100'\n  background: '#fcf8ff'\n  on-background: '#1b1b23'\n  surface-variant: '#e4e1ed'\ntypography:\n  display-lg:\n    fontFamily: Instrument Serif\n    fontSize: 48px\n    fontWeight: '400'\n    lineHeight: '1.1'\n    letterSpacing: -0.02em\n  display-lg-mobile:\n    fontFamily: Instrument Serif\n    fontSize: 36px\n    fontWeight: '400'\n    lineHeight: '1.1'\n    letterSpacing: -0.02em\n  headline-md:\n    fontFamily: Instrument Serif\n    fontSize: 32px\n    fontWeight: '400'\n    lineHeight: '1.2'\n  article-body:\n    fontFamily: Newsreader\n    fontSize: 20px\n    fontWeight: '400'\n    lineHeight: 32px\n  article-body-mobile:\n    fontFamily: Newsreader\n    fontSize: 18px\n    fontWeight: '400'\n    lineHeight: 28px\n  ui-button:\n    fontFamily: Instrument Sans\n    fontSize: 15px\n    fontWeight: '500'\n    lineHeight: 20px\n    letterSpacing: 0.01em\n  label-mono:\n    fontFamily: IBM Plex Mono\n    fontSize: 12px\n    fontWeight: '500'\n    lineHeight: 16px\n    letterSpacing: 0.1em\nrounded:\n  sm: 0.125rem\n  DEFAULT: 0.25rem\n  md: 0.375rem\n  lg: 0.5rem\n  xl: 0.75rem\n  full: 9999px\nspacing:\n  gutter-ruler: 28px\n  margin-page: 24px\n  stack-sm: 8px\n  stack-md: 16px\n  stack-lg: 32px\n---\n\n## Brand & Style\n\nThe design system is rooted in the \"Quiet Print\" aesthetic—a modern editorial approach that prioritizes cognitive ease and deep focus. It targets readers looking to reclaim their attention span from the chaotic, high-stimulus digital landscape. \n\nThe style is a disciplined **Minimalism** with a tactile, paper-like quality. It avoids the \"glassy\" or \"vibrant\" trends of mobile software, opting instead for the permanence and weight of physical broadsheets and literary journals. There are no shadows, gradients, or glows; depth is communicated solely through hairline borders and subtle shifts in surface tone. The emotional response is one of calm, authority, and intellectual focus.\n\n## Colors\n\nThe palette is derived from physical printing materials. The base background utilizes a pale cool paper stock to reduce eye strain compared to pure white. \n\n- **Base Background**: Used for the primary app canvas.\n- **Surface Inserts**: Reserved for specific content cards or floating modules to provide subtle contrast.\n- **Ink Blue (Primary)**: The singular high-chroma color, used strictly for interactivity, navigation states, and progress indicators.\n- **Yellow Marker (Highlight)**: Used exclusively as a \"swipe\" or background-underline for mastered content or saved quotes; it must never be used as a solid container fill.\n- **Borders**: 1px hairline strokes that define structure without adding visual weight.\n\n## Typography\n\nTypography is the primary architecture of this design system. \n\n- **Headlines**: Use a high-contrast serif with tight tracking to mimic editorial headers. \n- **Body**: The reading experience is powered by Newsreader, featuring a generous line height (1.6x) to facilitate \"vertical scanning\" and focus.\n- **UI & Controls**: Instrument Sans provides a clean, neutral foil to the expressive serifs.\n- **Metadata**: Word counts, dates, and labels use the Monospace font in all-caps with wide tracking to evoke the feeling of a typewriter or index card.\n\n## Layout & Spacing\n\nThe layout follows a **Fixed Grid** philosophy on desktop (centered reading column) and a **Fluid Margin** on mobile.\n\nThe defining characteristic is the **28px Left Gutter** on content cards. This space is reserved for a vertical \"ink blue\" ruler. The length of this ruler is a direct visualization of the article's length—as the user reads, the ruler fills or a marker moves to indicate depth.\n\nMargins are generous (24px on mobile) to create a sense of \"whitespace luxury,\" emphasizing that the content is worth the reader's time. Avoid dense clusters of information; if two elements can be separated by an extra 8px of whitespace, choose the separation.\n\n## Elevation & Depth\n\nThis system intentionally rejects 3D depth. There are no z-axis shadows. \n\nDepth is achieved through **Tonal Layering**:\n- **Level 0**: Paper stock background (#F4F4F0).\n- **Level 1**: White surface inserts (#FFFFFF) with a 1px hairline border (#DFDFD7).\n\nInteraction states (hover/active) should be signaled by color changes (text turning Ink Blue) or the appearance of a 1px border, rather than a \"lift\" effect.\n\n## Shapes\n\nThe design system uses a very subtle **Soft** roundedness (4px) for all surface inserts and buttons. This radius is just enough to take the \"edge\" off the digital screen without making the UI feel \"bubbly\" or informal. Larger containers like modals should also adhere to this 4px rule to maintain a consistent geometric language.\n\n## Components\n\n### Content Cards\nThe signature component. Must feature the 28px left gutter. The word count (e.g., \"450 WORDS\") must be placed at the top right in `label-mono`. Use a hairline border to separate the card from the background if the card is white.\n\n### Buttons\nButtons are rectangular with a 4px radius. \n- **Primary**: Transparent background, 1px border (#16171B), text in `ui-button`. On hover, the border and text turn Ink Blue.\n- **Ghost**: No border, Ink Blue text, used for secondary navigation.\n\n### Progress Ruler\nA vertical stroke in the card's left gutter. The stroke weight is 2px. Background of the ruler is a faint #DFDFD7, and the \"fill\" (representing reading progress) is Ink Blue (#2F2BC4).\n\n### Input Fields\nSimple underlines (1px) rather than boxes. The label should sit above the underline in `label-mono`. \n\n### Markers\nWhen a user \"saves\" or \"highlights\" text, use the `highlight_marker` color as a background block behind the serif text, mimicking a felt-tip highlighter. The edges of this highlight should be slightly irregular or have a 2px radius to feel manual.",
+      "colorVariant": "FIDELITY",
+      "overridePrimaryColor": "#2f2bc4",
+      "overrideSecondaryColor": "#16171b",
+      "spacingScale": 2,
+      "typography": {
+        "article-body": {
+          "fontFamily": "Newsreader",
+          "fontSize": "20px",
+          "fontWeight": "400",
+          "lineHeight": "32px"
+        },
+        "article-body-mobile": {
+          "fontFamily": "Newsreader",
+          "fontSize": "18px",
+          "fontWeight": "400",
+          "lineHeight": "28px"
+        },
+        "display-lg": {
+          "fontFamily": "Instrument Serif",
+          "fontSize": "48px",
+          "fontWeight": "400",
+          "lineHeight": "1.1",
+          "letterSpacing": "-0.02em"
+        },
+        "display-lg-mobile": {
+          "fontFamily": "Instrument Serif",
+          "fontSize": "36px",
+          "fontWeight": "400",
+          "lineHeight": "1.1",
+          "letterSpacing": "-0.02em"
+        },
+        "headline-md": {
+          "fontFamily": "Instrument Serif",
+          "fontSize": "32px",
+          "fontWeight": "400",
+          "lineHeight": "1.2"
+        },
+        "label-mono": {
+          "fontFamily": "IBM Plex Mono",
+          "fontSize": "12px",
+          "fontWeight": "500",
+          "lineHeight": "16px",
+          "letterSpacing": "0.1em"
+        },
+        "ui-button": {
+          "fontFamily": "Instrument Sans",
+          "fontSize": "15px",
+          "fontWeight": "500",
+          "lineHeight": "20px",
+          "letterSpacing": "0.01em"
+        }
+      },
+      "spacing": {
+        "gutter-ruler": "28px",
+        "margin-page": "24px",
+        "stack-lg": "32px",
+        "stack-md": "16px",
+        "stack-sm": "8px"
+      },
+      "headlineFontFamily": "instrumentSerif",
+      "bodyFontFamily": "Newsreader"
+    }
+  },
+  "version": "1"
+}

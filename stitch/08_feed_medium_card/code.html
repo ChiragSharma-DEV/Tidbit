@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tidbit - Feed</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=Instrument+Sans:wght@500&amp;family=Instrument+Serif:ital@0;1&amp;family=Newsreader:opsz,wght@6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f5f2fe",
+                      "on-surface": "#1b1b23",
+                      "inverse-on-surface": "#f2effc",
+                      "tertiary": "#611500",
+                      "on-secondary": "#ffffff",
+                      "surface": "#fcf8ff",
+                      "surface-container-lowest": "#ffffff",
+                      "background": "#fcf8ff",
+                      "surface-bright": "#fcf8ff",
+                      "on-primary-fixed": "#08006c",
+                      "secondary-fixed-dim": "#c7c6cb",
+                      "tertiary-container": "#882100",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed": "#ffdbd1",
+                      "error": "#ba1a1a",
+                      "primary": "#1400aa",
+                      "on-primary-container": "#adaeff",
+                      "surface-container": "#efecf9",
+                      "inverse-surface": "#302f39",
+                      "on-tertiary-fixed": "#3b0900",
+                      "secondary-container": "#e0dfe4",
+                      "surface-variant": "#e4e1ed",
+                      "primary-fixed": "#e1dfff",
+                      "surface-container-highest": "#e4e1ed",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#5e5e63",
+                      "on-tertiary-container": "#ff9c80",
+                      "outline-variant": "#c7c4d7",
+                      "surface-dim": "#dbd8e5",
+                      "on-secondary-container": "#626267",
+                      "inverse-primary": "#c1c1ff",
+                      "surface-tint": "#4949db",
+                      "on-secondary-fixed-variant": "#46464b",
+                      "surface-container-high": "#eae6f3",
+                      "on-secondary-fixed": "#1a1b1f",
+                      "error-container": "#ffdad6",
+                      "on-surface-variant": "#464555",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "on-primary-fixed-variant": "#2e2ac4",
+                      "primary-container": "#2f2bc4",
+                      "on-error": "#ffffff",
+                      "outline": "#767586",
+                      "secondary-fixed": "#e3e2e7",
+                      "on-tertiary-fixed-variant": "#872100",
+                      "primary-fixed-dim": "#c1c1ff",
+                      "on-background": "#1b1b23"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack-md": "16px",
+                      "margin-page": "24px",
+                      "stack-lg": "32px",
+                      "gutter-ruler": "28px",
+                      "stack-sm": "8px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Instrument Serif"
+                      ],
+                      "display-lg-mobile": [
+                              "Instrument Serif"
+                      ],
+                      "ui-button": [
+                              "Instrument Sans"
+                      ],
+                      "display-lg": [
+                              "Instrument Serif"
+                      ],
+                      "article-body": [
+                              "Newsreader"
+                      ],
+                      "article-body-mobile": [
+                              "Newsreader"
+                      ],
+                      "label-mono": [
+                              "IBM Plex Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "ui-button": [
+                              "15px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "article-body": [
+                              "20px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "article-body-mobile": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        /* Hide scrollbar for cleaner reading experience */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low text-on-surface antialiased h-screen flex flex-col overflow-hidden pb-20">
+<!-- Custom Header -->
+<header class="flex justify-between items-center px-margin-page py-4 w-full flex-shrink-0">
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-on-surface">Tidbit</h1>
+<div class="flex items-center gap-3">
+<span class="font-label-mono text-label-mono text-secondary">STAMINA 138</span>
+<div class="w-[40px] h-[2px] bg-outline-variant rounded-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-1/2 bg-primary-container"></div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col px-margin-page overflow-hidden">
+<!-- The Card -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg flex h-[689px] flex-shrink-0 flex-col md:flex-row relative">
+<!-- Structural Wrapper for Content + Gutter -->
+<div class="flex flex-1 h-full overflow-hidden">
+<!-- Gutter & Progress Ruler -->
+<div class="w-gutter-ruler flex-shrink-0 flex justify-center py-stack-md h-full">
+<div class="w-[2px] bg-surface-variant h-full relative rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 w-full bg-primary-container h-1/2 transition-all duration-300"></div>
+</div>
+</div>
+<!-- Scrollable Article Content -->
+<div class="flex-1 pr-stack-md py-stack-md overflow-y-auto no-scrollbar flex flex-col gap-stack-md">
+<header class="mb-2">
+<p class="font-label-mono text-label-mono text-secondary uppercase tracking-widest mb-3">AI &amp; TECH · 138 WORDS</p>
+<h2 class="font-headline-md text-headline-md text-on-surface leading-tight">Small models are eating the easy jobs</h2>
+</header>
+<div class="font-article-body-mobile text-article-body-mobile text-on-surface-variant flex flex-col gap-stack-md">
+<p>While the industry obsesses over massive, billion-parameter artificial intelligence models, a quiet revolution is happening at the edge. Small language models (SLMs), designed to run locally on-device, are increasingly taking over narrow, specialized tasks.</p>
+<p>Because they don't require round-trips to a cloud server, these models offer significantly reduced latency and operating costs. They aren't meant to write poetry or complex code; instead, they excel at fast, deterministic categorization and processing.</p>
+</div>
+<!-- Examples List -->
+<div class="flex flex-col gap-stack-sm mt-2 mb-4">
+<div class="flex items-start gap-3">
+<span class="font-label-mono text-label-mono text-secondary pt-1">1</span>
+<span class="font-article-body-mobile text-article-body-mobile text-on-surface-variant">Real-time on-device audio transcription.</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="font-label-mono text-label-mono text-secondary pt-1">2</span>
+<span class="font-article-body-mobile text-article-body-mobile text-on-surface-variant">Contextual smart-reply generation in mobile keyboards.</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="font-label-mono text-label-mono text-secondary pt-1">3</span>
+<span class="font-article-body-mobile text-article-body-mobile text-on-surface-variant">Initial document triage and classification.</span>
+</div>
+</div>
+<hr class="border-t border-outline-variant my-2 w-12"/>
+<p class="font-ui-button text-ui-button text-primary-container">Narrow work is cheap work.</p>
+<!-- Extra spacer to ensure scrollable area clears the bottom if needed -->
+<div class="h-4"></div>
+</div>
+</div>
+</article>
+<!-- Below Card Actions -->
+<div class="flex justify-center gap-stack-lg mt-stack-md mb-stack-md flex-shrink-0">
+<button class="font-ui-button text-ui-button text-secondary hover:text-primary transition-colors focus:outline-none">Save</button>
+<button class="font-ui-button text-ui-button text-secondary hover:text-primary transition-colors focus:outline-none">Share</button>
+<button class="font-ui-button text-ui-button text-secondary hover:text-primary transition-colors focus:outline-none">Less like this</button>
+</div>
+</main>
+<!-- Bottom Navigation (Shared Component implementation) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-lowest border-t border-outline-variant md:hidden">
+<!-- Active: Feed -->
+<a aria-label="Feed" class="flex flex-col items-center justify-center text-primary font-bold hover:text-primary transition-colors scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="font-ui-button text-ui-button mt-1 text-[10px]">Feed</span>
+</a>
+<!-- Inactive: Library -->
+<a aria-label="Library" class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">bookmarks</span>
+<span class="font-ui-button text-ui-button mt-1 text-[10px]">Library</span>
+</a>
+<!-- Inactive: Stats -->
+<a aria-label="Stats" class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-ui-button text-ui-button mt-1 text-[10px]">Stats</span>
+</a>
+<!-- Inactive: Settings -->
+<a aria-label="Settings" class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-ui-button text-ui-button mt-1 text-[10px]">Settings</span>
+</a>
+</nav>
+</body></html>

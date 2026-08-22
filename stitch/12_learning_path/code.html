@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Learning Path - Tidbit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=Instrument+Sans:wght@500&amp;family=Instrument+Serif:ital@0;1&amp;family=Newsreader:opsz@6..72&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ff9c80",
+                        "surface-dim": "#dbd8e5",
+                        "inverse-on-surface": "#f2effc",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "tertiary": "#611500",
+                        "surface": "#fcf8ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "on-primary-fixed-variant": "#2e2ac4",
+                        "on-secondary-container": "#626267",
+                        "on-primary-fixed": "#08006c",
+                        "on-tertiary-fixed": "#3b0900",
+                        "secondary-fixed-dim": "#c7c6cb",
+                        "on-primary-container": "#adaeff",
+                        "primary-container": "#2f2bc4",
+                        "surface-variant": "#e4e1ed",
+                        "inverse-surface": "#302f39",
+                        "primary-fixed-dim": "#c1c1ff",
+                        "surface-bright": "#fcf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fcf8ff",
+                        "surface-tint": "#4949db",
+                        "surface-container-highest": "#e4e1ed",
+                        "primary": "#1400aa",
+                        "on-surface-variant": "#464555",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#882100",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#c1c1ff",
+                        "secondary": "#5e5e63",
+                        "surface-container-low": "#f5f2fe",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1b23",
+                        "on-background": "#1b1b23",
+                        "surface-container": "#efecf9",
+                        "secondary-container": "#e0dfe4",
+                        "tertiary-fixed": "#ffdbd1",
+                        "outline-variant": "#c7c4d7",
+                        "primary-fixed": "#e1dfff",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "outline": "#767586",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#872100",
+                        "secondary-fixed": "#e3e2e7",
+                        "surface-container-high": "#eae6f3",
+                        
+                        // Custom specific colors from prompt overrides
+                        "paper": "#F4F4F0",
+                        "ink-blue": "#2F2BC4",
+                        "hairline": "#DFDFD7",
+                        "ink": "#16171B",
+                        "graphite": "#464555",
+                        "highlighter": "#EDE45C"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem",
+                        "card": "4px",
+                        "node": "2px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "gutter-ruler": "28px",
+                        "margin-page": "24px"
+                    },
+                    "fontFamily": {
+                        "label-mono": ["IBM Plex Mono"],
+                        "display-lg": ["Instrument Serif"],
+                        "display-lg-mobile": ["Instrument Serif"],
+                        "headline-md": ["Instrument Serif"],
+                        "article-body": ["Newsreader"],
+                        "ui-button": ["Instrument Sans"],
+                        "article-body-mobile": ["Newsreader"]
+                    },
+                    "fontSize": {
+                        "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "article-body": ["20px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "ui-button": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "article-body-mobile": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F4F4F0; }
+        .highlight-swipe {
+            position: relative;
+            z-index: 1;
+        }
+        .highlight-swipe::before {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: -2px;
+            right: -2px;
+            height: 60%;
+            background-color: #EDE45C;
+            z-index: -1;
+            border-radius: 2px;
+            opacity: 0.8;
+            transform: skewX(-5deg);
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 28px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: #DFDFD7;
+            z-index: 0;
+        }
+        
+        .timeline-progress {
+            position: absolute;
+            left: 28px;
+            top: 0;
+            height: 55%; /* Covers first 3 items */
+            width: 1px;
+            background-color: #2F2BC4;
+            z-index: 1;
+        }
+        
+        .card-shadow-none { box-shadow: none !important; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-article-body text-ink antialiased pb-24 md:pb-0">
+<!-- TopAppBar from JSON -->
+<header class="docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center px-margin-page py-4 w-full bg-background hidden md:flex">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">menu</span>
+</div>
+<div class="font-display-lg-mobile text-display-lg-mobile text-primary dark:text-primary-fixed text-center w-full absolute left-0 -z-10 font-bold">
+            Tidbit
+        </div>
+<div class="flex items-center ml-auto">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed cursor-pointer">search</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="max-w-2xl mx-auto px-margin-page pt-12 md:pt-stack-lg relative">
+<!-- Header Section -->
+<div class="mb-stack-lg ml-10 pl-6">
+<div class="font-label-mono text-label-mono text-graphite uppercase mb-2">YOUR PATH</div>
+<h1 class="font-display-lg-mobile text-[30px] leading-none mb-3">AI &amp; Tech</h1>
+<p class="font-article-body-mobile text-graphite">Three of six sections done. Next up, how attention works.</p>
+</div>
+<!-- Path Timeline -->
+<div class="relative pb-stack-lg">
+<!-- The vertical ruler -->
+<div class="timeline-line"></div>
+<div class="timeline-progress"></div>
+<div class="flex flex-col gap-6 relative z-10">
+<!-- Section 1: Done -->
+<div class="relative flex items-start pl-[56px]">
+<div class="absolute left-[24px] top-[14px] w-[10px] h-[10px] bg-ink-blue rounded-node border-2 border-ink-blue z-20"></div>
+<div class="bg-surface-container-lowest border border-hairline rounded-card p-[18px] w-full relative">
+<div class="font-label-mono text-[11px] uppercase text-graphite mb-1">01 · 340 WORDS</div>
+<h2 class="font-headline-md text-[20px] mb-1">What a <span class="highlight-swipe">model</span> is</h2>
+<p class="font-article-body-mobile text-[14px] leading-snug text-graphite">An introduction to the statistical foundations of AI.</p>
+</div>
+</div>
+<!-- Section 2: Done -->
+<div class="relative flex items-start pl-[56px]">
+<div class="absolute left-[24px] top-[14px] w-[10px] h-[10px] bg-ink-blue rounded-node border-2 border-ink-blue z-20"></div>
+<div class="bg-surface-container-lowest border border-hairline rounded-card p-[18px] w-full relative">
+<div class="font-label-mono text-[11px] uppercase text-graphite mb-1">02 · 410 WORDS</div>
+<h2 class="font-headline-md text-[20px] mb-1">How models <span class="highlight-swipe">learn</span></h2>
+<p class="font-article-body-mobile text-[14px] leading-snug text-graphite">Understanding the backpropagation process.</p>
+</div>
+</div>
+<!-- Section 3: Done -->
+<div class="relative flex items-start pl-[56px]">
+<div class="absolute left-[24px] top-[14px] w-[10px] h-[10px] bg-ink-blue rounded-node border-2 border-ink-blue z-20"></div>
+<div class="bg-surface-container-lowest border border-hairline rounded-card p-[18px] w-full relative">
+<div class="font-label-mono text-[11px] uppercase text-graphite mb-1">03 · 520 WORDS</div>
+<h2 class="font-headline-md text-[20px] mb-1">Neural <span class="highlight-swipe">networks</span></h2>
+<p class="font-article-body-mobile text-[14px] leading-snug text-graphite">The architecture of deep learning.</p>
+</div>
+</div>
+<!-- Section 4: Active -->
+<div class="relative flex items-start pl-[56px]">
+<div class="absolute left-[24px] top-[14px] w-[10px] h-[10px] bg-paper rounded-node border-2 border-ink-blue z-20"></div>
+<div class="bg-surface-container-lowest border border-hairline border-l-[2px] border-l-ink-blue rounded-card p-[18px] w-full relative shadow-sm">
+<div class="font-label-mono text-[11px] uppercase text-ink-blue font-bold mb-1">READING NOW</div>
+<h2 class="font-headline-md text-[20px] mb-1 text-ink-blue">Attention</h2>
+<p class="font-article-body-mobile text-[14px] leading-snug text-graphite">How models focus on what matters.</p>
+</div>
+</div>
+<!-- Section 5: Locked -->
+<div class="relative flex items-start pl-[56px] opacity-60">
+<div class="absolute left-[24px] top-[14px] w-[10px] h-[10px] bg-paper rounded-node border-2 border-hairline z-20"></div>
+<div class="bg-surface-container-lowest border border-hairline rounded-card p-[18px] w-full relative">
+<div class="font-label-mono text-[11px] uppercase text-outline mb-1">05 · 450 WORDS</div>
+<h2 class="font-headline-md text-[20px] mb-1 text-outline">Large language models</h2>
+<p class="font-article-body-mobile text-[14px] leading-snug text-outline">Scaling up to human-like text generation.</p>
+</div>
+</div>
+<!-- Section 6: Locked -->
+<div class="relative flex items-start pl-[56px] opacity-60">
+<div class="absolute left-[24px] top-[14px] w-[10px] h-[10px] bg-paper rounded-node border-2 border-hairline z-20"></div>
+<div class="bg-surface-container-lowest border border-hairline rounded-card p-[18px] w-full relative">
+<div class="font-label-mono text-[11px] uppercase text-outline mb-1">06 · 300 WORDS</div>
+<h2 class="font-headline-md text-[20px] mb-1 text-outline">Fine-tuning</h2>
+<p class="font-article-body-mobile text-[14px] leading-snug text-outline">Specializing a model for a specific task.</p>
+</div>
+</div>
+</div>
+<!-- End Section -->
+<div class="pl-[56px] mt-10">
+<div class="font-label-mono text-[11px] uppercase text-graphite mb-2">END OF SECTION</div>
+<h3 class="font-headline-md text-[24px] text-ink">Then you choose what's next.</h3>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Custom per prompt overriding JSON slightly for text-only, but keeping structure) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-4 pb-safe bg-surface-container-lowest border-t border-hairline md:hidden font-ui-button text-[14px]">
+<div class="flex flex-col items-center justify-center text-secondary">
+            Feed
+        </div>
+<div class="flex flex-col items-center justify-center text-ink-blue font-bold">
+            Path
+        </div>
+<div class="flex flex-col items-center justify-center text-secondary">
+            Progress
+        </div>
+<div class="flex flex-col items-center justify-center text-secondary">
+            Write
+        </div>
+</nav>
+</body></html>

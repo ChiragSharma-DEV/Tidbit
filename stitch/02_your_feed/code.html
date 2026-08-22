@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tidbit Home Feed</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=Instrument+Sans:wght@500&amp;family=Instrument+Serif:ital@0;1&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#1400aa",
+                    "tertiary-fixed": "#ffdbd1",
+                    "secondary": "#5e5e63",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dbd8e5",
+                    "surface-container-high": "#eae6f3",
+                    "outline-variant": "#c7c4d7",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e4e1ed",
+                    "surface-variant": "#e4e1ed",
+                    "secondary-fixed": "#e3e2e7",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#1a1b1f",
+                    "surface-container-low": "#f5f2fe",
+                    "primary-fixed": "#e1dfff",
+                    "inverse-primary": "#c1c1ff",
+                    "on-surface-variant": "#464555",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#adaeff",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#2f2bc4",
+                    "on-surface": "#1b1b23",
+                    "secondary-fixed-dim": "#c7c6cb",
+                    "tertiary-fixed-dim": "#ffb5a0",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#872100",
+                    "tertiary": "#611500",
+                    "tertiary-container": "#882100",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#3b0900",
+                    "background": "#fcf8ff",
+                    "on-tertiary-container": "#ff9c80",
+                    "on-primary-fixed-variant": "#2e2ac4",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#626267",
+                    "inverse-on-surface": "#f2effc",
+                    "surface-bright": "#fcf8ff",
+                    "on-background": "#1b1b23",
+                    "surface-container": "#efecf9",
+                    "primary-fixed-dim": "#c1c1ff",
+                    "on-secondary-fixed-variant": "#46464b",
+                    "surface-tint": "#4949db",
+                    "outline": "#767586",
+                    "surface": "#fcf8ff",
+                    "secondary-container": "#e0dfe4",
+                    "on-primary-fixed": "#08006c",
+                    "inverse-surface": "#302f39"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-page": "24px",
+                    "stack-md": "16px",
+                    "gutter-ruler": "28px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": [
+                            "Instrument Serif"
+                    ],
+                    "article-body": [
+                            "Newsreader"
+                    ],
+                    "ui-button": [
+                            "Instrument Sans"
+                    ],
+                    "article-body-mobile": [
+                            "Newsreader"
+                    ],
+                    "display-lg": [
+                            "Instrument Serif"
+                    ],
+                    "headline-md": [
+                            "Instrument Serif"
+                    ],
+                    "label-mono": [
+                            "IBM Plex Mono"
+                    ]
+            },
+            "fontSize": {
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "article-body": [
+                            "20px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "ui-button": [
+                            "15px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "article-body-mobile": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-mono": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+        },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #F4F4F0; /* Override config to match prompt specific hex for Level 0 */
+        }
+        .bg-card-white {
+            background-color: #FFFFFF; /* Level 1 surface */
+        }
+        .border-hairline {
+            border-color: #DFDFD7;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background min-h-screen pb-24 md:pb-8 selection:bg-tertiary-fixed selection:text-on-tertiary-fixed">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-margin-page py-4 w-full bg-background border-b border-hairline sticky top-0 z-40">
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity">menu</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary tracking-tight">Tidbit</h1>
+<div class="flex items-center gap-6">
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex gap-6 font-ui-button text-ui-button items-center">
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Feed</a>
+<a class="text-secondary hover:text-primary transition-colors pb-1 border-b-2 border-transparent" href="#">Library</a>
+<a class="text-secondary hover:text-primary transition-colors pb-1 border-b-2 border-transparent" href="#">Stats</a>
+<a class="text-secondary hover:text-primary transition-colors pb-1 border-b-2 border-transparent" href="#">Settings</a>
+</nav>
+<button class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity">search</button>
+</div>
+</header>
+<!-- Main Content Feed -->
+<main class="max-w-2xl mx-auto px-margin-page py-stack-lg flex flex-col gap-stack-lg">
+<!-- Card 1: 22 Words -->
+<article class="bg-card-white border border-hairline rounded relative flex min-h-[120px] group cursor-pointer transition-colors hover:border-outline-variant">
+<!-- Gutter Ruler -->
+<div class="w-gutter-ruler flex-shrink-0 border-r border-hairline relative">
+<div class="absolute inset-y-4 left-1/2 -translate-x-1/2 w-[2px] bg-outline-variant opacity-20"></div>
+<!-- Ink Blue Fill indicating reading length -->
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-[2px] h-[15%] bg-primary-container transition-all group-hover:h-[20%]"></div>
+</div>
+<div class="p-6 pt-12 relative flex-1">
+<div class="font-label-mono text-label-mono text-secondary absolute top-4 right-6 uppercase tracking-wider">22 WORDS</div>
+<p class="font-article-body-mobile text-article-body-mobile text-on-surface md:font-article-body md:text-article-body">
+                    The shortest path to clarity is often removing the extraneous rather than adding the profound. Less ink, more signal.
+                </p>
+</div>
+</article>
+<!-- Card 2: 84 Words -->
+<article class="bg-card-white border border-hairline rounded relative flex min-h-[160px] group cursor-pointer transition-colors hover:border-outline-variant">
+<div class="w-gutter-ruler flex-shrink-0 border-r border-hairline relative">
+<div class="absolute inset-y-4 left-1/2 -translate-x-1/2 w-[2px] bg-outline-variant opacity-20"></div>
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-[2px] h-[45%] bg-primary-container transition-all group-hover:h-[55%]"></div>
+</div>
+<div class="p-6 pt-12 relative flex-1">
+<div class="font-label-mono text-label-mono text-secondary absolute top-4 right-6 uppercase tracking-wider">84 WORDS</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm group-hover:text-primary transition-colors">The Architecture of Silence</h2>
+<p class="font-article-body-mobile text-article-body-mobile text-on-surface md:font-article-body md:text-article-body text-on-surface-variant">
+                    In an era defined by constant interruption, silence has transitioned from a natural state to a luxury commodity. We must consciously construct physical and digital environments that block out the noise, allowing our minds to reset and recalibrate. It is in these intentionally quiet spaces, devoid of algorithmic friction, that deep work and genuine creativity find the structural room they need to breathe and expand into something lasting.
+                </p>
+</div>
+</article>
+<!-- Card 3: 156 Words -->
+<article class="bg-card-white border border-hairline rounded relative flex min-h-[240px] group cursor-pointer transition-colors hover:border-outline-variant">
+<div class="w-gutter-ruler flex-shrink-0 border-r border-hairline relative">
+<div class="absolute inset-y-4 left-1/2 -translate-x-1/2 w-[2px] bg-outline-variant opacity-20"></div>
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-[2px] h-[85%] bg-primary-container transition-all group-hover:h-[95%]"></div>
+</div>
+<div class="p-6 pt-12 relative flex-1">
+<div class="font-label-mono text-label-mono text-secondary absolute top-4 right-6 uppercase tracking-wider">156 WORDS</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm group-hover:text-primary transition-colors">Paper as Technology</h2>
+<div class="space-y-stack-md">
+<p class="font-article-body-mobile text-article-body-mobile text-on-surface md:font-article-body md:text-article-body text-on-surface-variant">
+                        We tend to think of technology as inherently digital—glass screens, glowing silicon chips, and invisible networks spanning the globe. Yet, the bound book remains one of the most perfectly refined pieces of technology in human history. It requires no battery, boasts an essentially infinite shelf life if kept dry, and provides a physical interface that is immediately understood by almost anyone with basic motor skills.
+                    </p>
+<p class="font-article-body-mobile text-article-body-mobile text-on-surface md:font-article-body md:text-article-body text-on-surface-variant">
+                        More importantly, paper dictates a specific kind of cognitive engagement. It enforces linearity and single-tasking. When you read a physical page, there are no unread badges sliding down from the top edge, no hyperlinked detours waiting to distract you from the author's primary argument. It is a closed system that demands, and fundamentally rewards, undivided attention. In a distracted world, that constraint is a feature, not a bug.
+                    </p>
+</div>
+</div>
+</article>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-lowest border-t border-hairline md:hidden">
+<button class="flex flex-col items-center justify-center text-primary font-bold scale-95 transition-transform">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="font-ui-button text-ui-button">Feed</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined mb-1">bookmarks</span>
+<span class="font-ui-button text-ui-button">Library</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined mb-1">insights</span>
+<span class="font-ui-button text-ui-button">Stats</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span class="font-ui-button text-ui-button">Settings</span>
+</button>
+</nav>
+</body></html>

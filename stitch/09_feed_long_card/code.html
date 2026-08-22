@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tidbit - Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=Instrument+Sans:wght@500&amp;family=Instrument+Serif:ital@0;1&amp;family=Newsreader:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f5f2fe",
+                        "on-surface": "#1b1b23",
+                        "inverse-on-surface": "#f2effc",
+                        "tertiary": "#611500",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fcf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#F4F4F0",
+                        "surface-bright": "#fcf8ff",
+                        "on-primary-fixed": "#08006c",
+                        "secondary-fixed-dim": "#c7c6cb",
+                        "tertiary-container": "#882100",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdbd1",
+                        "error": "#ba1a1a",
+                        "primary": "#1400aa",
+                        "on-primary-container": "#adaeff",
+                        "surface-container": "#efecf9",
+                        "inverse-surface": "#302f39",
+                        "on-tertiary-fixed": "#3b0900",
+                        "secondary-container": "#e0dfe4",
+                        "surface-variant": "#e4e1ed",
+                        "primary-fixed": "#e1dfff",
+                        "surface-container-highest": "#e4e1ed",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#5e5e63",
+                        "on-tertiary-container": "#ff9c80",
+                        "outline-variant": "#DFDFD7",
+                        "surface-dim": "#dbd8e5",
+                        "on-secondary-container": "#626267",
+                        "inverse-primary": "#c1c1ff",
+                        "surface-tint": "#4949db",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "surface-container-high": "#eae6f3",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#464555",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "on-primary-fixed-variant": "#2e2ac4",
+                        "primary-container": "#2f2bc4",
+                        "on-error": "#ffffff",
+                        "outline": "#767586",
+                        "secondary-fixed": "#e3e2e7",
+                        "on-tertiary-fixed-variant": "#872100",
+                        "primary-fixed-dim": "#c1c1ff",
+                        "on-background": "#1b1b23",
+                        "ink-blue": "#2F2BC4",
+                        "highlighter": "#EDE45C"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "margin-page": "24px",
+                        "stack-lg": "32px",
+                        "gutter-ruler": "28px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Instrument Serif"],
+                        "display-lg-mobile": ["Instrument Serif"],
+                        "ui-button": ["Instrument Sans"],
+                        "display-lg": ["Instrument Serif"],
+                        "article-body": ["Newsreader"],
+                        "article-body-mobile": ["Newsreader"],
+                        "label-mono": ["IBM Plex Mono"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "ui-button": ["15px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "article-body": ["20px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "article-body-mobile": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .highlight-marker {
+            background-color: #EDE45C;
+            border-radius: 2px;
+            padding: 0 4px;
+            margin: 0 -4px;
+        }
+        .ruler-bg {
+            background-color: #DFDFD7;
+        }
+        .ruler-fill {
+            background-color: #2F2BC4;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased pb-24 selection:bg-highlighter selection:text-on-background flex flex-col items-center">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center px-margin-page py-4 w-full max-w-2xl mx-auto border-b border-outline-variant bg-background sticky top-0 z-40">
+<div class="flex items-center">
+<span class="material-symbols-outlined mr-4 text-primary" data-icon="menu">menu</span>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary">Tidbit</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="font-label-mono text-label-mono text-secondary uppercase tracking-widest">Stamina 421</span>
+<div class="w-10 h-0.5 ruler-bg rounded-full overflow-hidden flex">
+<div class="h-full ruler-fill w-[90%]"></div>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="search">search</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="w-full max-w-2xl px-margin-page mt-stack-md flex-grow">
+<!-- Content Card -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded relative shadow-sm overflow-hidden mb-stack-md">
+<!-- Top Progress Bar -->
+<div class="absolute top-0 left-0 w-full h-[2px] ruler-bg">
+<div class="h-full ruler-fill w-[40%]"></div>
+</div>
+<div class="flex min-h-[618px]">
+<!-- Left Gutter Ruler -->
+<aside class="w-gutter-ruler border-r border-outline-variant flex justify-center py-6 relative shrink-0">
+<div class="w-[2px] h-full ruler-bg absolute top-0 bottom-0">
+<div class="w-full ruler-fill h-[90%]"></div>
+</div>
+</aside>
+<!-- Article Content -->
+<div class="flex-1 p-6 pl-8">
+<header class="mb-8">
+<div class="font-label-mono text-label-mono text-secondary mb-4 uppercase tracking-widest flex justify-between">
+<span>AI &amp; TECH · 421 WORDS · PART 3 OF 6</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-background mb-4">
+                            The phone in your pocket is now a language model
+                        </h2>
+<p class="font-article-body-mobile text-article-body-mobile text-secondary italic">
+                            Moving features from cloud models to on-device ones for latency and cost.
+                        </p>
+</header>
+<div class="space-y-6 font-article-body-mobile text-article-body-mobile text-on-background leading-relaxed">
+<p>
+                            For the past two years, the AI narrative has been dominated by massive, cloud-based models. OpenAI's GPT-4, Google's Gemini Ultra, and Anthropic's Claude 3 Opus require sprawling data centers, immense computational power, and a constant internet connection to function. They are brilliant, but they are tethered.
+                        </p>
+<p>
+                            That is quietly changing. The next frontier isn't just about building bigger models; it's about building smaller, fiercely efficient ones that live entirely on your device.
+                        </p>
+<!-- Pull Quote -->
+<blockquote class="pl-4 border-l-2 border-ink-blue font-headline-md text-[24px] leading-snug italic my-8 text-on-surface-variant">
+                            "The next frontier isn't just about building bigger models; it's about building smaller, fiercely efficient ones."
+                        </blockquote>
+<p>
+                            Apple's recent quiet release of OpenELM and Google's push with Gemini Nano represent a strategic pivot. By running inference locally on the Neural Engine or NPU, these companies are solving two critical bottlenecks: latency and cost. When your phone doesn't have to ping a server in Virginia to parse a natural language command, the response feels instantaneous.
+                        </p>
+<p>
+                            More importantly, the unit economics shift dramatically. Cloud inference is expensive; local inference is practically free once the hardware is sold.
+                        </p>
+</div>
+<footer class="mt-12 pt-6 border-t border-outline-variant">
+<span class="font-label-mono text-label-mono text-secondary uppercase tracking-widest block mb-4">What to Keep</span>
+<p class="font-article-body-mobile text-article-body-mobile text-on-background">
+                            The shift towards on-device AI prioritizes <span class="highlight-marker">privacy and speed</span>, fundamentally changing the economics of deployment.
+                        </p>
+</footer>
+</div>
+</div>
+</article>
+<!-- Actions -->
+<div class="flex justify-center gap-6 py-6 font-ui-button text-ui-button text-secondary border-t border-outline-variant">
+<button class="hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="bookmark">bookmark</span> Save
+            </button>
+<button class="hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span> Share
+            </button>
+<button class="hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="block">block</span> Less like this
+            </button>
+</div>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-lowest border-t border-outline-variant max-w-2xl mx-auto left-1/2 -translate-x-1/2 md:hidden">
+<a class="flex flex-col items-center justify-center text-primary font-bold scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="auto_stories" data-weight="fill" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="font-ui-button text-[11px] leading-tight">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="map">map</span>
+<span class="font-ui-button text-[11px] leading-tight">Path</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="insights">insights</span>
+<span class="font-ui-button text-[11px] leading-tight">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="edit">edit</span>
+<span class="font-ui-button text-[11px] leading-tight">Write</span>
+</a>
+</nav>
+</body></html>

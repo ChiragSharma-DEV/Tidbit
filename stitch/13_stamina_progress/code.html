@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tidbit - Progress</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#5e5e63",
+                      "on-tertiary-fixed-variant": "#872100",
+                      "secondary-fixed-dim": "#c7c6cb",
+                      "error": "#ba1a1a",
+                      "surface-bright": "#fcf8ff",
+                      "outline-variant": "#c7c4d7",
+                      "primary-fixed-dim": "#c1c1ff",
+                      "surface-container-highest": "#e4e1ed",
+                      "primary": "#1400aa",
+                      "surface-container-low": "#f5f2fe",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed": "#08006c",
+                      "tertiary": "#611500",
+                      "on-primary-fixed-variant": "#2e2ac4",
+                      "secondary-fixed": "#e3e2e7",
+                      "on-primary-container": "#adaeff",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "primary-fixed": "#e1dfff",
+                      "outline": "#767586",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#46464b",
+                      "tertiary-fixed": "#ffdbd1",
+                      "on-secondary-container": "#626267",
+                      "surface-dim": "#dbd8e5",
+                      "on-primary": "#ffffff",
+                      "surface": "#fcf8ff",
+                      "primary-container": "#2f2bc4",
+                      "surface-container-high": "#eae6f3",
+                      "background": "#F4F4F0", 
+                      "on-error-container": "#93000a",
+                      "surface-container": "#efecf9",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#464555",
+                      "surface-variant": "#e4e1ed",
+                      "on-tertiary-fixed": "#3b0900",
+                      "inverse-surface": "#302f39",
+                      "tertiary-container": "#882100",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed": "#1a1b1f",
+                      "on-tertiary-container": "#ff9c80",
+                      "on-background": "#1b1b23",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#1b1b23",
+                      "surface-tint": "#4949db",
+                      "secondary-container": "#e0dfe4",
+                      "inverse-primary": "#c1c1ff",
+                      "inverse-on-surface": "#f2effc",
+                      "ruler-empty": "#DFDFD7",
+                      "graphite": "#4a4a4a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack-lg": "32px",
+                      "stack-md": "16px",
+                      "margin-page": "24px",
+                      "gutter-ruler": "28px",
+                      "stack-sm": "8px"
+              },
+              "fontFamily": {
+                      "display-lg-mobile": [
+                              "Instrument Serif", "serif"
+                      ],
+                      "ui-button": [
+                              "Instrument Sans", "sans-serif"
+                      ],
+                      "headline-md": [
+                              "Instrument Serif", "serif"
+                      ],
+                      "label-mono": [
+                              "IBM Plex Mono", "monospace"
+                      ],
+                      "article-body": [
+                              "Newsreader", "serif"
+                      ],
+                      "article-body-mobile": [
+                              "Newsreader", "serif"
+                      ],
+                      "display-lg": [
+                              "Instrument Serif", "serif"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg-mobile": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "ui-button": [
+                              "15px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "article-body": [
+                              "20px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "article-body-mobile": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+      </script>
+<style>
+          body {
+              background-color: #F4F4F0;
+              color: #1b1b23;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+          }
+          
+          /* Utility for hairline borders */
+          .border-hairline {
+              border-width: 1px;
+              border-color: #DFDFD7;
+          }
+          .border-b-hairline {
+              border-bottom-width: 1px;
+              border-bottom-color: #DFDFD7;
+          }
+          .border-t-hairline {
+              border-top-width: 1px;
+              border-top-color: #DFDFD7;
+          }
+          .border-r-hairline {
+              border-right-width: 1px;
+              border-right-color: #DFDFD7;
+          }
+          
+          .text-11px {
+              font-size: 11px;
+              line-height: 14px;
+              letter-spacing: 0.1em;
+          }
+          
+          .text-10px {
+              font-size: 10px;
+              line-height: 12px;
+              letter-spacing: 0.1em;
+          }
+          
+          .text-72px {
+              font-size: 72px;
+              line-height: 1;
+              letter-spacing: -0.04em;
+          }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-24">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center px-margin-page py-4 w-full bg-background md:hidden">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">menu</span>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary font-bold">Tidbit</h1>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">search</span>
+</header>
+<main class="px-margin-page pt-8 flex flex-col gap-stack-lg max-w-md mx-auto">
+<!-- Hero Block -->
+<section class="flex flex-col gap-2">
+<h2 class="font-label-mono text-11px text-graphite uppercase">Longest Unbroken Read</h2>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-72px text-primary-container">421</span>
+<span class="font-label-mono text-11px text-graphite uppercase">Words</span>
+</div>
+<p class="font-article-body-mobile text-article-body-mobile text-graphite">Four weeks ago it was 40.</p>
+</section>
+<!-- Horizontal Ruler -->
+<section class="py-stack-md w-full relative">
+<!-- Ruler Background Line -->
+<div class="w-full h-[1px] bg-ruler-empty absolute top-1/2 left-0 -translate-y-1/2"></div>
+<!-- Fill Line -->
+<div class="h-[1px] bg-primary-container absolute top-1/2 left-0 -translate-y-1/2" style="width: 80%;"></div>
+<!-- Tick Marks container -->
+<div class="relative w-full flex justify-between pt-4">
+<div class="flex flex-col items-center">
+<div class="w-[1px] h-2 bg-ruler-empty absolute top-0 -translate-y-full"></div>
+<span class="font-label-mono text-10px text-graphite absolute top-2">0</span>
+</div>
+<div class="flex flex-col items-center" style="position: absolute; left: 20%;">
+<div class="w-[1px] h-2 bg-ruler-empty absolute top-0 -translate-y-full"></div>
+<span class="font-label-mono text-10px text-graphite absolute top-2">100</span>
+</div>
+<div class="flex flex-col items-center" style="position: absolute; left: 40%;">
+<div class="w-[1px] h-2 bg-ruler-empty absolute top-0 -translate-y-full"></div>
+<span class="font-label-mono text-10px text-graphite absolute top-2">200</span>
+</div>
+<div class="flex flex-col items-center" style="position: absolute; left: 60%;">
+<div class="w-[1px] h-2 bg-ruler-empty absolute top-0 -translate-y-full"></div>
+<span class="font-label-mono text-10px text-graphite absolute top-2">300</span>
+</div>
+<div class="flex flex-col items-center" style="position: absolute; left: 80%;">
+<div class="w-[1px] h-2 bg-primary-container absolute top-0 -translate-y-full"></div>
+<span class="font-label-mono text-10px text-primary-container absolute top-2 font-bold">400</span>
+</div>
+<div class="flex flex-col items-center" style="position: absolute; left: 100%;">
+<div class="w-[1px] h-2 bg-ruler-empty absolute top-0 -translate-y-full"></div>
+<span class="font-label-mono text-10px text-graphite absolute top-2">500</span>
+</div>
+<!-- Notched Marker at 40 -->
+<div class="flex flex-col items-center absolute" style="left: 8%; top: -20px;">
+<span class="font-label-mono text-10px text-graphite mb-1 whitespace-nowrap">WHERE YOU STARTED</span>
+<div class="w-[1px] h-4 bg-graphite"></div>
+</div>
+</div>
+</section>
+<!-- Stats Row -->
+<section class="grid grid-cols-3 border-hairline py-4 px-2 rounded-DEFAULT bg-surface-container-lowest shadow-sm mt-stack-md">
+<div class="flex flex-col items-center justify-center border-r-hairline pr-2">
+<span class="font-label-mono text-10px text-graphite uppercase mb-1">Today</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-md text-headline-md text-on-surface">1,240</span>
+<span class="font-label-mono text-10px text-graphite uppercase hidden sm:inline">words</span>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center border-r-hairline px-2">
+<span class="font-label-mono text-10px text-graphite uppercase mb-1">This Week</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-md text-headline-md text-on-surface">34</span>
+<span class="font-label-mono text-10px text-graphite uppercase hidden sm:inline">cards</span>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center pl-2">
+<span class="font-label-mono text-10px text-graphite uppercase mb-1">Recall</span>
+<span class="font-headline-md text-headline-md text-on-surface">78%</span>
+</div>
+</section>
+<!-- Depth by Topic -->
+<section class="flex flex-col gap-4 mt-stack-md">
+<h3 class="font-label-mono text-11px text-graphite uppercase border-b-hairline pb-2">Depth by Topic</h3>
+<div class="flex flex-col">
+<!-- Row 1 -->
+<div class="flex items-center justify-between py-3 border-b-hairline gap-4">
+<span class="font-ui-button text-ui-button text-on-surface w-24">AI &amp; Tech</span>
+<div class="flex-grow h-[1px] bg-ruler-empty relative">
+<div class="h-full bg-primary-container absolute top-0 left-0" style="width: 62%;"></div>
+</div>
+<span class="font-label-mono text-label-mono text-graphite w-8 text-right">62%</span>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center justify-between py-3 border-b-hairline gap-4">
+<span class="font-ui-button text-ui-button text-on-surface w-24">Psychology</span>
+<div class="flex-grow h-[1px] bg-ruler-empty relative">
+<div class="h-full bg-primary-container absolute top-0 left-0" style="width: 48%;"></div>
+</div>
+<span class="font-label-mono text-label-mono text-graphite w-8 text-right">48%</span>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center justify-between py-3 border-b-hairline gap-4">
+<span class="font-ui-button text-ui-button text-on-surface w-24">Marketing</span>
+<div class="flex-grow h-[1px] bg-ruler-empty relative">
+<div class="h-full bg-primary-container absolute top-0 left-0" style="width: 70%;"></div>
+</div>
+<span class="font-label-mono text-label-mono text-graphite w-8 text-right">70%</span>
+</div>
+<!-- Row 4 -->
+<div class="flex items-center justify-between py-3 border-b-hairline gap-4">
+<span class="font-ui-button text-ui-button text-on-surface w-24">Writing</span>
+<div class="flex-grow h-[1px] bg-ruler-empty relative">
+<div class="h-full bg-primary-container absolute top-0 left-0" style="width: 31%;"></div>
+</div>
+<span class="font-label-mono text-label-mono text-graphite w-8 text-right">31%</span>
+</div>
+</div>
+</section>
+<!-- Next Read Card -->
+<section class="bg-surface-container-lowest border-hairline rounded-lg p-margin-page mt-stack-md flex flex-col gap-4 shadow-sm relative">
+<div class="absolute top-0 left-0 bottom-0 w-[28px] border-r-hairline bg-surface-container-low flex justify-center py-4 rounded-l-lg">
+<!-- Progress Ruler Indicator Placeholder in card gutter if needed, empty for now -->
+</div>
+<div class="pl-[36px] flex flex-col gap-3">
+<span class="font-label-mono text-11px text-graphite uppercase">Next</span>
+<h4 class="font-article-body text-article-body text-on-surface font-semibold">Ready for a 600-word read?</h4>
+<p class="font-article-body-mobile text-article-body-mobile text-graphite mb-2">Build your focus muscle with a curated essay on digital minimalism.</p>
+<button class="bg-primary-container text-on-primary font-ui-button text-ui-button py-3 px-4 rounded-DEFAULT w-full text-center hover:bg-on-primary-fixed-variant transition-colors">
+                     Start a long read
+                 </button>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-lowest border-t border-outline-variant md:hidden">
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">auto_stories</span>
+<span class="font-ui-button text-[10px]">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">bookmarks</span>
+<span class="font-ui-button text-[10px]">Library</span>
+</a>
+<!-- Active Tab: Stats (Progress) -->
+<a class="flex flex-col items-center justify-center text-primary font-bold scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">insights</span>
+<span class="font-ui-button text-[10px]">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="font-ui-button text-[10px]">Settings</span>
+</a>
+</nav>
+</body></html>

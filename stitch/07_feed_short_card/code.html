@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tidbit - Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Instrument+Sans:ital,wght@0,400..700;1,400..700&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=IBM+Plex+Mono:ital,wght@0,100..700;1,100..700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#fcf8ff",
+                      "on-tertiary-fixed-variant": "#872100",
+                      "surface-container-highest": "#e4e1ed",
+                      "surface-container-high": "#eae6f3",
+                      "on-primary-fixed-variant": "#2e2ac4",
+                      "primary": "#1400aa",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed": "#08006c",
+                      "surface-container-low": "#f5f2fe",
+                      "tertiary": "#611500",
+                      "surface": "#fcf8ff",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#dbd8e5",
+                      "secondary-container": "#e0dfe4",
+                      "outline-variant": "#c7c4d7",
+                      "on-primary-container": "#adaeff",
+                      "inverse-on-surface": "#f2effc",
+                      "on-secondary-container": "#626267",
+                      "inverse-surface": "#302f39",
+                      "secondary-fixed": "#e3e2e7",
+                      "primary-fixed": "#e1dfff",
+                      "on-surface": "#1b1b23",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed": "#1a1b1f",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#ff9c80",
+                      "on-secondary-fixed-variant": "#46464b",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f4f4f0", /* Overridden per prompt */
+                      "surface-container": "#efecf9",
+                      "surface-tint": "#4949db",
+                      "inverse-primary": "#c1c1ff",
+                      "secondary-fixed-dim": "#c7c6cb",
+                      "tertiary-container": "#882100",
+                      "tertiary-fixed": "#ffdbd1",
+                      "primary-fixed-dim": "#c1c1ff",
+                      "surface-variant": "#e4e1ed",
+                      "on-background": "#1b1b23",
+                      "secondary": "#5e5e63",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "on-tertiary-fixed": "#3b0900",
+                      "on-surface-variant": "#464555",
+                      "primary-container": "#2f2bc4",
+                      "outline": "#767586"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack-lg": "32px",
+                      "stack-md": "16px",
+                      "margin-page": "24px",
+                      "stack-sm": "8px",
+                      "gutter-ruler": "28px"
+              },
+              "fontFamily": {
+                      "display-lg-mobile": [
+                              "Instrument Serif"
+                      ],
+                      "ui-button": [
+                              "Instrument Sans"
+                      ],
+                      "article-body-mobile": [
+                              "Newsreader"
+                      ],
+                      "display-lg": [
+                              "Instrument Serif"
+                      ],
+                      "label-mono": [
+                              "IBM Plex Mono"
+                      ],
+                      "headline-md": [
+                              "Instrument Serif"
+                      ],
+                      "article-body": [
+                              "Newsreader"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg-mobile": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "ui-button": [
+                              "15px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "article-body-mobile": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "article-body": [
+                              "20px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+      </script>
+<style>
+        .custom-border { border-color: #DFDFD7; }
+        .ink-blue { color: #2F2BC4; }
+        .bg-ink-blue { background-color: #2F2BC4; }
+        .text-graphite { color: #5e5e63; }
+        .font-sans-custom { font-family: 'Instrument Sans', sans-serif; }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#F4F4F0] min-h-screen flex flex-col font-sans-custom">
+<!-- Header -->
+<header class="flex justify-between items-center px-6 pt-12 pb-4">
+<h1 class="font-display-lg-mobile text-[20px] text-on-background m-0 p-0 leading-none">Tidbit</h1>
+<div class="flex flex-col items-end">
+<span class="font-label-mono text-[10px] text-graphite uppercase tracking-widest mb-1">STAMINA 34</span>
+<div class="w-10 h-[2px] bg-[#DFDFD7] relative">
+<div class="absolute left-0 top-0 h-full bg-ink-blue w-1/5"></div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col justify-center px-6 pb-24 relative">
+<!-- The Card -->
+<article class="bg-white custom-border border border-solid rounded h-[486px] flex flex-col relative overflow-hidden">
+<!-- Left Gutter & Ruler -->
+<div class="absolute left-0 top-0 bottom-0 w-[28px] border-r custom-border border-solid bg-white flex justify-center pt-8">
+<div class="w-[2px] h-[80%] bg-[#DFDFD7] relative">
+<div class="absolute top-0 left-0 w-full bg-ink-blue" style="height: 20%;"></div>
+<!-- Tick Marks -->
+<div class="absolute w-[6px] h-[1px] bg-[#DFDFD7] -left-[2px] top-1/4"></div>
+<div class="absolute w-[6px] h-[1px] bg-[#DFDFD7] -left-[2px] top-2/4"></div>
+<div class="absolute w-[6px] h-[1px] bg-[#DFDFD7] -left-[2px] top-3/4"></div>
+</div>
+</div>
+<!-- Card Content Area -->
+<div class="ml-[28px] p-6 flex flex-col h-full">
+<div class="flex-grow flex flex-col">
+<span class="font-label-mono text-[11px] text-graphite tracking-[0.15em] uppercase mb-4 block">AI &amp; TECH · 31 WORDS</span>
+<h2 class="font-display-lg-mobile text-[28px] text-on-background leading-[1.1] tracking-[-0.03em] mb-4">Small models are eating the easy jobs</h2>
+<p class="font-article-body-mobile text-[18px] text-on-surface-variant leading-[1.6]">
+                        A three-billion-parameter model runs on your phone, answers in under a second, and costs almost nothing. It will not write your novel. It does not need to.
+                    </p>
+</div>
+<div class="mt-auto">
+<hr class="custom-border border-t border-solid mb-4 w-full"/>
+<span class="font-sans-custom text-[14px] ink-blue font-medium">Narrow work is cheap work.</span>
+</div>
+</div>
+</article>
+<!-- Post-Card Actions -->
+<div class="flex justify-between items-center mt-6 px-2">
+<button class="font-sans-custom text-[13px] text-graphite bg-transparent border-none p-0 cursor-pointer hover:text-[#2F2BC4] transition-colors">Save</button>
+<button class="font-sans-custom text-[13px] text-graphite bg-transparent border-none p-0 cursor-pointer hover:text-[#2F2BC4] transition-colors">Share</button>
+<button class="font-sans-custom text-[13px] text-graphite bg-transparent border-none p-0 cursor-pointer hover:text-[#2F2BC4] transition-colors">Less like this</button>
+</div>
+</main>
+<!-- BottomNavBar (Customized per prompt) -->
+<nav class="fixed bottom-0 w-full z-50 bg-[#F4F4F0] custom-border border-t border-solid px-6 py-4 pb-safe flex justify-between items-center">
+<a class="font-sans-custom text-[13px] font-bold flex flex-col items-center ink-blue" href="#">Feed</a>
+<a class="font-sans-custom text-[13px] text-graphite flex flex-col items-center hover:text-[#2F2BC4] transition-colors" href="#">Path</a>
+<a class="font-sans-custom text-[13px] text-graphite flex flex-col items-center hover:text-[#2F2BC4] transition-colors" href="#">Progress</a>
+<a class="font-sans-custom text-[13px] text-graphite flex flex-col items-center hover:text-[#2F2BC4] transition-colors" href="#">Write</a>
+</nav>
+</body></html>

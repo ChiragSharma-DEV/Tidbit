@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tidbit Library</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=Instrument+Sans:wght@500&amp;family=Instrument+Serif:ital@0;1&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#1400aa",
+                    "tertiary-fixed": "#ffdbd1",
+                    "secondary": "#5e5e63",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dbd8e5",
+                    "surface-container-high": "#eae6f3",
+                    "outline-variant": "#c7c4d7",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e4e1ed",
+                    "surface-variant": "#e4e1ed",
+                    "secondary-fixed": "#e3e2e7",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#1a1b1f",
+                    "surface-container-low": "#f5f2fe",
+                    "primary-fixed": "#e1dfff",
+                    "inverse-primary": "#c1c1ff",
+                    "on-surface-variant": "#464555",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#adaeff",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#2f2bc4",
+                    "on-surface": "#1b1b23",
+                    "secondary-fixed-dim": "#c7c6cb",
+                    "tertiary-fixed-dim": "#ffb5a0",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#872100",
+                    "tertiary": "#611500",
+                    "tertiary-container": "#882100",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#3b0900",
+                    "background": "#fcf8ff",
+                    "on-tertiary-container": "#ff9c80",
+                    "on-primary-fixed-variant": "#2e2ac4",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#626267",
+                    "inverse-on-surface": "#f2effc",
+                    "surface-bright": "#fcf8ff",
+                    "on-background": "#1b1b23",
+                    "surface-container": "#efecf9",
+                    "primary-fixed-dim": "#c1c1ff",
+                    "on-secondary-fixed-variant": "#46464b",
+                    "surface-tint": "#4949db",
+                    "outline": "#767586",
+                    "surface": "#fcf8ff",
+                    "secondary-container": "#e0dfe4",
+                    "on-primary-fixed": "#08006c",
+                    "inverse-surface": "#302f39"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-page": "24px",
+                    "stack-md": "16px",
+                    "gutter-ruler": "28px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": [
+                            "Instrument Serif"
+                    ],
+                    "article-body": [
+                            "Newsreader"
+                    ],
+                    "ui-button": [
+                            "Instrument Sans"
+                    ],
+                    "article-body-mobile": [
+                            "Newsreader"
+                    ],
+                    "display-lg": [
+                            "Instrument Serif"
+                    ],
+                    "headline-md": [
+                            "Instrument Serif"
+                    ],
+                    "label-mono": [
+                            "IBM Plex Mono"
+                    ]
+            },
+            "fontSize": {
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "article-body": [
+                            "20px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "ui-button": [
+                            "15px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "article-body-mobile": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-mono": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 md:pb-8 selection:bg-primary selection:text-white">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-margin-page py-4 w-full bg-background border-b border-outline-variant docked full-width top-0 sticky z-40">
+<button aria-label="Menu" class="text-primary hover:text-primary transition-colors opacity-80">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary tracking-tight">Tidbit</h1>
+<button aria-label="Search" class="text-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="max-w-3xl mx-auto px-margin-page py-stack-lg flex flex-col gap-stack-md">
+<!-- Header -->
+<div class="mb-stack-sm">
+<h2 class="font-headline-md text-headline-md text-on-background">Library</h2>
+<p class="font-article-body-mobile text-article-body-mobile text-secondary mt-2">Your saved essays and articles.</p>
+</div>
+<!-- Article Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex relative group hover:border-primary transition-colors cursor-pointer">
+<!-- Gutter & Ruler -->
+<div class="w-gutter-ruler shrink-0 border-r border-outline-variant flex justify-center py-stack-md relative">
+<div class="w-[2px] h-full bg-surface-variant relative">
+<div class="w-full bg-primary absolute top-0 left-0" style="height: 12%;"></div>
+</div>
+</div>
+<!-- Content -->
+<div class="p-stack-md flex-1 flex flex-col gap-stack-sm relative">
+<div class="flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[24px] leading-[1.2] text-on-background group-hover:text-primary transition-colors">The Architecture of Silence</h3>
+<span class="font-label-mono text-label-mono text-secondary shrink-0 uppercase">3,200 W</span>
+</div>
+<p class="font-article-body-mobile text-article-body-mobile text-on-surface-variant line-clamp-2">Exploring the physical spaces designed to isolate us from the cacophony of modern urban environments, and the profound psychological effects of true acoustic isolation.</p>
+</div>
+</article>
+<!-- Article Card 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex relative group hover:border-primary transition-colors cursor-pointer">
+<!-- Gutter & Ruler -->
+<div class="w-gutter-ruler shrink-0 border-r border-outline-variant flex justify-center py-stack-md relative">
+<div class="w-[2px] h-full bg-surface-variant relative">
+<div class="w-full bg-primary absolute top-0 left-0" style="height: 65%;"></div>
+</div>
+</div>
+<!-- Content -->
+<div class="p-stack-md flex-1 flex flex-col gap-stack-sm relative">
+<div class="flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[24px] leading-[1.2] text-on-background group-hover:text-primary transition-colors">Digital Ephemera</h3>
+<span class="font-label-mono text-label-mono text-secondary shrink-0 uppercase">850 W</span>
+</div>
+<p class="font-article-body-mobile text-article-body-mobile text-on-surface-variant line-clamp-2">Why we mourn the loss of early internet forums and the specific cultural artifacts that vanished when servers were quietly decommissioned in the early 2010s.</p>
+</div>
+</article>
+<!-- Article Card 3 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex relative group hover:border-primary transition-colors cursor-pointer">
+<!-- Gutter & Ruler -->
+<div class="w-gutter-ruler shrink-0 border-r border-outline-variant flex justify-center py-stack-md relative">
+<div class="w-[2px] h-full bg-surface-variant relative">
+<div class="w-full bg-primary absolute top-0 left-0" style="height: 100%;"></div>
+</div>
+</div>
+<!-- Content -->
+<div class="p-stack-md flex-1 flex flex-col gap-stack-sm relative">
+<div class="flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[24px] leading-[1.2] text-on-background group-hover:text-primary transition-colors">Attention as a Resource</h3>
+<span class="font-label-mono text-label-mono text-secondary shrink-0 uppercase">1,420 W</span>
+</div>
+<p class="font-article-body-mobile text-article-body-mobile text-on-surface-variant line-clamp-2">Framing cognitive focus not as a moral failing when lost, but as an exhaustible physical resource that must be managed and replenished carefully.</p>
+</div>
+</article>
+<!-- Article Card 4 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex relative group hover:border-primary transition-colors cursor-pointer opacity-70">
+<!-- Gutter & Ruler -->
+<div class="w-gutter-ruler shrink-0 border-r border-outline-variant flex justify-center py-stack-md relative">
+<div class="w-[2px] h-full bg-surface-variant relative">
+<div class="w-full bg-primary absolute top-0 left-0" style="height: 0%;"></div>
+</div>
+</div>
+<!-- Content -->
+<div class="p-stack-md flex-1 flex flex-col gap-stack-sm relative">
+<div class="flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[24px] leading-[1.2] text-on-background group-hover:text-primary transition-colors">The Tactile Web</h3>
+<span class="font-label-mono text-label-mono text-secondary shrink-0 uppercase">2,100 W</span>
+</div>
+<p class="font-article-body-mobile text-article-body-mobile text-on-surface-variant line-clamp-2">How designers are returning to brutalist and skeuomorphic roots to give software a sense of weight and permanence previously reserved for print.</p>
+</div>
+</article>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 border-t border-outline-variant bg-surface-container-lowest md:hidden" style="padding-bottom: env(safe-area-inset-bottom, 12px);">
+<!-- Feed (Inactive) -->
+<button class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors gap-1 w-16">
+<span class="material-symbols-outlined text-[24px]">auto_stories</span>
+<span class="font-ui-button text-ui-button">Feed</span>
+</button>
+<!-- Library (Active) -->
+<button class="flex flex-col items-center justify-center text-primary font-bold scale-95 transition-transform gap-1 w-16">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">bookmarks</span>
+<span class="font-ui-button text-ui-button">Library</span>
+</button>
+<!-- Stats (Inactive) -->
+<button class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors gap-1 w-16">
+<span class="material-symbols-outlined text-[24px]">insights</span>
+<span class="font-ui-button text-ui-button">Stats</span>
+</button>
+<!-- Settings (Inactive) -->
+<button class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors gap-1 w-16">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<span class="font-ui-button text-ui-button">Settings</span>
+</button>
+</nav>
+</body></html>
