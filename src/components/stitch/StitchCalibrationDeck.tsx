@@ -1,176 +1,65 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
+import { hueForTopic } from '@/lib/design/topicHue';
 
-export interface CalibrationConcept {
+interface ConceptCard {
   id: string;
   topic: string;
-  category: 'tech' | 'business' | 'mind' | 'systems' | 'general';
   title: string;
   summary: string;
   question: string;
   difficulty: 1 | 2 | 3;
-  icon: string;
 }
 
-export const CALIBRATION_CONCEPTS_POOL: CalibrationConcept[] = [
-  // AI & Tech (Beginner to Advanced)
+const CALIBRATION_DECK_SEED: ConceptCard[] = [
   {
-    id: 'ai-prompt-eval',
+    id: 'calib-1',
     topic: 'AI & Machine Learning',
-    category: 'tech',
-    title: 'Prompt Conditioning & Few-Shot Learning',
-    summary: 'Guiding an AI model by giving it 2-3 clear examples before asking it to complete your task.',
-    question: 'Do you know how to write structured system prompts and few-shot examples?',
-    difficulty: 1,
-    icon: 'terminal',
-  },
-  {
-    id: 'ai-slm',
-    topic: 'AI & Machine Learning',
-    category: 'tech',
-    title: 'Small Language Models (SLMs)',
-    summary: 'Lightweight AI models (2B–7B numbers) trimmed down to run fast on your phone with zero delay and 100% privacy.',
-    question: 'Do you understand why local micro-models are faster and more private than giant cloud models?',
+    title: 'Transformer Architecture & Self-Attention',
+    summary: 'The breakthrough in 2017 that allows models to process all words in parallel, scoring relevance between every pair of words in a sentence.',
+    question: 'Do you understand how query, key, and value vectors compute self-attention matrix weights?',
     difficulty: 2,
-    icon: 'memory',
   },
   {
-    id: 'ai-transformer',
-    topic: 'AI & Machine Learning',
-    category: 'tech',
-    title: 'Transformer Self-Attention',
-    summary: 'How modern AI reads: Comparing all words in a sentence simultaneously instead of reading one word at a time.',
-    question: 'Can you explain how attention matrices link words across a paragraph in parallel?',
-    difficulty: 3,
-    icon: 'neurology',
-  },
-
-  // Growth & Marketing (Beginner to Advanced)
-  {
-    id: 'mkt-funnel',
-    topic: 'Growth & Marketing',
-    category: 'business',
-    title: 'The Simple Growth Funnel (AARRR)',
-    summary: 'Acquiring visitors, activating their first "aha!" moment, retaining them, and converting them to revenue.',
-    question: 'Have you optimized user onboarding steps to reduce drop-off?',
+    id: 'calib-2',
+    topic: 'Cognitive Science',
+    title: 'Working Memory Capacity & Miller\'s Law',
+    summary: 'Human working memory can hold roughly 4–7 discrete chunks of information before cognitive overload degrades synthesis velocity.',
+    question: 'Are you familiar with cognitive load theory and chunking mechanisms for deep retention?',
     difficulty: 1,
-    icon: 'filter_alt',
   },
   {
-    id: 'mkt-cac-ltv',
+    id: 'calib-3',
     topic: 'Growth & Marketing',
-    category: 'business',
-    title: 'CAC to LTV Unit Economics',
-    summary: 'The golden rule of sustainable business: Making at least $3 from a customer for every $1 spent acquiring them.',
-    question: 'Can you calculate customer acquisition cost and payback months for a product?',
+    title: 'CAC to LTV Ratio & Payback Velocity',
+    summary: 'Customer Acquisition Cost must be recovered within 12 months, yielding a lifetime value at least 3x higher than acquisition expense.',
+    question: 'Can you analyze unit economics for viral referral loops and payback period benchmarks?',
     difficulty: 2,
-    icon: 'trending_up',
   },
   {
-    id: 'mkt-distribution',
-    topic: 'Growth & Marketing',
-    category: 'business',
-    title: 'Organic Viral Distribution Loops',
-    summary: 'Designing products where normal user actions naturally invite new users (like collaborative documents).',
-    question: 'Do you know how to calculate viral coefficients and build self-reinforcing growth loops?',
+    id: 'calib-4',
+    topic: 'Software Architecture',
+    title: 'Event-Driven Microservices & CQRS',
+    summary: 'Separating read and write data paths to achieve scale, using asynchronous event streams for eventual consistency across services.',
+    question: 'Have you built or designed systems using Command Query Responsibility Segregation?',
     difficulty: 3,
-    icon: 'share',
   },
-
-  // Mind & Deep Work (Beginner to Advanced)
   {
-    id: 'mind-focus',
+    id: 'calib-5',
     topic: 'Deep Work & Focus',
-    category: 'mind',
-    title: 'Single-Tasking & Focus Sprints',
-    summary: 'Defending unbroken 25–45 minute focus blocks without checking emails, tabs, or notifications.',
-    question: 'Do you regularly practice deliberate distraction-free reading sessions?',
+    title: 'Attention Residue & Task Switching Debt',
+    summary: 'Switching tasks leaves a portion of your attention stuck on the previous task for up to 20 minutes, reducing overall cognitive depth.',
+    question: 'Do you understand the neural cost of micro-interruptions on deep problem solving?',
     difficulty: 1,
-    icon: 'timer',
-  },
-  {
-    id: 'mind-residue',
-    topic: 'Cognitive Science',
-    category: 'mind',
-    title: 'Attention Residue & Context Switching',
-    summary: 'When you check a quick ping, your brain leaves focus behind on that message, slowing thinking for 20+ minutes.',
-    question: 'Do you structure your day to minimize switching between communication and deep work?',
-    difficulty: 2,
-    icon: 'psychology',
-  },
-  {
-    id: 'mind-load',
-    topic: 'Cognitive Science',
-    category: 'mind',
-    title: 'Cognitive Load Theory (4-Item Limit)',
-    summary: 'Human conscious working memory can only juggle ~4 items. Noisy layouts choke comprehension before learning starts.',
-    question: 'Do you know the difference between intrinsic, germane, and extraneous mental load?',
-    difficulty: 3,
-    icon: 'hub',
-  },
-
-  // Systems & Architecture (Beginner to Advanced)
-  {
-    id: 'sys-first-principles',
-    topic: 'System Architecture',
-    category: 'systems',
-    title: 'First-Principles Thinking',
-    summary: 'Boiling any problem down to fundamental non-negotiable truths instead of copying what others do.',
-    question: 'Do you break problems into atomic truths before designing solutions?',
-    difficulty: 2,
-    icon: 'account_tree',
-  },
-  {
-    id: 'sys-cap-theorem',
-    topic: 'System Architecture',
-    category: 'systems',
-    title: 'CAP Theorem & Eventual Consistency',
-    summary: 'Distributed databases can only guarantee two out of three: Consistency, Availability, and Partition tolerance.',
-    question: 'Are you familiar with data synchronization tradeoffs in distributed cloud networks?',
-    difficulty: 3,
-    icon: 'database',
-  },
-  {
-    id: 'sys-antifragility',
-    topic: 'Economics & Venture',
-    category: 'systems',
-    title: 'Antifragility & Asymmetric Upside',
-    summary: 'Building systems and career habits that gain strength from volatility and surprises rather than breaking.',
-    question: 'Can you spot convex bets where downside is limited but upside is open-ended?',
-    difficulty: 2,
-    icon: 'balance',
-  },
-
-  // Philosophy & Culture (Beginner to Advanced)
-  {
-    id: 'phil-stoicism',
-    topic: 'Philosophy & Stoicism',
-    category: 'general',
-    title: 'Dichotomy of Control (Epictetus)',
-    summary: 'Separating what is in your power (focus, actions) from what is not (algorithms, external opinions).',
-    question: 'Do you actively filter daily stress by focusing solely on what you control?',
-    difficulty: 1,
-    icon: 'self_improvement',
-  },
-  {
-    id: 'phil-minimalism',
-    topic: 'Quiet Design & Minimalism',
-    category: 'general',
-    title: 'Subtractive Design (Less Ink, More Signal)',
-    summary: 'Improving thinking and interfaces not by adding features, but by removing every ounce of distraction.',
-    question: 'Do you create clarity by eliminating unnecessary elements rather than adding decorations?',
-    difficulty: 2,
-    icon: 'ink_pen',
   },
 ];
 
-export interface CalibrationDeckProps {
+interface StitchCalibrationDeckProps {
   selectedInterests: string[];
   onComplete: (result: {
-    level: 1 | 2 | 3;
     score: number;
-    totalCards: number;
+    recommendedLevel: 1 | 2 | 3;
     recommendedLength: number;
     answers: { conceptId: string; title: string; status: 'known' | 'new' | 'familiar' }[];
   }) => void;
@@ -181,242 +70,161 @@ export default function StitchCalibrationDeck({
   selectedInterests,
   onComplete,
   onBackToNiched,
-}: CalibrationDeckProps) {
-  const [deck, setDeck] = useState<CalibrationConcept[]>([]);
+}: StitchCalibrationDeckProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<
     { conceptId: string; title: string; status: 'known' | 'new' | 'familiar' }[]
   >([]);
 
-  // Drag physics state
-  const [dragOffset, setDragOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  // Drag state for gesture simulation
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [exitDirection, setExitDirection] = useState<'left' | 'right' | 'up' | null>(null);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
-  const cardRef = useRef<HTMLDivElement>(null);
+  const currentCard = CALIBRATION_DECK_SEED[currentIndex];
+  const progressPercent = Math.round((currentIndex / CALIBRATION_DECK_SEED.length) * 100);
 
-  // Initialize deck based on selectedInterests
-  useEffect(() => {
-    const matching = CALIBRATION_CONCEPTS_POOL.filter((c) =>
-      selectedInterests.some(
-        (interest) =>
-          c.topic.toLowerCase().includes(interest.toLowerCase()) ||
-          interest.toLowerCase().includes(c.topic.toLowerCase())
-      )
-    );
+  const handleSwipeAction = (status: 'known' | 'new' | 'familiar', direction: 'left' | 'right' | 'up') => {
+    if (!currentCard) return;
 
-    const pool = matching.length >= 4 ? matching : [...matching, ...CALIBRATION_CONCEPTS_POOL];
-    const unique = Array.from(new Set(pool.map((c) => c.id)))
-      .map((id) => pool.find((c) => c.id === id)!)
-      .slice(0, 4);
+    const updatedAnswers = [
+      ...answers,
+      { conceptId: currentCard.id, title: currentCard.title, status },
+    ];
+    setAnswers(updatedAnswers);
 
-    setDeck(unique.length >= 4 ? unique : CALIBRATION_CONCEPTS_POOL.slice(0, 4));
-    setCurrentIndex(0);
-    setAnswers([]);
-  }, [selectedInterests]);
+    if (currentIndex + 1 < CALIBRATION_DECK_SEED.length) {
+      setCurrentIndex((prev) => prev + 1);
+      setDragOffset({ x: 0, y: 0 });
+    } else {
+      // Calculate final calibration score and level
+      const knownCount = updatedAnswers.filter((a) => a.status === 'known').length;
+      const familiarCount = updatedAnswers.filter((a) => a.status === 'familiar').length;
+      const totalScore = knownCount * 2 + familiarCount * 1;
 
-  const handleSwipeAction = useCallback(
-    (status: 'known' | 'new' | 'familiar', direction: 'left' | 'right' | 'up') => {
-      if (currentIndex >= deck.length) return;
+      let level: 1 | 2 | 3 = 1;
+      let length = 85;
 
-      setExitDirection(direction);
+      if (totalScore >= 7) {
+        level = 3;
+        length = 420;
+      } else if (totalScore >= 3) {
+        level = 2;
+        length = 165;
+      } else {
+        level = 1;
+        length = 85;
+      }
 
-      const currentConcept = deck[currentIndex];
-      const nextAnswers = [
-        ...answers,
-        { conceptId: currentConcept.id, title: currentConcept.title, status },
-      ];
-      setAnswers(nextAnswers);
+      onComplete({
+        score: totalScore,
+        recommendedLevel: level,
+        recommendedLength: length,
+        answers: updatedAnswers,
+      });
+    }
+  };
 
-      setTimeout(() => {
-        setExitDirection(null);
-        setDragOffset({ x: 0, y: 0 });
-
-        const nextIndex = currentIndex + 1;
-        if (nextIndex >= deck.length) {
-          const totalPoints = nextAnswers.reduce((acc, a) => {
-            if (a.status === 'known') return acc + 2;
-            if (a.status === 'familiar') return acc + 1;
-            return acc;
-          }, 0);
-
-          let level: 1 | 2 | 3 = 1;
-          let recommendedLength = 30;
-
-          if (totalPoints >= 5) {
-            level = 3;
-            recommendedLength = 420;
-          } else if (totalPoints >= 3) {
-            level = 2;
-            recommendedLength = 140;
-          } else {
-            level = 1;
-            recommendedLength = 30;
-          }
-
-          onComplete({
-            level,
-            score: totalPoints,
-            totalCards: deck.length,
-            recommendedLength,
-            answers: nextAnswers,
-          });
-        } else {
-          setCurrentIndex(nextIndex);
-        }
-      }, 320);
-    },
-    [currentIndex, deck, answers, onComplete]
-  );
-
-  // Mouse & Touch Drag Handlers
-  const handlePointerDown = (clientX: number, clientY: number) => {
-    if (exitDirection) return;
+  const handleTouchStart = (e: React.TouchEvent | React.MouseEvent) => {
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
     setIsDragging(true);
     setDragStart({ x: clientX, y: clientY });
   };
 
-  const handlePointerMove = (clientX: number, clientY: number) => {
-    if (!isDragging || exitDirection) return;
-    const dx = clientX - dragStart.x;
-    const dy = clientY - dragStart.y;
-    setDragOffset({ x: dx, y: dy });
+  const handleTouchMove = (e: React.TouchEvent | React.MouseEvent) => {
+    if (!isDragging) return;
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    const deltaX = clientX - dragStart.x;
+    const deltaY = clientY - dragStart.y;
+    setDragOffset({ x: deltaX, y: deltaY });
   };
 
-  const handlePointerUp = () => {
-    if (!isDragging || exitDirection) return;
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
     setIsDragging(false);
 
-    const SWIPE_THRESHOLD = 95;
-    if (dragOffset.x > SWIPE_THRESHOLD) {
+    if (dragOffset.x > 90) {
       handleSwipeAction('known', 'right');
-    } else if (dragOffset.x < -SWIPE_THRESHOLD) {
+    } else if (dragOffset.x < -90) {
       handleSwipeAction('new', 'left');
-    } else if (dragOffset.y < -SWIPE_THRESHOLD) {
+    } else if (dragOffset.y < -80) {
       handleSwipeAction('familiar', 'up');
     } else {
       setDragOffset({ x: 0, y: 0 });
     }
   };
 
-  const currentCard = deck[currentIndex];
-  const nextCard = deck[currentIndex + 1];
+  // Stamp opacity feedback based on drag offset
+  const rightStampOpacity = Math.min(1, Math.max(0, dragOffset.x / 80));
+  const leftStampOpacity = Math.min(1, Math.max(0, -dragOffset.x / 80));
+  const familiarStampOpacity = Math.min(1, Math.max(0, -dragOffset.y / 70));
 
-  const rotationAngle = dragOffset.x * 0.08;
-  const rightStampOpacity = Math.min(1, Math.max(0, (dragOffset.x - 20) / 90));
-  const leftStampOpacity = Math.min(1, Math.max(0, (-dragOffset.x - 20) / 90));
-  const familiarStampOpacity = Math.min(1, Math.max(0, (-dragOffset.y - 30) / 80));
-
-  if (!currentCard && currentIndex >= deck.length) {
-    return null;
-  }
+  const rotationDeg = Math.min(15, Math.max(-15, dragOffset.x * 0.08));
+  const hueVar = currentCard ? hueForTopic(currentCard.topic) : '--ink';
 
   return (
-    <div className="flex flex-col gap-6 max-w-md mx-auto w-full select-none">
-      {/* Header & Step Tracker */}
-      <header className="flex flex-col gap-2">
-        <div className="flex justify-between items-center">
-          <span className="font-label-mono text-[11px] text-graphite uppercase font-bold tracking-wider">
-            CALIBRATION · STEP 2 OF 2
+    <div className="flex flex-col gap-5 max-w-md mx-auto py-2">
+      {/* Top Deck Header */}
+      <div className="flex justify-between items-center">
+        <div>
+          <span className="t-label text-[var(--graphite)]">
+            CARD {currentIndex + 1} OF {CALIBRATION_DECK_SEED.length}
           </span>
-          {onBackToNiched && (
-            <button
-              onClick={onBackToNiched}
-              className="font-label-mono text-[11px] text-ink-blue uppercase hover:underline cursor-pointer"
-            >
-              ← Edit Niches
-            </button>
-          )}
+          <span className="t-label font-bold text-[var(--ink)] block">
+            Swipe Assessment
+          </span>
         </div>
-        <h1 className="font-headline-md text-[26px] md:text-[30px] text-on-background font-serif leading-tight">
-          Attention & Knowledge Calibration
-        </h1>
-        <p className="font-article-body-mobile text-[15px] text-graphite leading-relaxed">
-          Swipe right if you master this concept, or left if it's new to you. This calibrates your starting curriculum level.
-        </p>
 
-        {/* Progress Dots / Bar */}
-        <div className="w-full bg-surface-container-lowest border border-hairline h-1.5 rounded-full overflow-hidden mt-1">
-          <div
-            className="bg-ink-blue h-full transition-all duration-300"
-            style={{ width: `${((currentIndex) / (deck.length || 4)) * 100}%` }}
-          />
-        </div>
-        <div className="flex justify-between text-[11px] font-label-mono text-graphite">
-          <span>CONCEPT {Math.min(currentIndex + 1, deck.length)} OF {deck.length}</span>
-          <span>{answers.filter((a) => a.status === 'known').length} MASTERED</span>
-        </div>
-      </header>
-
-      {/* Swipeable Card Deck Arena */}
-      <div className="relative w-full h-[370px] flex items-center justify-center my-2">
-        {/* Background Ghost Card for Depth */}
-        {nextCard && (
-          <div
-            className="absolute inset-x-3 bottom-0 top-6 bg-surface-container-lowest border border-hairline rounded-lg p-6 flex flex-col justify-between opacity-60 scale-95 transition-all shadow-xs pointer-events-none"
-            style={{ transform: 'translateY(12px) scale(0.95)' }}
+        {onBackToNiched && (
+          <button
+            onClick={onBackToNiched}
+            className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer"
           >
-            <div className="flex justify-between items-center">
-              <span className="font-label-mono text-[10px] text-graphite uppercase">
-                {nextCard.topic}
-              </span>
-              <span className="text-[12px] text-graphite font-mono">★☆☆</span>
-            </div>
-            <div className="space-y-2">
-              <h3 className="font-headline-md text-[20px] font-serif text-on-surface">
-                {nextCard.title}
-              </h3>
-              <p className="font-article-body-mobile text-[14px] text-graphite line-clamp-2">
-                {nextCard.summary}
-              </p>
-            </div>
-            <div className="h-6" />
-          </div>
+            Change Niches
+          </button>
         )}
+      </div>
 
-        {/* Top Active Swipe Card */}
+      {/* Progress Track */}
+      <div className="w-full h-1 bg-[var(--rule)] rounded-full overflow-hidden">
+        <div
+          className="h-full bg-[var(--ink)] transition-all duration-300"
+          style={{ width: `${progressPercent}%` }}
+        />
+      </div>
+
+      {/* Swipeable Card Deck Container */}
+      <div className="relative w-full h-[360px] flex items-center justify-center touch-none">
         {currentCard && (
           <div
-            ref={cardRef}
-            onMouseDown={(e) => handlePointerDown(e.clientX, e.clientY)}
-            onMouseMove={(e) => handlePointerMove(e.clientX, e.clientY)}
-            onMouseUp={handlePointerUp}
-            onMouseLeave={handlePointerUp}
-            onTouchStart={(e) =>
-              e.touches[0] && handlePointerDown(e.touches[0].clientX, e.touches[0].clientY)
-            }
-            onTouchMove={(e) =>
-              e.touches[0] && handlePointerMove(e.touches[0].clientX, e.touches[0].clientY)
-            }
-            onTouchEnd={handlePointerUp}
+            onMouseDown={handleTouchStart}
+            onMouseMove={handleTouchMove}
+            onMouseUp={handleTouchEnd}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
             style={{
-              transform: exitDirection
-                ? exitDirection === 'right'
-                  ? 'translate3d(600px, 0, 0) rotate(25deg)'
-                  : exitDirection === 'left'
-                  ? 'translate3d(-600px, 0, 0) rotate(-25deg)'
-                  : 'translate3d(0, -600px, 0)'
-                : `translate3d(${dragOffset.x}px, ${dragOffset.y}px, 0) rotate(${rotationAngle}deg)`,
-              transition: isDragging ? 'none' : 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1)',
-              cursor: isDragging ? 'grabbing' : 'grab',
+              transform: `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${rotationDeg}deg)`,
+              transition: isDragging ? 'none' : 'transform 0.3s ease-out',
             }}
-            className="absolute inset-0 bg-card-white border-2 border-hairline rounded-lg p-6 flex flex-col justify-between shadow-md hover:shadow-lg transition-shadow z-20 overflow-hidden touch-none will-change-transform select-none"
+            className="w-full h-full bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] p-6 shadow-[0_1px_2px_rgba(26,24,20,0.04)] flex flex-col justify-between cursor-grab active:cursor-grabbing relative select-none"
           >
-            {/* Stamp Overlay: I KNOW THIS (Green Stamp) */}
+            {/* Stamp Overlay: MASTERED */}
             <div
               style={{ opacity: rightStampOpacity }}
-              className="absolute top-6 left-6 border-2 border-green-600 text-green-700 dark:text-green-300 font-label-mono text-[13px] font-bold px-3 py-1 rounded rotate-[-12deg] tracking-widest pointer-events-none bg-green-50/90 dark:bg-green-950/90 z-30"
+              className="absolute top-6 left-6 border border-[var(--rule)] text-[var(--ink)] t-label px-3 py-1 rounded-[var(--r-control)] -rotate-[12deg] pointer-events-none bg-[var(--insert)] z-30 font-bold"
             >
-              ✓ I KNOW THIS
+              I KNOW THIS
             </div>
 
-            {/* Stamp Overlay: NEW TO ME (Ink Blue / Slate Stamp) */}
+            {/* Stamp Overlay: NEW */}
             <div
               style={{ opacity: leftStampOpacity }}
-              className="absolute top-6 right-6 border-2 border-ink-blue text-ink-blue dark:text-indigo-300 font-label-mono text-[13px] font-bold px-3 py-1 rounded rotate-[12deg] tracking-widest pointer-events-none bg-indigo-50/90 dark:bg-indigo-950/90 z-30"
+              className="absolute top-6 right-6 border border-[var(--rule)] text-[var(--ink)] t-label px-3 py-1 rounded-[var(--r-control)] rotate-[12deg] pointer-events-none bg-[var(--insert)] z-30 font-bold"
             >
-              ★ NEW TO ME
+              NEW TO ME
             </div>
 
             {/* Stamp Overlay: FAMILIAR */}
@@ -427,43 +235,42 @@ export default function StitchCalibrationDeck({
               HEARD OF IT
             </div>
 
-            {/* Top Bar: Topic Badge & Difficulty Stars */}
-            <div className="flex justify-between items-center border-b border-hairline pb-3">
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[18px] text-ink-blue">
-                  {currentCard.icon}
-                </span>
-                <span className="font-label-mono text-[11px] text-graphite uppercase font-bold tracking-wider">
-                  {currentCard.topic}
-                </span>
-              </div>
-              <div className="flex gap-0.5 text-ink-blue text-xs font-mono">
-                {currentCard.difficulty === 1 && <span>★☆☆ Basic</span>}
-                {currentCard.difficulty === 2 && <span>★★☆ Intermediate</span>}
-                {currentCard.difficulty === 3 && <span>★★★ Advanced</span>}
-              </div>
+            {/* Top Bar */}
+            <div className="flex justify-between items-center border-b border-[var(--rule)] pb-3">
+              <span
+                className="t-label font-bold"
+                style={{ color: `var(${hueVar})` }}
+              >
+                {currentCard.topic}
+              </span>
+              <span className="t-label text-[var(--graphite)]">
+                {currentCard.difficulty === 1 && 'BASIC'}
+                {currentCard.difficulty === 2 && 'INTERMEDIATE'}
+                {currentCard.difficulty === 3 && 'ADVANCED'}
+              </span>
             </div>
 
             {/* Main Body */}
             <div className="space-y-3 my-auto py-2">
-              <h2 className="font-headline-md text-[23px] font-serif text-on-surface leading-tight">
+              <h2 className="t-title font-display text-[22px]">
                 {currentCard.title}
               </h2>
-              <p className="font-article-body-mobile text-[15px] text-graphite leading-relaxed">
+              <p className="t-body text-[15px]">
                 {currentCard.summary}
               </p>
-              <div className="p-3 rounded bg-paper/60 border border-hairline/80">
-                <span className="font-label-mono text-[10px] text-graphite uppercase block mb-1">
-                  INTUITIVE SELF-CHECK:
-                </span>
-                <p className="font-sans text-[13px] font-medium text-on-surface italic">
+              <div
+                className="my-3 pl-4 border-l-2"
+                style={{ borderLeftColor: `var(${hueVar})` }}
+              >
+                <span className="t-label block mb-1">INTUITIVE SELF-CHECK</span>
+                <p className="t-quote text-[14px]">
                   "{currentCard.question}"
                 </p>
               </div>
             </div>
 
             {/* Card Footer Helper */}
-            <div className="border-t border-hairline pt-3 flex justify-between items-center text-[11px] font-label-mono text-graphite">
+            <div className="border-t border-[var(--rule)] pt-3 flex justify-between items-center t-label text-[var(--graphite)]">
               <span>← Swipe Left: New</span>
               <span>Swipe Right: Mastered →</span>
             </div>
@@ -471,41 +278,35 @@ export default function StitchCalibrationDeck({
         )}
       </div>
 
-      {/* Tactile 1-Click Action Buttons */}
-      <div className="flex items-center justify-center gap-4 pt-1">
-        {/* Left: New to me */}
+      {/* Tactile Action Buttons */}
+      <div className="flex items-center justify-center gap-3 pt-1">
         <button
           type="button"
           onClick={() => handleSwipeAction('new', 'left')}
-          className="flex-1 py-3 px-3 rounded-lg border border-hairline bg-surface-container-lowest hover:border-ink-blue/50 text-graphite hover:text-ink-blue font-ui-button text-[14px] flex items-center justify-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer"
+          className="flex-1 py-2.5 px-3 rounded-[var(--r-control)] border border-[var(--rule)] bg-[var(--insert)] text-[var(--graphite)] hover:text-[var(--ink)] t-ui font-semibold cursor-pointer"
         >
-          <span className="material-symbols-outlined text-[18px]">close</span>
-          <span>New to me</span>
+          New to me
         </button>
 
-        {/* Center: Familiar / Heard of it */}
         <button
           type="button"
           onClick={() => handleSwipeAction('familiar', 'up')}
-          className="py-3 px-4 rounded-lg border border-hairline bg-surface-container-lowest hover:border-amber-500/50 text-graphite hover:text-amber-700 dark:hover:text-amber-400 font-ui-button text-[13px] flex items-center justify-center gap-1 transition-all shadow-xs active:scale-95 cursor-pointer"
+          className="flex-1 py-2.5 px-3 rounded-[var(--r-control)] border border-[var(--rule)] bg-[var(--insert)] text-[var(--graphite)] hover:text-[var(--ink)] t-ui font-semibold cursor-pointer"
         >
-          <span className="material-symbols-outlined text-[18px]">chat_bubble_outline</span>
-          <span>Familiar</span>
+          Familiar
         </button>
 
-        {/* Right: I know this */}
         <button
           type="button"
           onClick={() => handleSwipeAction('known', 'right')}
-          className="flex-1 py-3 px-3 rounded-lg border border-ink-blue bg-ink-blue text-white hover:bg-ink-blue/90 font-ui-button text-[14px] flex items-center justify-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer"
+          className="flex-1 py-2.5 px-3 rounded-[var(--r-control)] bg-[var(--ink)] text-[var(--insert)] t-ui font-semibold cursor-pointer"
         >
-          <span className="material-symbols-outlined text-[18px]">check</span>
-          <span>I know this</span>
+          I know this
         </button>
       </div>
 
       {/* Helper Tip */}
-      <div className="text-center font-label-mono text-[10px] text-graphite/80 uppercase">
+      <div className="text-center t-label text-[var(--graphite)]">
         Drag card left/right or tap buttons to rate familiarity
       </div>
     </div>
