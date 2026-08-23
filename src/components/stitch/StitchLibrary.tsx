@@ -15,7 +15,7 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
   // Map articles to status
   const libraryItems = articles.map((art) => {
     let status: 'in-progress' | 'completed' | 'unread' = 'unread';
-    if (art.completed || (art.progressPercent && art.progressPercent >= 95)) {
+    if (art.completed || (art.progressPercent && art.progressPercent >= 90)) {
       status = 'completed';
     } else if (art.progressPercent && art.progressPercent > 0) {
       status = 'in-progress';
@@ -49,11 +49,11 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
     <main className="max-w-3xl mx-auto px-4 md:px-margin-page py-8 flex flex-col gap-6 pb-28">
       {/* Header */}
       <div>
-        <h2 className="font-headline-md text-[28px] md:text-headline-md text-on-background font-serif">
-          Library
+        <h2 className="font-headline-md text-[28px] md:text-headline-md text-on-surface font-serif">
+          Your Library & Reading Memory
         </h2>
         <p className="font-article-body-mobile text-graphite mt-1">
-          Your saved essays, highlighted passages, and attention reading history.
+          Your bookmarked essays, active reads, and attention mastery history.
         </p>
       </div>
 
@@ -66,7 +66,7 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search saved essays..."
-            className="w-full pl-9 pr-3 py-2 bg-surface-container-lowest border border-hairline rounded font-ui-button text-[14px] focus:outline-none focus:border-ink-blue"
+            className="w-full pl-9 pr-3 py-2 bg-surface-container-lowest border border-hairline rounded font-ui-button text-[14px] focus:outline-none focus:border-ink-blue text-on-surface"
           />
           <span className="material-symbols-outlined absolute left-2.5 top-2.5 text-[18px] text-graphite">
             search
@@ -74,19 +74,19 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
         </div>
 
         {/* Filter Pills */}
-        <div className="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+        <div className="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
           {[
             { id: 'all', label: 'All Active' },
             { id: 'saved', label: 'Saved' },
             { id: 'progress', label: 'In Progress' },
-            { id: 'completed', label: 'Finished' },
+            { id: 'completed', label: 'Mastered' },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setFilter(tab.id as any)}
               className={`px-3 py-1.5 rounded font-ui-button text-[13px] whitespace-nowrap transition-colors cursor-pointer ${
                 filter === tab.id
-                  ? 'bg-ink-blue text-white'
+                  ? 'bg-ink-blue text-white font-bold'
                   : 'bg-surface-container-lowest border border-hairline text-graphite hover:text-ink-blue'
               }`}
             >
@@ -102,11 +102,11 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
           <article
             key={article.id}
             onClick={() => onReadArticle(article)}
-            className="bg-surface-container-lowest border border-hairline rounded flex relative group hover:border-ink-blue transition-colors cursor-pointer"
+            className="bg-surface-container-lowest border border-hairline rounded flex relative group hover:border-ink-blue transition-colors cursor-pointer shadow-xs"
           >
             {/* Gutter & Ruler */}
             <div className="w-gutter-ruler shrink-0 border-r border-hairline flex justify-center py-4 relative">
-              <div className="w-[2px] h-full bg-paper-border relative">
+              <div className="w-[2px] h-full bg-paper-border dark:bg-[#282933] relative">
                 <div
                   className="w-full bg-ink-blue absolute top-0 left-0 transition-all duration-500"
                   style={{ height: `${article.progress}%` }}
@@ -118,10 +118,17 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
             <div className="p-5 flex-1 flex flex-col gap-2 relative">
               <div className="flex justify-between items-start gap-4">
                 <div>
-                  <span className="font-label-mono text-[10px] text-graphite uppercase tracking-wider block mb-1">
-                    {article.topic}
-                  </span>
-                  <h3 className="font-headline-md text-[20px] md:text-[22px] leading-[1.2] text-on-background group-hover:text-ink-blue transition-colors font-serif">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-label-mono text-[10px] text-graphite uppercase tracking-wider">
+                      {article.topic}
+                    </span>
+                    {article.difficultyLevel && (
+                      <span className="font-label-mono text-[9px] uppercase font-bold text-ink-blue bg-paper px-1.5 py-0.5 rounded border border-hairline">
+                        {article.difficultyLevel}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="font-headline-md text-[20px] md:text-[22px] leading-[1.2] text-on-surface group-hover:text-ink-blue transition-colors font-serif">
                     {article.title}
                   </h3>
                 </div>
@@ -137,7 +144,7 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
                       e.stopPropagation();
                       toggleSaveArticle(article.id);
                     }}
-                    className="text-graphite hover:text-ink-blue text-xs p-1"
+                    className="text-graphite hover:text-ink-blue text-xs p-1 cursor-pointer"
                     title={article.saved ? 'Remove bookmark' : 'Bookmark'}
                   >
                     <span

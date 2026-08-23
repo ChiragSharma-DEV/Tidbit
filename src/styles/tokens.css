@@ -1,0 +1,83 @@
+:root {
+  /* Surfaces and text */
+  --stock: #F7F4EE;
+  --insert: #FFFFFF;
+  --ink: #1A1814;
+  --graphite: #6B655C;
+  --rule: #E6E0D6;
+  --inset: #FBF9F5;
+
+  /* Topic hues */
+  --hue-tech: #5C6B8A;
+  --hue-psych: #B87A5E;
+  --hue-marketing: #7A9070;
+  --hue-writing: #8A82B5;
+  --hue-money: #B08A3E;
+  --hue-space: #4E5A9B;
+  --hue-health: #7D9B8F;
+  --hue-default: #6B655C;
+
+  /* Radii */
+  --r-card: 10px;
+  --r-control: 6px;
+  --r-inset: 8px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 2px rgba(26, 24, 20, 0.04);
+}
+
+/* Typography component classes */
+.t-label {
+  font-family: var(--font-mono), IBM Plex Mono, monospace;
+  font-size: 10px;
+  line-height: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--graphite);
+}
+
+.t-hero {
+  font-family: var(--font-display), Instrument Serif, Georgia, serif;
+  font-size: 40px;
+  line-height: 42px;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.t-title {
+  font-family: var(--font-display), Instrument Serif, Georgia, serif;
+  font-size: 26px;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.t-body {
+  font-family: var(--font-body), Newsreader, Georgia, serif;
+  font-size: 17px;
+  line-height: 27px;
+  color: var(--ink);
+  max-width: 34rem;
+}
+
+.t-quote {
+  font-family: var(--font-body), Newsreader, Georgia, serif;
+  font-size: 17px;
+  line-height: 27px;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.t-ui {
+  font-family: var(--font-ui), Instrument Sans, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.t-num {
+  font-family: var(--font-mono), IBM Plex Mono, monospace;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+}

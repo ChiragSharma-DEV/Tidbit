@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import StitchLogo from './StitchLogo';
 import { ArticleWithQuiz } from '@/contexts/AttentionTrainerContext';
 
 interface StitchArticleReaderProps {
@@ -10,6 +11,7 @@ interface StitchArticleReaderProps {
   onToggleSave?: () => void;
   onUpdateProgress?: (percent: number) => void;
   onMarkComplete?: () => void;
+  onOpenMilestoneCard?: () => void;
 }
 
 export default function StitchArticleReader({
@@ -19,6 +21,7 @@ export default function StitchArticleReader({
   onToggleSave,
   onUpdateProgress,
   onMarkComplete,
+  onOpenMilestoneCard,
 }: StitchArticleReaderProps) {
   const [scrollProgress, setScrollProgress] = useState(article.progressPercent || 15);
   const [highlightActive, setHighlightActive] = useState(true);
@@ -30,7 +33,7 @@ export default function StitchArticleReader({
   // Active reading timer
   useEffect(() => {
     const timer = setInterval(() => {
-      if (document.visibilityState === 'visible' && document.hasFocus()) {
+      if (typeof document !== 'undefined' && document.visibilityState === 'visible' && document.hasFocus()) {
         setReadingSeconds((prev) => prev + 1);
       }
     }, 1000);
@@ -52,7 +55,7 @@ export default function StitchArticleReader({
       setScrollProgress(progress);
       onUpdateProgress?.(progress);
 
-      if (progress >= 95 && !isCompleted) {
+      if (progress >= 90 && !isCompleted) {
         setIsCompleted(true);
         onMarkComplete?.();
       }
@@ -81,7 +84,7 @@ export default function StitchArticleReader({
   };
 
   return (
-    <div className="bg-surface-container-lowest text-on-surface min-h-screen flex flex-col fixed inset-0 z-50 overflow-hidden">
+    <div className="bg-paper text-on-surface min-h-screen flex flex-col fixed inset-0 z-50 overflow-hidden transition-colors duration-200">
       {/* Top Reading Navigation Bar */}
       <header className="flex justify-between items-center px-4 md:px-margin-page py-3 w-full bg-paper border-b border-hairline sticky top-0 z-50">
         <button
@@ -93,10 +96,8 @@ export default function StitchArticleReader({
         </button>
 
         <div className="flex flex-col items-center">
-          <div className="font-display-lg-mobile text-[22px] md:text-[24px] text-ink-blue tracking-tight font-serif text-center">
-            Tidbit
-          </div>
-          <span className="font-label-mono text-[9px] text-graphite uppercase tracking-widest hidden sm:inline">
+          <StitchLogo variant="horizontal" size="sm" showTagline={false} />
+          <span className="font-label-mono text-[9px] text-graphite uppercase tracking-widest hidden sm:inline mt-0.5">
             Focus Time: {formatTimer(readingSeconds)}
           </span>
         </div>
@@ -106,7 +107,9 @@ export default function StitchArticleReader({
             onClick={() => setHighlightActive(!highlightActive)}
             title="Toggle Highlighter"
             className={`p-1.5 rounded transition-colors cursor-pointer ${
-              highlightActive ? 'bg-tertiary-fixed text-on-surface' : 'text-graphite hover:text-ink-blue'
+              highlightActive
+                ? 'bg-tertiary-fixed text-on-surface dark:bg-indigo-950 dark:text-indigo-200'
+                : 'text-graphite hover:text-ink-blue'
             }`}
           >
             <span className="material-symbols-outlined text-[20px]">border_color</span>
@@ -148,7 +151,7 @@ export default function StitchArticleReader({
           {/* 28px Left Gutter & Interactive Progress Ruler */}
           <div className="w-gutter-ruler flex-shrink-0 relative mr-4 md:mr-stack-md h-full min-h-[500px]">
             {/* Base Track */}
-            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] bg-paper-border" />
+            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] bg-paper-border dark:bg-[#282933]" />
             {/* Active Ink Blue Progress Fill */}
             <div
               className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] bg-ink-blue transition-all duration-300 ease-out"
@@ -157,25 +160,44 @@ export default function StitchArticleReader({
           </div>
 
           {/* Reading Content */}
-          <article className="flex-grow pt-2 pb-24">
+          <article className="flex-grow pt-2 pb-28">
             {/* Meta Info: Topic & Word Count */}
             <div className="w-full flex justify-between items-center mb-6">
               <span className="font-label-mono text-label-mono text-graphite uppercase tracking-widest">
                 {article.topic}
               </span>
-              <span className="font-label-mono text-label-mono text-secondary uppercase tracking-widest font-semibold">
-                {article.wordCount} WORDS · {scrollProgress}% READ
-              </span>
+              <div className="flex items-center gap-2">
+                {article.difficultyLevel && (
+                  <span className="font-label-mono text-[10px] uppercase font-bold text-ink-blue bg-surface-container-lowest border border-hairline px-2 py-0.5 rounded">
+                    {article.difficultyLevel}
+                  </span>
+                )}
+                <span className="font-label-mono text-label-mono text-secondary dark:text-emerald-400 uppercase tracking-widest font-semibold">
+                  {article.wordCount} WORDS · {scrollProgress}% READ
+                </span>
+              </div>
             </div>
 
             {/* Headline */}
-            <h1 className="font-display-lg-mobile text-[30px] md:font-display-lg md:text-[42px] text-on-surface mb-8 font-serif leading-[1.15]">
+            <h1 className="font-display-lg-mobile text-[30px] md:font-display-lg md:text-[42px] text-on-surface mb-6 font-serif leading-[1.15]">
               {article.title || 'The Art of Noticing'}
             </h1>
 
-            {/* Key Takeaway if short/medium */}
+            {/* Analogy Box if present */}
+            {article.analogy && (
+              <div className="mb-6 my-4 pl-4 border-l-2 border-[var(--ink)]">
+                <span className="t-label block mb-1">
+                  IN SIMPLE WORDS
+                </span>
+                <p className="t-quote">
+                  "{article.analogy}"
+                </p>
+              </div>
+            )}
+
+            {/* Key Takeaway Quote Box */}
             {article.keyTakeaway && (
-              <div className="mb-6 px-4 py-3 bg-surface-container-lowest border-l-4 border-ink-blue rounded-r text-on-surface font-serif italic text-[17px]">
+              <div className="mb-8 pl-4 border-l-2 border-[var(--ink)] text-on-surface t-quote">
                 "{article.keyTakeaway}"
               </div>
             )}
@@ -193,7 +215,7 @@ export default function StitchArticleReader({
                   {idx === 0 && highlightActive ? (
                     <>
                       {para.split(' ').map((w, i) =>
-                        ['model', 'attention', 'silence', 'technology', 'focus', 'clarity', 'signals'].some((k) =>
+                        ['model', 'attention', 'silence', 'technology', 'focus', 'clarity', 'signals', 'bandwidth'].some((k) =>
                           w.toLowerCase().includes(k)
                         ) ? (
                           <span
@@ -215,7 +237,7 @@ export default function StitchArticleReader({
 
               {/* Minimalist Pull Quote Block */}
               {article.pullQuote ? (
-                <div className="my-8 border border-hairline bg-paper/60 p-6 md:p-8 rounded">
+                <div className="my-8 border border-hairline bg-surface-container-lowest p-6 md:p-8 rounded">
                   <p className="font-headline-md text-[22px] md:text-headline-md text-on-surface italic mb-2 font-serif">
                     "{article.pullQuote.quote}"
                   </p>
@@ -224,7 +246,7 @@ export default function StitchArticleReader({
                   </p>
                 </div>
               ) : (
-                <div className="my-8 border border-hairline bg-paper/60 p-6 md:p-8 rounded">
+                <div className="my-8 border border-hairline bg-surface-container-lowest p-6 md:p-8 rounded">
                   <p className="font-headline-md text-[22px] md:text-headline-md text-on-surface italic mb-2 font-serif">
                     "Attention is the rarest and purest form of generosity."
                   </p>
@@ -235,26 +257,38 @@ export default function StitchArticleReader({
               )}
             </div>
 
-            {/* End of Read Action: Quick Check Overlay */}
-            {onTakeQuickCheck && (
-              <div className="mt-12 pt-8 border-t border-hairline flex flex-col sm:flex-row justify-between items-center gap-4 bg-surface-container-lowest border border-hairline p-6 rounded-lg shadow-sm">
-                <div>
-                  <span className="font-label-mono text-[11px] text-ink-blue uppercase tracking-widest block mb-1 font-bold">
-                    {isCompleted ? '✓ COMPLETED READ' : 'CHECK UNDERSTANDING'}
-                  </span>
-                  <p className="font-headline-md text-[20px] text-on-surface font-serif">
-                    Test comprehension & gain +50 XP
-                  </p>
-                </div>
-                <button
-                  onClick={onTakeQuickCheck}
-                  className="bg-primary-container hover:bg-ink-blue text-white font-ui-button text-ui-button px-6 py-3 rounded transition-colors shadow-sm flex items-center gap-2 cursor-pointer shrink-0"
-                >
-                  <span>Take Quick Check</span>
-                  <span>→</span>
-                </button>
+            {/* End of Read Action: Quick Check & Milestone Share Overlay */}
+            <div className="mt-12 pt-8 border-t border-hairline flex flex-col sm:flex-row justify-between items-center gap-4 bg-surface-container-lowest border border-hairline p-6 rounded-lg shadow-sm">
+              <div>
+                <span className="font-label-mono text-[11px] text-ink-blue uppercase tracking-widest block mb-1 font-bold">
+                  {isCompleted ? '✓ COMPLETED READ' : 'CHECK UNDERSTANDING'}
+                </span>
+                <p className="font-headline-md text-[20px] text-on-surface font-serif">
+                  {isCompleted ? 'Milestone Certificate Unlocked' : 'Test comprehension & gain +50 XP'}
+                </p>
               </div>
-            )}
+
+              <div className="flex items-center gap-3 shrink-0">
+                {onOpenMilestoneCard && (
+                  <button
+                    onClick={onOpenMilestoneCard}
+                    className="px-4 py-3 rounded-[var(--r-control)] border border-[var(--rule)] bg-[var(--insert)] hover:border-[var(--ink)] text-[var(--ink)] t-ui flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span>View Certificate</span>
+                  </button>
+                )}
+
+                {onTakeQuickCheck && (
+                  <button
+                    onClick={onTakeQuickCheck}
+                    className="bg-primary-container hover:bg-ink-blue text-white font-ui-button text-ui-button px-6 py-3 rounded transition-colors shadow-sm flex items-center gap-2 cursor-pointer shrink-0"
+                  >
+                    <span>Take Quick Check</span>
+                    <span>→</span>
+                  </button>
+                )}
+              </div>
+            </div>
           </article>
         </div>
       </main>

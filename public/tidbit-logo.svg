@@ -1,0 +1,24 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cream Paper Background -->
+  <rect width="500" height="500" fill="#FAF7F2"/>
+  
+  <!-- Terracotta / Peach Bookmark Silhouette -->
+  <path d="M220 130C220 118.954 228.954 110 240 110H370C392.091 110 410 127.909 410 150V290C410 312.091 392.091 330 370 330H240C228.954 330 220 321.046 220 310V130Z" fill="#E8B8A6"/>
+  
+  <!-- Stylized Bookmark Negative Space Flake -->
+  <path d="M245 320C245 285 290 270 330 215C345 235 345 290 325 320H245Z" fill="#FAF7F2"/>
+  
+  <!-- 3 Reading Rhythm Lines -->
+  <line x1="250" y1="355" x2="395" y2="355" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/>
+  <line x1="250" y1="375" x2="395" y2="375" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/>
+  <line x1="250" y1="395" x2="395" y2="395" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Serif Monogram 't' -->
+  <text x="145" y="325" font-family="Georgia, 'Playfair Display', serif" font-size="220" font-weight="bold" fill="#1A1A1A">t</text>
+  
+  <!-- Wordmark 'tidbit' -->
+  <text x="250" y="445" text-anchor="middle" font-family="Georgia, 'Playfair Display', serif" font-size="52" font-weight="bold" letter-spacing="8" fill="#1A1A1A">tidbit</text>
+  
+  <!-- Tagline -->
+  <text x="250" y="475" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" letter-spacing="3" fill="#6B7280">SMALL READS. BIG THOUGHTS.</text>
+</svg>

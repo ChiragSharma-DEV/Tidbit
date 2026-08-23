@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { hueForTopic } from '@/lib/design/topicHue';
 
 export interface QuickCheckOption {
   key: string;
@@ -13,6 +14,7 @@ export interface StitchQuickCheckOverlayProps {
   onClose: () => void;
   onComplete: (earnedXp: number) => void;
   question?: string;
+  topic?: string;
   nodeStep?: string;
   options?: QuickCheckOption[];
   explanation?: string;
@@ -24,6 +26,7 @@ export default function StitchQuickCheckOverlay({
   onClose,
   onComplete,
   question = 'Which of these is not a real advantage of small language models?',
+  topic = 'AI & Tech',
   nodeStep = 'NODE 3 OF 6',
   options = [
     { key: 'A', text: 'Lower computing cost', isCorrect: false },
@@ -36,6 +39,7 @@ export default function StitchQuickCheckOverlay({
 }: StitchQuickCheckOverlayProps) {
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const hueVar = hueForTopic(topic);
 
   useEffect(() => {
     if (isOpen) {
@@ -61,116 +65,88 @@ export default function StitchQuickCheckOverlay({
     }
   };
 
-  const isSelectedCorrect = options.find((o) => o.key === selectedKey)?.isCorrect;
-
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-[#16171B]/55 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-[#1A1814]/40 transition-opacity"
       />
 
-      {/* Bottom Sheet / Modal Dialog */}
-      <div className="relative w-full max-w-lg bg-surface-container-lowest border-t sm:border border-hairline rounded-t-xl sm:rounded-lg z-50 p-6 md:p-8 flex flex-col max-h-[85vh] overflow-y-auto shadow-xl">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-graphite hover:text-ink-blue transition-colors p-1"
-        >
-          <span className="material-symbols-outlined text-[20px]">close</span>
-        </button>
-
-        {/* Header Tag */}
+      {/* White Sheet Modal: bg-[var(--insert)], 1px border [var(--rule)] */}
+      <div className="relative w-full max-w-lg bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] z-50 p-6 flex flex-col max-h-[85vh] overflow-y-auto shadow-[0_1px_2px_rgba(26,24,20,0.04)]">
+        {/* Header */}
         <div className="mb-4">
-          <span className="font-label-mono text-[11px] text-ink-blue uppercase tracking-widest block font-bold">
-            QUICK CHECK · {nodeStep}
-          </span>
-          <h3 className="font-headline-md text-[22px] md:text-[25px] text-on-background leading-tight tracking-tight font-serif mt-2">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span
+              className="t-label font-bold"
+              style={{ color: `var(${hueVar})` }}
+            >
+              QUICK CHECK · {nodeStep}
+            </span>
+            <button
+              onClick={onClose}
+              className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer"
+            >
+              Close
+            </button>
+          </div>
+          <h3 className="t-title font-display mt-1">
             {question}
           </h3>
         </div>
 
-        {/* Options List */}
-        <div className="flex flex-col gap-2.5 my-4">
+        {/* Answer Rows with 1px rule border */}
+        <div className="flex flex-col gap-2 my-4">
           {options.map((option) => {
             const isSelected = selectedKey === option.key;
-            let buttonClasses =
-              'w-full text-left bg-surface-container-lowest border border-hairline rounded flex items-center p-3.5 transition-all text-on-surface hover:border-outline-variant cursor-pointer';
-
-            if (isSelected) {
-              if (hasSubmitted) {
-                if (option.isCorrect) {
-                  buttonClasses =
-                    'w-full text-left bg-ink-blue/[0.07] border-2 border-ink-blue rounded flex items-center p-3.5 transition-all text-on-surface shadow-sm';
-                } else {
-                  buttonClasses =
-                    'w-full text-left bg-red-50 border-2 border-red-500 rounded flex items-center p-3.5 transition-all text-on-surface';
-                }
-              } else {
-                buttonClasses =
-                  'w-full text-left bg-paper border-2 border-ink-blue rounded flex items-center p-3.5 transition-all text-on-surface';
-              }
-            } else if (hasSubmitted && option.isCorrect) {
-              buttonClasses =
-                'w-full text-left bg-green-50/50 border border-green-600 rounded flex items-center p-3.5 transition-all text-on-surface';
-            }
 
             return (
               <button
                 key={option.key}
                 onClick={() => handleSelect(option.key)}
-                className={buttonClasses}
+                className="w-full text-left p-3.5 rounded-[var(--r-control)] border transition-all flex items-center cursor-pointer"
+                style={{
+                  borderColor: isSelected ? `var(${hueVar})` : 'var(--rule)',
+                  backgroundColor: isSelected ? `rgba(92, 107, 138, 0.06)` : 'var(--insert)',
+                }}
               >
-                <span
-                  className={`font-label-mono text-[12px] mr-3 w-5 uppercase font-semibold ${
-                    isSelected && option.isCorrect && hasSubmitted
-                      ? 'text-ink-blue font-bold'
-                      : 'text-graphite'
-                  }`}
-                >
+                <span className="t-num text-[var(--graphite)] mr-3 w-5">
                   {option.key}
                 </span>
-                <span className="font-ui-button text-[14px] md:text-[15px] flex-1">
+                <span className="t-ui text-[var(--ink)] flex-1">
                   {option.text}
                 </span>
-                {hasSubmitted && option.isCorrect && (
-                  <span className="text-ink-blue text-sm font-bold">✓</span>
-                )}
               </button>
             );
           })}
         </div>
 
-        {/* Explanation Block */}
+        {/* Explanation Block: Flush block with 2px left border in topic-hue */}
         {hasSubmitted && (
-          <div className="mt-2 p-4 bg-paper rounded border border-hairline transition-all">
-            <p className="font-label-mono text-[10px] text-graphite uppercase tracking-wider mb-1 font-bold">
-              {isSelectedCorrect ? '✓ CORRECT' : 'NOTE'}
-            </p>
-            <p className="font-article-body text-[14px] leading-[22px] text-graphite">
+          <div
+            className="my-3 pl-4 border-l-2"
+            style={{ borderLeftColor: `var(${hueVar})` }}
+          >
+            <span className="t-label block mb-1">EXPLANATION</span>
+            <p className="t-body text-[15px] leading-[23px]">
               {explanation}
             </p>
           </div>
         )}
 
         {/* Footer Actions */}
-        <div className="mt-6 pt-4 border-t border-hairline flex justify-between items-center">
-          <div className="flex items-center gap-1.5">
-            <span className="material-symbols-outlined text-ink-blue text-[18px]">
-              bolt
-            </span>
-            <span className="font-label-mono text-[11px] text-graphite uppercase tracking-widest font-bold">
-              +{xpAward} XP
-            </span>
-          </div>
+        <div className="mt-6 pt-4 border-t border-[var(--rule)] flex justify-between items-center">
+          <span className="t-num text-[var(--graphite)]">
+            +{xpAward} WORDS EXPANSION
+          </span>
 
           <button
             disabled={!selectedKey}
             onClick={handleSubmitOrContinue}
-            className="bg-primary-container hover:bg-ink-blue disabled:opacity-40 text-white font-ui-button text-ui-button px-6 py-2.5 rounded transition-colors cursor-pointer"
+            className="t-ui px-5 py-2 rounded-[var(--r-control)] bg-[var(--ink)] text-[var(--insert)] hover:opacity-90 disabled:opacity-30 cursor-pointer font-semibold"
           >
-            {hasSubmitted ? 'Continue' : 'Check Answer'}
+            {hasSubmitted ? 'Continue' : 'Check answer'}
           </button>
         </div>
       </div>

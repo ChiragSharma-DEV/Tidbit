@@ -12,11 +12,13 @@ export default function StitchStaminaStats() {
     masteredContexts,
     rollingAverages,
     staminaLevel,
+    calibratedLevel,
     xp,
     baselineLength,
+    setOnboardingOpen,
   } = useAttentionTrainer();
 
-  const goalPercent = Math.min(100, Math.round((totalWordsReadToday / dailyGoalWords) * 100));
+  const goalPercent = Math.min(100, Math.round((totalWordsReadToday / (dailyGoalWords || 1)) * 100));
   const growthMultiplier = (longestUnbrokenRead / Math.max(1, baselineLength)).toFixed(1);
 
   return (
@@ -27,9 +29,11 @@ export default function StitchStaminaStats() {
           <h2 className="font-label-mono text-[11px] text-graphite uppercase tracking-widest font-bold">
             Longest Unbroken Read
           </h2>
-          <span className="font-label-mono text-[11px] text-ink-blue uppercase tracking-wider font-bold">
-            STAMINA LEVEL {staminaLevel} · {xp} XP
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="font-label-mono text-[11px] text-ink-blue uppercase tracking-wider font-bold bg-surface-container-lowest border border-hairline px-2.5 py-0.5 rounded">
+              LEVEL {calibratedLevel} TRACK · {staminaLevel}% STAMINA · {xp} XP
+            </span>
+          </div>
         </div>
         <div className="flex items-baseline gap-3">
           <span className="font-display-lg text-[64px] md:text-[76px] text-ink-blue font-serif leading-none">
@@ -40,25 +44,25 @@ export default function StitchStaminaStats() {
           </span>
         </div>
         <p className="font-article-body-mobile text-[16px] text-graphite">
-          Your initial calibration was {baselineLength} words. You've grown your sustained focus by {growthMultiplier}x.
+          Your starting baseline was {baselineLength} words. You've grown your sustained focus by {growthMultiplier}x.
         </p>
       </section>
 
       {/* Horizontal Ruler Visualization */}
       <section className="py-4 w-full relative">
-        <div className="w-full h-[2px] bg-paper-border relative">
+        <div className="w-full h-[2px] bg-paper-border dark:bg-[#282933] relative">
           {/* Fill Line */}
           <div
             className="h-[2px] bg-ink-blue absolute top-0 left-0 transition-all duration-1000 ease-in-out"
-            style={{ width: `${Math.min(100, (longestUnbrokenRead / 500) * 100)}%` }}
+            style={{ width: `${Math.min(100, (longestUnbrokenRead / 600) * 100)}%` }}
           />
         </div>
 
         {/* Tick Marks container */}
         <div className="relative w-full flex justify-between pt-3">
-          {[0, 100, 200, 300, 400, 500].map((val) => (
+          {[0, 100, 200, 300, 400, 500, 600].map((val) => (
             <div key={val} className="flex flex-col items-center">
-              <div className="w-[1px] h-2 bg-paper-border mb-1" />
+              <div className="w-[1px] h-2 bg-paper-border dark:bg-[#282933] mb-1" />
               <span className="font-label-mono text-[10px] text-graphite font-medium">
                 {val}
               </span>
@@ -71,7 +75,7 @@ export default function StitchStaminaStats() {
       <section className="flex flex-col bg-surface-container-lowest border border-hairline rounded p-6 gap-2 shadow-xs">
         <div className="flex flex-row justify-between items-center py-3.5 border-b border-hairline">
           <span className="font-label-mono text-[11px] text-graphite tracking-widest uppercase">
-            CURRENT SESSION
+            CURRENT SESSION WORDS
           </span>
           <span className="font-label-mono text-[13px] text-on-surface font-semibold tracking-widest">
             {sessionWordsRead.toLocaleString()} WORDS
@@ -80,7 +84,7 @@ export default function StitchStaminaStats() {
 
         <div className="flex flex-row justify-between items-center py-3.5 border-b border-hairline">
           <span className="font-label-mono text-[11px] text-graphite tracking-widest uppercase">
-            MAX DEPTH
+            MAX FOCUS DEPTH
           </span>
           <span className="font-label-mono text-[13px] text-on-surface font-semibold tracking-widest">
             {longestUnbrokenRead} WORDS
@@ -90,15 +94,15 @@ export default function StitchStaminaStats() {
         <div className="flex flex-col gap-2.5 pt-3.5">
           <div className="flex flex-row justify-between items-center">
             <span className="font-label-mono text-[11px] text-graphite tracking-widest uppercase">
-              DAILY GOAL: {dailyGoalWords.toLocaleString()} WORDS
+              TODAY'S DAILY GOAL: {dailyGoalWords.toLocaleString()} WORDS
             </span>
             <span className="font-label-mono text-[12px] text-ink-blue font-bold tracking-widest">
               {goalPercent}%
             </span>
           </div>
-          <div className="w-full h-[3px] bg-paper-border relative rounded-full overflow-hidden">
+          <div className="w-full h-[4px] bg-paper-border dark:bg-[#282933] relative rounded-full overflow-hidden">
             <div
-              className="absolute top-0 left-0 h-full bg-ink-blue transition-all duration-1000 ease-in-out"
+              className="absolute top-0 left-0 h-full bg-ink-blue transition-all duration-1000 ease-in-out rounded-full"
               style={{ width: `${goalPercent}%` }}
             />
           </div>
@@ -107,16 +111,31 @@ export default function StitchStaminaStats() {
 
       {/* Mastered Contexts Section */}
       <section className="flex flex-col gap-4">
-        <h3 className="font-label-mono text-[11px] text-graphite tracking-widest uppercase font-bold">
-          Mastered Contexts ({masteredContexts.length})
-        </h3>
+        <div className="flex justify-between items-center">
+          <h3 className="font-label-mono text-[11px] text-graphite tracking-widest uppercase font-bold">
+            Mastered Concepts & Analogies ({masteredContexts.length})
+          </h3>
+          <button
+            onClick={() => setOnboardingOpen(true)}
+            className="t-label text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer font-semibold"
+          >
+            CALIBRATE LEVEL
+          </button>
+        </div>
         <ul className="flex flex-col bg-surface-container-lowest border border-hairline rounded divide-y divide-hairline">
           {masteredContexts.map((ctx) => (
             <li key={ctx.id} className="p-5 hover:bg-paper/30 transition-colors">
               <div className="flex justify-between items-center mb-1">
-                <span className="font-label-mono text-[10px] text-graphite uppercase tracking-wider">
-                  {ctx.topic}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="font-label-mono text-[10px] text-graphite uppercase tracking-wider">
+                    {ctx.topic}
+                  </span>
+                  {ctx.difficultyLevel && (
+                    <span className="font-label-mono text-[9px] uppercase font-bold text-ink-blue bg-paper px-1.5 py-0.5 rounded border border-hairline">
+                      {ctx.difficultyLevel}
+                    </span>
+                  )}
+                </div>
                 <span className="font-label-mono text-[10px] text-ink-blue font-semibold">
                   {ctx.completedAt}
                 </span>
@@ -133,10 +152,10 @@ export default function StitchStaminaStats() {
       <section className="w-full bg-surface-container-lowest border border-hairline rounded relative p-6 flex flex-col items-center justify-center min-h-[180px] shadow-xs">
         <div className="w-full flex items-center justify-between mb-4 pb-2 border-b border-hairline">
           <span className="font-label-mono text-[10px] text-graphite uppercase tracking-widest font-bold">
-            Attention Span Visualization
+            Attention Stamina Dynamics
           </span>
           <span className="font-label-mono text-[10px] text-ink-blue uppercase tracking-widest font-bold">
-            Rolling 15-day average
+            Rolling 15-session average
           </span>
         </div>
 
@@ -146,10 +165,10 @@ export default function StitchStaminaStats() {
             <div key={idx} className="flex-1 flex flex-col items-center gap-1">
               <div
                 className={`w-full rounded-t-sm transition-all ${
-                  idx === rollingAverages.length - 1 ? 'bg-ink-blue' : 'bg-paper-border hover:bg-ink-blue/40'
+                  idx === rollingAverages.length - 1 ? 'bg-ink-blue' : 'bg-paper-border dark:bg-[#282933] hover:bg-ink-blue/40'
                 }`}
                 style={{ height: `${val}%` }}
-                title={`Day ${idx + 1}: ${val}% focus depth`}
+                title={`Session ${idx + 1}: ${val}% cognitive depth`}
               />
             </div>
           ))}

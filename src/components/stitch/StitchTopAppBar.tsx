@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { useAttentionTrainer } from '@/contexts/AttentionTrainerContext';
 
 interface StitchTopAppBarProps {
   currentTab: string;
@@ -14,107 +14,92 @@ interface StitchTopAppBarProps {
 export default function StitchTopAppBar({
   currentTab,
   onTabChange,
-  staminaLevel = 34,
   onOpenSearch,
   onOpenMenu,
 }: StitchTopAppBarProps) {
+  const {
+    calibratedLevel,
+    currentUser,
+    openComposeModal,
+    setOnboardingOpen,
+  } = useAttentionTrainer();
+
   return (
-    <header className="flex justify-between items-center px-4 md:px-margin-page py-4 w-full bg-paper border-b border-hairline sticky top-0 z-40">
-      <div className="flex items-center gap-3">
-        <button
-          onClick={onOpenMenu}
-          aria-label="Menu"
-          className="text-ink-blue hover:opacity-80 transition-opacity flex items-center justify-center p-1"
-        >
-          <span className="material-symbols-outlined text-[24px]">menu</span>
-        </button>
-        <button
-          onClick={() => onTabChange('feed')}
-          className="font-display-lg-mobile text-[28px] md:text-[32px] text-ink-blue tracking-tight font-serif text-left leading-none"
-        >
-          Tidbit
-        </button>
-      </div>
-
-      {/* Desktop Navigation */}
-      <nav className="hidden md:flex gap-8 font-ui-button text-ui-button items-center">
-        <button
-          onClick={() => onTabChange('feed')}
-          className={`pb-1 border-b-2 transition-all ${
-            currentTab === 'feed'
-              ? 'text-ink-blue font-bold border-ink-blue'
-              : 'text-graphite hover:text-ink-blue border-transparent'
-          }`}
-        >
-          Feed
-        </button>
-        <button
-          onClick={() => onTabChange('path')}
-          className={`pb-1 border-b-2 transition-all ${
-            currentTab === 'path'
-              ? 'text-ink-blue font-bold border-ink-blue'
-              : 'text-graphite hover:text-ink-blue border-transparent'
-          }`}
-        >
-          Path
-        </button>
-        <button
-          onClick={() => onTabChange('library')}
-          className={`pb-1 border-b-2 transition-all ${
-            currentTab === 'library'
-              ? 'text-ink-blue font-bold border-ink-blue'
-              : 'text-graphite hover:text-ink-blue border-transparent'
-          }`}
-        >
-          Library
-        </button>
-        <button
-          onClick={() => onTabChange('stats')}
-          className={`pb-1 border-b-2 transition-all ${
-            currentTab === 'stats'
-              ? 'text-ink-blue font-bold border-ink-blue'
-              : 'text-graphite hover:text-ink-blue border-transparent'
-          }`}
-        >
-          Stats
-        </button>
-        <button
-          onClick={() => onTabChange('design-system')}
-          className={`pb-1 border-b-2 transition-all ${
-            currentTab === 'design-system'
-              ? 'text-ink-blue font-bold border-ink-blue'
-              : 'text-graphite hover:text-ink-blue border-transparent'
-          }`}
-        >
-          Design System
-        </button>
-      </nav>
-
-      {/* Right controls: Stamina meter & Search */}
-      <div className="flex items-center gap-4">
-        <div
-          onClick={() => onTabChange('stats')}
-          className="cursor-pointer hidden sm:flex flex-col items-end group"
-          title="Current Attention Stamina Level"
-        >
-          <span className="font-label-mono text-[10px] text-graphite uppercase tracking-widest mb-1 group-hover:text-ink-blue transition-colors">
-            STAMINA {staminaLevel}
+    <header className="w-full bg-[var(--stock)] border-b border-[var(--rule)] sticky top-0 z-40">
+      <div className="max-w-[420px] md:max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          {onOpenMenu && (
+            <button
+              onClick={onOpenMenu}
+              aria-label="Menu"
+              className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer md:hidden"
+            >
+              Menu
+            </button>
+          )}
+          <span
+            onClick={() => onTabChange('feed')}
+            className="t-title font-display cursor-pointer select-none text-[22px]"
+          >
+            Tidbit
           </span>
-          <div className="w-12 h-[2px] bg-paper-border relative">
-            <div
-              className="absolute left-0 top-0 h-full bg-ink-blue transition-all"
-              style={{ width: `${Math.min(100, staminaLevel * 2.5)}%` }}
-            />
-          </div>
         </div>
 
-        <button
-          onClick={onOpenSearch}
-          aria-label="Search"
-          className="text-ink-blue hover:opacity-80 transition-opacity flex items-center justify-center p-1"
-        >
-          <span className="material-symbols-outlined text-[24px]">search</span>
-        </button>
+        {/* Desktop Navigation Tabs */}
+        <nav className="hidden md:flex items-center gap-6">
+          {[
+            { id: 'feed', label: 'Feed' },
+            { id: 'path', label: 'Skill Trees' },
+            { id: 'library', label: 'Library' },
+            { id: 'stats', label: 'Profile' },
+            { id: 'design-system', label: 'Design System' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => onTabChange(tab.id)}
+              className={`t-ui transition-colors cursor-pointer ${
+                currentTab === tab.id
+                  ? 'font-semibold text-[var(--ink)]'
+                  : 'text-[var(--graphite)] hover:text-[var(--ink)]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* Right Controls */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={openComposeModal}
+            className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer"
+          >
+            Create
+          </button>
+
+          <button
+            onClick={() => setOnboardingOpen(true)}
+            className="t-label text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer hidden sm:inline"
+          >
+            LEVEL {calibratedLevel}
+          </button>
+
+          {onOpenSearch && (
+            <button
+              onClick={onOpenSearch}
+              className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer"
+            >
+              Search
+            </button>
+          )}
+
+          <button
+            onClick={() => onTabChange('stats')}
+            className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer"
+          >
+            {currentUser?.name || 'Account'}
+          </button>
+        </div>
       </div>
     </header>
   );

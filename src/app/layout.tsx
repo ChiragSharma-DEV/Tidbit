@@ -1,22 +1,39 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Instrument_Serif, Newsreader, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers/Providers";
 
-const inter = Inter({
-  variable: "--font-sans",
+const fontDisplay = Instrument_Serif({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+const fontBody = Newsreader({
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-body",
+  display: "swap",
+  adjustFontFallback: false,
+});
+
+const fontUi = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-ui",
+  display: "swap",
+});
+
+const fontMono = IBM_Plex_Mono({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Tidbit AI - Personalized Learning Platform",
-  description: "AI-powered personalized learning platform. Upload PDFs and let AI create interactive courses tailored to your learning style.",
-  keywords: ["learning", "education", "AI", "personalized learning", "online courses"],
+  title: "Tidbit · Calibrated Reader",
+  description: "Train cognitive bandwidth with calibrated, distraction-free reading tracks.",
 };
 
 export default function RootLayout({
@@ -25,23 +42,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        {/* Google Fonts for Stitch Tidbit Design System */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-          rel="stylesheet"
-        />
-      </head>
-      <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning className={`${fontDisplay.variable} ${fontBody.variable} ${fontUi.variable} ${fontMono.variable}`}>
+      <body className="bg-stock text-ink font-body antialiased min-h-screen" suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>
