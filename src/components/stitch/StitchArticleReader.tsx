@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import StitchLogo from './StitchLogo';
 import { ArticleWithQuiz } from '@/contexts/AttentionTrainerContext';
+import { hueForTopic } from '@/lib/design/topicHue';
 
 interface StitchArticleReaderProps {
   article: ArticleWithQuiz;
@@ -24,11 +24,11 @@ export default function StitchArticleReader({
   onOpenMilestoneCard,
 }: StitchArticleReaderProps) {
   const [scrollProgress, setScrollProgress] = useState(article.progressPercent || 15);
-  const [highlightActive, setHighlightActive] = useState(true);
   const [fontSizeClass, setFontSizeClass] = useState<'normal' | 'large'>('normal');
   const [readingSeconds, setReadingSeconds] = useState(0);
   const [isCompleted, setIsCompleted] = useState(article.completed || false);
   const contentRef = useRef<HTMLDivElement>(null);
+  const hueVar = hueForTopic(article.topic);
 
   // Active reading timer
   useEffect(() => {
@@ -84,59 +84,36 @@ export default function StitchArticleReader({
   };
 
   return (
-    <div className="bg-paper text-on-surface min-h-screen flex flex-col fixed inset-0 z-50 overflow-hidden transition-colors duration-200">
+    <div className="bg-[var(--stock)] text-[var(--ink)] min-h-screen flex flex-col fixed inset-0 z-50 overflow-hidden">
       {/* Top Reading Navigation Bar */}
-      <header className="flex justify-between items-center px-4 md:px-margin-page py-3 w-full bg-paper border-b border-hairline sticky top-0 z-50">
+      <header className="flex justify-between items-center px-4 md:px-8 py-3 w-full bg-[var(--stock)] border-b border-[var(--rule)] sticky top-0 z-50">
         <button
           onClick={onBack}
-          className="text-graphite hover:text-ink-blue transition-colors flex items-center gap-1.5 font-ui-button text-[14px] cursor-pointer"
+          className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] transition-colors cursor-pointer font-semibold"
         >
-          <span className="material-symbols-outlined text-[20px]">arrow_back</span>
-          <span>Back</span>
+          Back
         </button>
 
         <div className="flex flex-col items-center">
-          <StitchLogo variant="horizontal" size="sm" showTagline={false} />
-          <span className="font-label-mono text-[9px] text-graphite uppercase tracking-widest hidden sm:inline mt-0.5">
-            Focus Time: {formatTimer(readingSeconds)}
+          <span className="t-title font-display text-[20px]">Tidbit</span>
+          <span className="t-num text-[var(--graphite)] hidden sm:inline">
+            FOCUS TIME: {formatTimer(readingSeconds)}
           </span>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-4">
           <button
-            onClick={() => setHighlightActive(!highlightActive)}
-            title="Toggle Highlighter"
-            className={`p-1.5 rounded transition-colors cursor-pointer ${
-              highlightActive
-                ? 'bg-tertiary-fixed text-on-surface dark:bg-indigo-950 dark:text-indigo-200'
-                : 'text-graphite hover:text-ink-blue'
-            }`}
+            onClick={() => setFontSizeClass(fontSizeClass === 'normal' ? 'large' : 'normal')}
+            className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] font-semibold cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[20px]">border_color</span>
-          </button>
-          <button
-            onClick={() =>
-              setFontSizeClass(fontSizeClass === 'normal' ? 'large' : 'normal')
-            }
-            title="Change Text Size"
-            className="p-1.5 text-graphite hover:text-ink-blue transition-colors font-label-mono text-[12px] font-bold cursor-pointer"
-          >
-            {fontSizeClass === 'normal' ? 'A+' : 'A-'}
+            {fontSizeClass === 'normal' ? 'Size +' : 'Size -'}
           </button>
           {onToggleSave && (
             <button
               onClick={onToggleSave}
-              className="text-graphite hover:text-ink-blue transition-colors p-1.5 cursor-pointer"
-              title={article.saved ? 'Remove bookmark' : 'Bookmark article'}
+              className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer"
             >
-              <span
-                className="material-symbols-outlined text-[20px]"
-                style={{
-                  fontVariationSettings: article.saved ? "'FILL' 1" : "'FILL' 0",
-                }}
-              >
-                bookmark
-              </span>
+              {article.saved ? 'Saved' : 'Save'}
             </button>
           )}
         </div>
@@ -145,50 +122,48 @@ export default function StitchArticleReader({
       {/* Main Reading Canvas */}
       <main
         ref={contentRef}
-        className="flex-grow w-full max-w-3xl mx-auto px-4 md:px-margin-page py-8 overflow-y-auto"
+        className="flex-grow w-full max-w-3xl mx-auto px-4 md:px-8 py-8 overflow-y-auto"
       >
         <div className="flex h-full min-h-[600px]">
-          {/* 28px Left Gutter & Interactive Progress Ruler */}
-          <div className="w-gutter-ruler flex-shrink-0 relative mr-4 md:mr-stack-md h-full min-h-[500px]">
-            {/* Base Track */}
-            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] bg-paper-border dark:bg-[#282933]" />
-            {/* Active Ink Blue Progress Fill */}
+          {/* Left Rail Track */}
+          <div className="w-[28px] flex-shrink-0 relative mr-6 h-full min-h-[500px]">
+            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] bg-[var(--rule)]" />
             <div
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] bg-ink-blue transition-all duration-300 ease-out"
-              style={{ height: `${scrollProgress}%` }}
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] transition-all duration-300 ease-out"
+              style={{
+                height: `${scrollProgress}%`,
+                backgroundColor: `var(${hueVar})`,
+              }}
             />
           </div>
 
           {/* Reading Content */}
-          <article className="flex-grow pt-2 pb-28">
-            {/* Meta Info: Topic & Word Count */}
+          <article className="flex-grow pt-2 pb-28 max-w-[34rem]">
+            {/* Meta Info */}
             <div className="w-full flex justify-between items-center mb-6">
-              <span className="font-label-mono text-label-mono text-graphite uppercase tracking-widest">
+              <span
+                className="t-label font-bold"
+                style={{ color: `var(${hueVar})` }}
+              >
                 {article.topic}
               </span>
-              <div className="flex items-center gap-2">
-                {article.difficultyLevel && (
-                  <span className="font-label-mono text-[10px] uppercase font-bold text-ink-blue bg-surface-container-lowest border border-hairline px-2 py-0.5 rounded">
-                    {article.difficultyLevel}
-                  </span>
-                )}
-                <span className="font-label-mono text-label-mono text-secondary dark:text-emerald-400 uppercase tracking-widest font-semibold">
-                  {article.wordCount} WORDS · {scrollProgress}% READ
-                </span>
-              </div>
+              <span className="t-label text-[var(--graphite)]">
+                {article.difficultyLevel ? article.difficultyLevel.toUpperCase() : 'BEGINNER'} · {article.wordCount} WORDS · {scrollProgress}% READ
+              </span>
             </div>
 
             {/* Headline */}
-            <h1 className="font-display-lg-mobile text-[30px] md:font-display-lg md:text-[42px] text-on-surface mb-6 font-serif leading-[1.15]">
+            <h1 className="t-hero mb-6 font-display">
               {article.title || 'The Art of Noticing'}
             </h1>
 
-            {/* Analogy Box if present */}
+            {/* Flush Callout / Analogy Box */}
             {article.analogy && (
-              <div className="mb-6 my-4 pl-4 border-l-2 border-[var(--ink)]">
-                <span className="t-label block mb-1">
-                  IN SIMPLE WORDS
-                </span>
+              <div
+                className="my-6 pl-4 border-l-2"
+                style={{ borderLeftColor: `var(${hueVar})` }}
+              >
+                <span className="t-label block mb-1">IN SIMPLE WORDS</span>
                 <p className="t-quote">
                   "{article.analogy}"
                 </p>
@@ -197,73 +172,46 @@ export default function StitchArticleReader({
 
             {/* Key Takeaway Quote Box */}
             {article.keyTakeaway && (
-              <div className="mb-8 pl-4 border-l-2 border-[var(--ink)] text-on-surface t-quote">
-                "{article.keyTakeaway}"
+              <div className="my-6 pt-3 border-t border-[var(--rule)]">
+                <p className="t-ui text-[var(--ink)]">
+                  <span className="font-semibold">Key Insight:</span> {article.keyTakeaway}
+                </p>
               </div>
             )}
 
             {/* Body Text */}
             <div
-              className={`text-on-surface-variant space-y-6 ${
+              className={`space-y-6 ${
                 fontSizeClass === 'large'
-                  ? 'font-article-body text-[22px] leading-[36px]'
-                  : 'font-article-body-mobile text-[18px] md:font-article-body md:text-[20px] leading-[30px] md:leading-[32px]'
+                  ? 't-body text-[20px] leading-[32px]'
+                  : 't-body'
               }`}
             >
               {defaultParagraphs.map((para, idx) => (
-                <p key={idx}>
-                  {idx === 0 && highlightActive ? (
-                    <>
-                      {para.split(' ').map((w, i) =>
-                        ['model', 'attention', 'silence', 'technology', 'focus', 'clarity', 'signals', 'bandwidth'].some((k) =>
-                          w.toLowerCase().includes(k)
-                        ) ? (
-                          <span
-                            key={i}
-                            className="bg-tertiary-fixed text-on-surface highlight-felt inline-block px-1 rounded-xs"
-                          >
-                            {w}{' '}
-                          </span>
-                        ) : (
-                          w + ' '
-                        )
-                      )}
-                    </>
-                  ) : (
-                    para
-                  )}
-                </p>
+                <p key={idx}>{para}</p>
               ))}
 
               {/* Minimalist Pull Quote Block */}
-              {article.pullQuote ? (
-                <div className="my-8 border border-hairline bg-surface-container-lowest p-6 md:p-8 rounded">
-                  <p className="font-headline-md text-[22px] md:text-headline-md text-on-surface italic mb-2 font-serif">
-                    "{article.pullQuote.quote}"
-                  </p>
-                  <p className="font-label-mono text-[11px] md:text-label-mono text-graphite text-right uppercase tracking-widest">
-                    — {article.pullQuote.author}
-                  </p>
-                </div>
-              ) : (
-                <div className="my-8 border border-hairline bg-surface-container-lowest p-6 md:p-8 rounded">
-                  <p className="font-headline-md text-[22px] md:text-headline-md text-on-surface italic mb-2 font-serif">
-                    "Attention is the rarest and purest form of generosity."
-                  </p>
-                  <p className="font-label-mono text-[11px] md:text-label-mono text-graphite text-right uppercase tracking-widest">
-                    — SIMONE WEIL
-                  </p>
-                </div>
-              )}
+              <div className="my-8 border-t border-b border-[var(--rule)] py-6">
+                <p className="t-quote text-[20px] leading-[30px] mb-2">
+                  "{article.pullQuote?.quote || 'Attention is the rarest and purest form of generosity.'}"
+                </p>
+                <p className="t-label text-[var(--graphite)] text-right">
+                  — {article.pullQuote?.author || 'SIMONE WEIL'}
+                </p>
+              </div>
             </div>
 
-            {/* End of Read Action: Quick Check & Milestone Share Overlay */}
-            <div className="mt-12 pt-8 border-t border-hairline flex flex-col sm:flex-row justify-between items-center gap-4 bg-surface-container-lowest border border-hairline p-6 rounded-lg shadow-sm">
+            {/* End of Read Actions */}
+            <div className="mt-12 pt-8 border-t border-[var(--rule)] flex flex-col sm:flex-row justify-between items-center gap-4">
               <div>
-                <span className="font-label-mono text-[11px] text-ink-blue uppercase tracking-widest block mb-1 font-bold">
-                  {isCompleted ? '✓ COMPLETED READ' : 'CHECK UNDERSTANDING'}
+                <span
+                  className="t-label block mb-1 font-bold"
+                  style={{ color: `var(${hueVar})` }}
+                >
+                  {isCompleted ? 'COMPLETED READ' : 'CHECK UNDERSTANDING'}
                 </span>
-                <p className="font-headline-md text-[20px] text-on-surface font-serif">
+                <p className="t-title font-display text-[22px]">
                   {isCompleted ? 'Milestone Certificate Unlocked' : 'Test comprehension & gain +50 XP'}
                 </p>
               </div>
@@ -272,19 +220,18 @@ export default function StitchArticleReader({
                 {onOpenMilestoneCard && (
                   <button
                     onClick={onOpenMilestoneCard}
-                    className="px-4 py-3 rounded-[var(--r-control)] border border-[var(--rule)] bg-[var(--insert)] hover:border-[var(--ink)] text-[var(--ink)] t-ui flex items-center gap-1.5 cursor-pointer"
+                    className="px-4 py-2.5 rounded-[var(--r-control)] border border-[var(--rule)] bg-[var(--insert)] hover:border-[var(--ink)] text-[var(--ink)] t-ui font-semibold cursor-pointer"
                   >
-                    <span>View Certificate</span>
+                    View Certificate
                   </button>
                 )}
 
                 {onTakeQuickCheck && (
                   <button
                     onClick={onTakeQuickCheck}
-                    className="bg-primary-container hover:bg-ink-blue text-white font-ui-button text-ui-button px-6 py-3 rounded transition-colors shadow-sm flex items-center gap-2 cursor-pointer shrink-0"
+                    className="px-5 py-2.5 rounded-[var(--r-control)] bg-[var(--ink)] text-[var(--insert)] t-ui font-semibold cursor-pointer"
                   >
-                    <span>Take Quick Check</span>
-                    <span>→</span>
+                    Take Quick Check
                   </button>
                 )}
               </div>
