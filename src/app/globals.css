@@ -447,3 +447,131 @@ svg.accessibility-filters {
 .scrollbar-dark::-webkit-scrollbar-thumb:hover {
   background: #4f4f4f;
 }
+
+/* ==========================================
+   Stitch "Quiet Print" Design System Utilities
+   ========================================== */
+
+.font-display-lg {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 48px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.font-display-lg-mobile {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.font-headline-md {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.font-article-body {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.font-article-body-mobile {
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.font-ui-button {
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+}
+
+.font-label-mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.1em;
+}
+
+.bg-paper {
+  background-color: #F4F4F0;
+}
+
+.bg-card-white {
+  background-color: #FFFFFF;
+}
+
+.border-hairline {
+  border-color: #DFDFD7;
+}
+
+.hairline-border {
+  border-bottom: 1px solid #DFDFD7;
+}
+
+.highlight-felt {
+  background-color: #ffdbd1;
+  border-radius: 2px 4px 2px 4px;
+  padding: 0 4px;
+  margin: 0 -2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.highlight-swipe {
+  background-color: #ffdbd1;
+  border-radius: 2px;
+  padding: 1px 4px;
+}
+
+.highlighted-text {
+  background-color: #ffdbd1;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+.w-gutter-ruler {
+  width: 28px;
+}
+
+.custom-dashed-ruler {
+  background-image: linear-gradient(to bottom, #DFDFD7 50%, rgba(255, 255, 255, 0) 0%);
+  background-position: left;
+  background-size: 1px 8px;
+  background-repeat: repeat-y;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 14px;
+  bottom: 0;
+  left: 28px;
+  width: 1px;
+  background-color: #DFDFD7;
+  z-index: 1;
+}
+
+.timeline-progress {
+  position: absolute;
+  top: 14px;
+  left: 28px;
+  width: 1px;
+  background-color: #2F2BC4;
+  height: 50%;
+  z-index: 2;
+}
+
+.rounded-node {
+  border-radius: 9999px;
+}
+
+.rounded-card {
+  border-radius: 4px;
+}

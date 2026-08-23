@@ -47,6 +47,15 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
             <Link
+              href="/trainer"
+              className="text-primary font-semibold hover:text-primary-dark transition-colors flex items-center gap-1"
+            >
+              <span>Attention Trainer</span>
+              <span className="px-1.5 py-0.5 text-[10px] bg-primary/10 rounded uppercase tracking-wider font-mono">
+                Stitch
+              </span>
+            </Link>
+            <Link
               href="/courses"
               className="text-muted hover:text-foreground transition-colors"
             >
@@ -144,6 +153,13 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-border bg-card">
           <div className="px-4 py-3 space-y-3">
+            <Link
+              href="/trainer"
+              className="block text-primary font-semibold hover:text-primary-dark transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Attention Trainer (Stitch UI)
+            </Link>
             <Link
               href="/courses"
               className="block text-foreground hover:text-primary transition-colors"
