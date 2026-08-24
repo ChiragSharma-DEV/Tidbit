@@ -3,6 +3,7 @@
 import React from 'react';
 import MeasuringRail from '@/components/feed/MeasuringRail';
 import { hueForTopic } from '@/lib/design/topicHue';
+import { useAudioPlayer, requestTTS } from '@/hooks/useAudioPlayer';
 
 interface StaminaCardProps {
   card: {
@@ -33,6 +34,20 @@ interface StaminaCardProps {
   onShare?: () => void;
 }
 
+/** Build narration text from StaminaCard content fields */
+function buildCardNarration(card: StaminaCardProps['card']): string {
+  const c = card.content || {};
+  const parts: string[] = [];
+  const title = c.title || c.headline;
+  if (title) parts.push(title + '.');
+  if (c.summary) parts.push(c.summary);
+  if (c.explanation) parts.push(c.explanation);
+  if (c.bullets?.length) parts.push(c.bullets.join('. '));
+  if (c.analogy || c.example) parts.push('In simple words: ' + (c.analogy || c.example));
+  if (c.takeaway || c.keyTakeaway) parts.push('Key insight: ' + (c.takeaway || c.keyTakeaway));
+  return parts.join('\n\n');
+}
+
 export default function StaminaCard({ card, onRead, onSave, onTakeCheck, onShare }: StaminaCardProps) {
   const content = card.content || {};
   const topic = content.topic || card.topic || 'General';
@@ -44,6 +59,21 @@ export default function StaminaCard({ card, onRead, onSave, onTakeCheck, onShare
   const summaryText = content.summary || content.explanation || '';
   const analogyText = content.analogy || content.example || '';
   const takeawayText = content.takeaway || content.keyTakeaway || '';
+
+  const { articleId, status } = useAudioPlayer();
+  const cardId = String(card._id);
+  const isThisLoading = articleId === cardId && status === 'loading';
+  const isThisPlaying = articleId === cardId && status === 'playing';
+
+  const handleListen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    requestTTS({
+      id: cardId,
+      title: titleText,
+      topic,
+      text: buildCardNarration(card),
+    });
+  };
 
   return (
     <div className="w-full flex items-stretch gap-[16px]">
@@ -149,6 +179,23 @@ export default function StaminaCard({ card, onRead, onSave, onTakeCheck, onShare
               Share
             </button>
           )}
+
+          {/* ▶ Listen — TTS */}
+          <button
+            type="button"
+            aria-label={isThisLoading ? 'Generating audio' : isThisPlaying ? 'Now playing' : `Listen to ${titleText}`}
+            onClick={handleListen}
+            className={`t-ui cursor-pointer transition-colors ${
+              isThisPlaying
+                ? 'font-semibold text-[var(--ink)]'
+                : isThisLoading
+                ? 'text-[var(--graphite)] opacity-50'
+                : 'text-[var(--graphite)] hover:text-[var(--ink)]'
+            }`}
+          >
+            {isThisLoading ? '▶ …' : isThisPlaying ? '▶ Playing' : '▶ Listen'}
+          </button>
+
           {onRead && (
             <button
               type="button"

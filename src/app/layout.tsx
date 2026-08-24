@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Instrument_Serif, Newsreader, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers/Providers";
+import AudioPlayer from "@/components/ui/AudioPlayer";
 
 const fontDisplay = Instrument_Serif({
   weight: "400",
@@ -50,7 +51,11 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-stock text-ink font-body antialiased min-h-screen" suppressHydrationWarning>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          {/* Global sticky audio player — one instance, persists across all routes */}
+          <AudioPlayer />
+        </Providers>
       </body>
     </html>
   );
