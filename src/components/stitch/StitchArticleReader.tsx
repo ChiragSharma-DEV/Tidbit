@@ -122,11 +122,11 @@ export default function StitchArticleReader({
       {/* Main Reading Canvas */}
       <main
         ref={contentRef}
-        className="flex-grow w-full max-w-3xl mx-auto px-4 md:px-8 py-8 overflow-y-auto"
+        className="flex-grow w-full max-w-3xl mx-auto px-3 sm:px-6 md:px-8 py-6 sm:py-8 overflow-y-auto"
       >
         <div className="flex h-full min-h-[600px]">
           {/* Left Rail Track */}
-          <div className="w-[28px] flex-shrink-0 relative mr-6 h-full min-h-[500px]">
+          <div className="w-5 sm:w-[28px] flex-shrink-0 relative mr-3 sm:mr-6 h-full min-h-[500px]">
             <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] bg-[var(--rule)]" />
             <div
               className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] transition-all duration-300 ease-out"
@@ -138,7 +138,7 @@ export default function StitchArticleReader({
           </div>
 
           {/* Reading Content */}
-          <article className="flex-grow pt-2 pb-28 max-w-[34rem]">
+          <article className="flex-grow min-w-0 pt-2 pb-28 max-w-full sm:max-w-[34rem]">
             {/* Meta Info */}
             <div className="w-full flex justify-between items-center mb-6">
               <span

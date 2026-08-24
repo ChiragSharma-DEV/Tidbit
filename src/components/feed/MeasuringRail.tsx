@@ -31,7 +31,7 @@ export default function MeasuringRail({
 
   return (
     <div
-      className={`w-[56px] relative flex-shrink-0 select-none ${className}`}
+      className={`w-[40px] sm:w-[56px] relative flex-shrink-0 select-none ${className}`}
       aria-label={`Word count indicator: ${wordCount} words`}
     >
       {/* 2px Track Line pinned at left = 16px */}

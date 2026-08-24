@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 
 export interface QuickCheckOption {
   key: string;
@@ -972,6 +972,8 @@ interface AttentionTrainerContextType {
   isDarkMode: boolean;
   currentUser: UserProfile | null;
   toastMessage: string | null;
+  realtimeSyncStatus: 'synced' | 'syncing' | 'live';
+  triggerRealtimeSync: () => void;
 
   // Streak & Session Stamina Tracking
   streakDays: number;
@@ -1141,74 +1143,187 @@ export function AttentionTrainerProvider({ children }: { children: React.ReactNo
   const [composeModalOpen, setComposeModalOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [realtimeSyncStatus, setRealtimeSyncStatus] = useState<'synced' | 'syncing' | 'live'>('live');
 
-  // Hydrate from localStorage safely after mount
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const savedTheme = localStorage.getItem(THEME_KEY);
-        if (savedTheme) {
-          const isDark = savedTheme === 'dark';
-          setIsDarkMode(isDark);
-          document.documentElement.classList.toggle('dark', isDark);
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          setIsDarkMode(true);
-          document.documentElement.classList.add('dark');
-        }
+  // Ref tracking to prevent infinite synchronization / broadcast loops
+  const lastSavedJsonRef = useRef<string>('');
+  const isRemoteSyncingRef = useRef<boolean>(false);
 
-        const savedUser = localStorage.getItem(USER_KEY);
-        if (savedUser) {
-          setCurrentUser(JSON.parse(savedUser));
-        }
-
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (parsed.articles) setArticles(parsed.articles);
-          if (parsed.pathNodes) setPathNodes(parsed.pathNodes);
-          if (parsed.calibratedLevel) setCalibratedLevel(parsed.calibratedLevel);
-          if (parsed.staminaLevel) setStaminaLevel(parsed.staminaLevel);
-          if (parsed.xp) setXp(parsed.xp);
-          if (parsed.longestUnbrokenRead) setLongestUnbrokenRead(parsed.longestUnbrokenRead);
-          if (parsed.sessionWordsRead) setSessionWordsRead(parsed.sessionWordsRead);
-          if (parsed.totalWordsReadToday) setTotalWordsReadToday(parsed.totalWordsReadToday);
-          if (parsed.masteredContexts) setMasteredContexts(parsed.masteredContexts);
-          if (parsed.selectedInterests) setSelectedInterests(parsed.selectedInterests);
-          if (parsed.baselineLength) setBaselineLength(parsed.baselineLength);
-          if (parsed.streakDays) setStreakDays(parsed.streakDays);
-          if (parsed.nicheSkillTrees) setNicheSkillTrees(parsed.nicheSkillTrees);
-        }
-      } catch (err) {
-        console.error('Failed to parse saved Tidbit state:', err);
-      } finally {
-        setIsHydrated(true);
-      }
+  // Helper to re-hydrate state from local storage payload
+  const applyStatePayload = useCallback((parsed: any) => {
+    if (!parsed) return;
+    isRemoteSyncingRef.current = true;
+    try {
+      if (parsed.articles) setArticles(parsed.articles);
+      if (parsed.pathNodes) setPathNodes(parsed.pathNodes);
+      if (parsed.calibratedLevel) setCalibratedLevel(parsed.calibratedLevel);
+      if (parsed.staminaLevel) setStaminaLevel(parsed.staminaLevel);
+      if (parsed.xp) setXp(parsed.xp);
+      if (parsed.longestUnbrokenRead) setLongestUnbrokenRead(parsed.longestUnbrokenRead);
+      if (parsed.sessionWordsRead) setSessionWordsRead(parsed.sessionWordsRead);
+      if (parsed.totalWordsReadToday) setTotalWordsReadToday(parsed.totalWordsReadToday);
+      if (parsed.masteredContexts) setMasteredContexts(parsed.masteredContexts);
+      if (parsed.selectedInterests) setSelectedInterests(parsed.selectedInterests);
+      if (parsed.baselineLength) setBaselineLength(parsed.baselineLength);
+      if (parsed.streakDays) setStreakDays(parsed.streakDays);
+      if (parsed.nicheSkillTrees) setNicheSkillTrees(parsed.nicheSkillTrees);
+    } finally {
+      setTimeout(() => {
+        isRemoteSyncingRef.current = false;
+      }, 50);
     }
   }, []);
 
-  // Sync to localStorage only after initial hydration completes
+  // Hydrate from localStorage safely after mount and set up real-time cross-tab listeners
   useEffect(() => {
-    if (isHydrated && typeof window !== 'undefined') {
-      try {
-        const stateToSave = {
-          articles,
-          pathNodes,
-          calibratedLevel,
-          staminaLevel,
-          xp,
-          longestUnbrokenRead,
-          sessionWordsRead,
-          totalWordsReadToday,
-          masteredContexts,
-          selectedInterests,
-          baselineLength,
-          streakDays,
-          nicheSkillTrees,
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
-      } catch (err) {
-        console.error('Failed to save Tidbit state:', err);
+    if (typeof window === 'undefined') return;
+
+    try {
+      const savedTheme = localStorage.getItem(THEME_KEY);
+      if (savedTheme) {
+        const isDark = savedTheme === 'dark';
+        setIsDarkMode(isDark);
+        document.documentElement.classList.toggle('dark', isDark);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setIsDarkMode(true);
+        document.documentElement.classList.add('dark');
       }
+
+      const savedUser = localStorage.getItem(USER_KEY);
+      if (savedUser) {
+        setCurrentUser(JSON.parse(savedUser));
+      }
+
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        lastSavedJsonRef.current = saved;
+        applyStatePayload(JSON.parse(saved));
+      }
+    } catch (err) {
+      console.error('Failed to parse saved Tidbit state:', err);
+    } finally {
+      setIsHydrated(true);
+    }
+
+    // 1. BroadcastChannel real-time multi-tab sync
+    let channel: BroadcastChannel | null = null;
+    if ('BroadcastChannel' in window) {
+      channel = new BroadcastChannel('tidbit_realtime_sync');
+      channel.onmessage = (event) => {
+        if (event.data?.type === 'TIDBIT_STATE_UPDATE' && event.data?.payload) {
+          const incomingJson = JSON.stringify(event.data.payload);
+          if (incomingJson !== lastSavedJsonRef.current) {
+            lastSavedJsonRef.current = incomingJson;
+            applyStatePayload(event.data.payload);
+            setRealtimeSyncStatus('live');
+          }
+        }
+      };
+    }
+
+    // 2. Storage event listener for window tab changes
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY && e.newValue && e.newValue !== lastSavedJsonRef.current) {
+        try {
+          lastSavedJsonRef.current = e.newValue;
+          const parsed = JSON.parse(e.newValue);
+          applyStatePayload(parsed);
+          setRealtimeSyncStatus('live');
+        } catch (err) {
+          console.error('Error syncing tab storage change:', err);
+        }
+      } else if (e.key === THEME_KEY && e.newValue) {
+        const isDark = e.newValue === 'dark';
+        setIsDarkMode(isDark);
+        document.documentElement.classList.toggle('dark', isDark);
+      } else if (e.key === USER_KEY && e.newValue) {
+        try {
+          setCurrentUser(JSON.parse(e.newValue));
+        } catch (err) {
+          console.error('Error syncing user session:', err);
+        }
+      }
+    };
+
+    // 3. Re-verify state when window gains focus
+    const handleFocus = () => {
+      try {
+        const fresh = localStorage.getItem(STORAGE_KEY);
+        if (fresh && fresh !== lastSavedJsonRef.current) {
+          lastSavedJsonRef.current = fresh;
+          applyStatePayload(JSON.parse(fresh));
+        }
+      } catch (err) {
+        console.error('Error refreshing state on focus:', err);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      if (channel) channel.close();
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [applyStatePayload]);
+
+  // Sync to localStorage, BroadcastChannel, and Server API in real time (deduplicated)
+  useEffect(() => {
+    if (!isHydrated || typeof window === 'undefined' || isRemoteSyncingRef.current) return;
+
+    const stateToSave = {
+      articles,
+      pathNodes,
+      calibratedLevel,
+      staminaLevel,
+      xp,
+      longestUnbrokenRead,
+      sessionWordsRead,
+      totalWordsReadToday,
+      masteredContexts,
+      selectedInterests,
+      baselineLength,
+      streakDays,
+      nicheSkillTrees,
+    };
+
+    const currentJson = JSON.stringify(stateToSave);
+
+    // Skip if state has not actually changed
+    if (currentJson === lastSavedJsonRef.current) return;
+    lastSavedJsonRef.current = currentJson;
+
+    try {
+      localStorage.setItem(STORAGE_KEY, currentJson);
+
+      // Broadcast to other open browser tabs/windows instantly
+      if ('BroadcastChannel' in window) {
+        const channel = new BroadcastChannel('tidbit_realtime_sync');
+        channel.postMessage({
+          type: 'TIDBIT_STATE_UPDATE',
+          payload: stateToSave,
+          timestamp: Date.now(),
+        });
+        channel.close();
+      }
+
+      // Asynchronous API backend sync
+      setRealtimeSyncStatus('syncing');
+      fetch('/api/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: currentUser?.email || 'guest_user',
+          state: stateToSave,
+          actionType: 'realtime_mutation',
+        }),
+      })
+        .then(() => setRealtimeSyncStatus('live'))
+        .catch(() => setRealtimeSyncStatus('synced'));
+
+    } catch (err) {
+      console.error('Failed to sync Tidbit state:', err);
     }
   }, [
     isHydrated,
@@ -1225,7 +1340,21 @@ export function AttentionTrainerProvider({ children }: { children: React.ReactNo
     baselineLength,
     streakDays,
     nicheSkillTrees,
+    currentUser?.email,
   ]);
+
+  const triggerRealtimeSync = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const fresh = localStorage.getItem(STORAGE_KEY);
+      if (fresh) {
+        applyStatePayload(JSON.parse(fresh));
+      }
+      setRealtimeSyncStatus('live');
+    } catch (err) {
+      console.error('Failed manual real-time sync trigger:', err);
+    }
+  }, [applyStatePayload]);
 
   const showToast = useCallback((message: string) => {
     setToastMessage(message);
@@ -1596,6 +1725,8 @@ export function AttentionTrainerProvider({ children }: { children: React.ReactNo
         isDarkMode,
         currentUser,
         toastMessage,
+        realtimeSyncStatus,
+        triggerRealtimeSync,
         streakDays,
         streakWeek,
         sessionStaminaHistory,

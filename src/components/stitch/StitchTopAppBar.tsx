@@ -22,11 +22,13 @@ export default function StitchTopAppBar({
     currentUser,
     openComposeModal,
     setOnboardingOpen,
+    realtimeSyncStatus,
+    triggerRealtimeSync,
   } = useAttentionTrainer();
 
   return (
     <header className="w-full bg-[var(--stock)] border-b border-[var(--rule)] sticky top-0 z-40">
-      <div className="max-w-[420px] md:max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="max-w-4xl lg:max-w-6xl w-full mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
         <div className="flex items-center gap-3">
           {onOpenMenu && (
             <button
@@ -43,6 +45,18 @@ export default function StitchTopAppBar({
           >
             Tidbit
           </span>
+
+          {/* Real-time Data Sync Indicator Badge */}
+          <button
+            onClick={triggerRealtimeSync}
+            title="Real-time Cross-Tab & Server Synchronization Active. Click to re-sync."
+            className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-800/40 text-[10px] font-mono text-emerald-700 dark:text-emerald-300 transition-all hover:scale-105 cursor-pointer"
+          >
+            <span className={`w-1.5 h-1.5 rounded-full bg-emerald-500 ${realtimeSyncStatus === 'syncing' ? 'animate-ping' : 'animate-pulse'}`} />
+            <span className="tracking-wider uppercase font-semibold hidden xs:inline">
+              {realtimeSyncStatus === 'syncing' ? 'SYNCING' : 'LIVE SYNCED'}
+            </span>
+          </button>
         </div>
 
         {/* Desktop Navigation Tabs */}

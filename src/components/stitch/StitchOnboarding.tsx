@@ -136,7 +136,7 @@ export default function StitchOnboarding({ onComplete, onCancel }: StitchOnboard
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-3xl bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] z-50 p-6 sm:p-8 flex flex-col gap-6 shadow-[0_1px_2px_rgba(26,24,20,0.04)] max-h-[92vh] overflow-y-auto">
+      <div className="relative w-full max-w-3xl bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] z-50 p-4 sm:p-8 flex flex-col gap-4 sm:gap-6 shadow-[0_1px_2px_rgba(26,24,20,0.04)] max-h-[92vh] overflow-y-auto">
         {/* Step Indicator Header */}
         <div className="flex justify-between items-center border-b border-[var(--rule)] pb-4">
           <div className="flex items-center gap-3">

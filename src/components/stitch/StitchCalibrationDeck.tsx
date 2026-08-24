@@ -196,7 +196,7 @@ export default function StitchCalibrationDeck({
       </div>
 
       {/* Swipeable Card Deck Container */}
-      <div className="relative w-full h-[360px] flex items-center justify-center touch-none">
+      <div className="relative w-full h-[320px] sm:h-[360px] flex items-center justify-center touch-none">
         {currentCard && (
           <div
             onMouseDown={handleTouchStart}
@@ -209,7 +209,7 @@ export default function StitchCalibrationDeck({
               transform: `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${rotationDeg}deg)`,
               transition: isDragging ? 'none' : 'transform 0.3s ease-out',
             }}
-            className="w-full h-full bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] p-6 shadow-[0_1px_2px_rgba(26,24,20,0.04)] flex flex-col justify-between cursor-grab active:cursor-grabbing relative select-none"
+            className="w-full h-full bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] p-4 sm:p-6 shadow-[0_1px_2px_rgba(26,24,20,0.04)] flex flex-col justify-between cursor-grab active:cursor-grabbing relative select-none"
           >
             {/* Stamp Overlay: MASTERED */}
             <div

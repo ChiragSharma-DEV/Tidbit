@@ -44,14 +44,14 @@ function StitchFeedCardComponent({
   const difficulty = (article.difficultyLevel || 'Beginner').toUpperCase();
 
   return (
-    <div className="w-full flex items-stretch gap-[16px]">
-      {/* Measuring Rail - 56px wide, rail content starts 72px from column edge */}
+    <div className="w-full flex items-stretch gap-2 sm:gap-[16px]">
+      {/* Measuring Rail - 56px wide on sm+, 40px on xs */}
       <MeasuringRail wordCount={article.wordCount} topic={article.topic} />
 
       {/* Card Body Container */}
       <article
         onClick={() => onRead(article)}
-        className="flex-1 min-w-0 bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] p-[20px] flex flex-col justify-between cursor-pointer transition-shadow shadow-[0_1px_2px_rgba(26,24,20,0.04)] hover:shadow-md"
+        className="flex-1 min-w-0 bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] p-4 sm:p-[20px] flex flex-col justify-between cursor-pointer transition-shadow shadow-[0_1px_2px_rgba(26,24,20,0.04)] hover:shadow-md"
       >
         <div>
           {/* Top Label Row: Topic Name (in topic hue #1) + Difficulty & Word Count */}
@@ -102,8 +102,8 @@ function StitchFeedCardComponent({
           )}
         </div>
 
-        {/* Action Row: Identical .t-ui 14px in graphite, 24px apart, no icons/arrows/emoji */}
-        <div className="mt-5 pt-3 border-t border-[var(--rule)] flex items-center gap-[24px]">
+        {/* Action Row: Identical .t-ui 14px in graphite, responsive gap */}
+        <div className="mt-5 pt-3 border-t border-[var(--rule)] flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-[24px]">
           <button
             type="button"
             onClick={(e) => {

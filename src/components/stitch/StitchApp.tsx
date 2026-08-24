@@ -169,7 +169,7 @@ export default function StitchApp({ initialTab, forceSplash = false }: StitchApp
       {/* Main Tab Content */}
       <div className="flex-1">
         {currentTab === 'feed' && (
-          <main className="max-w-[420px] mx-auto px-[20px] py-[20px] flex flex-col gap-5 pb-28">
+          <main className="max-w-2xl lg:max-w-3xl w-full mx-auto px-4 sm:px-6 py-5 flex flex-col gap-5 pb-28">
             {/* Feed Subheader & Onboarding Trigger */}
             <div className="flex justify-between items-center bg-[var(--insert)] border border-[var(--rule)] p-4 rounded-[var(--r-card)] shadow-[0_1px_2px_rgba(26,24,20,0.04)]">
               <span className="t-label text-[var(--graphite)]">
@@ -447,7 +447,7 @@ export default function StitchApp({ initialTab, forceSplash = false }: StitchApp
             onClick={() => setMenuOpen(false)}
             className="fixed inset-0 bg-[#0E0F14]/50 backdrop-blur-xs"
           />
-          <div className="relative w-76 bg-paper border-r border-hairline h-full p-6 flex flex-col justify-between shadow-2xl z-10 animate-slide-in">
+          <div className="relative w-72 sm:w-80 max-w-[85vw] bg-paper border-r border-hairline h-full p-4 sm:p-6 flex flex-col justify-between shadow-2xl z-10 animate-slide-in">
             <div>
               <div className="flex justify-between items-center mb-6 pb-4 border-b border-hairline">
                 <div className="flex items-center gap-2">

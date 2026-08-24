@@ -326,8 +326,8 @@ export default function StitchProfileRoadmap({
                 return (
                   <div
                     key={node.id}
-                    style={{ transform: `translateX(${xOffset}px)` }}
-                    className="relative z-10 flex flex-col items-center transition-transform duration-300 group"
+                    style={{ '--x-offset': `${xOffset}px` } as React.CSSProperties}
+                    className="relative z-10 flex flex-col items-center transition-transform duration-300 group sm:translate-x-[var(--x-offset)]"
                   >
                     {/* Floating XP / Action Pill */}
                     <div className="mb-2">
@@ -381,7 +381,7 @@ export default function StitchProfileRoadmap({
                     {/* Node Info Card Box Below */}
                     <div
                       onClick={() => !isLocked && handleLaunchNode(node)}
-                      className={`mt-3 w-64 md:w-72 bg-paper border rounded-lg p-3.5 text-center transition-all shadow-xs ${
+                      className={`mt-3 w-full max-w-[280px] sm:w-72 bg-paper border rounded-lg p-3.5 text-center transition-all shadow-xs ${
                         isCurrent
                           ? 'border-2 border-ink-blue shadow-md cursor-pointer hover:border-ink-blue'
                           : isCompleted
@@ -470,21 +470,21 @@ export default function StitchProfileRoadmap({
             </div>
 
             {/* Weekly Day Circles */}
-            <div className="grid grid-cols-7 gap-2 sm:gap-4 pt-2">
+            <div className="grid grid-cols-7 gap-1 sm:gap-3 pt-2">
               {streakWeek.map((day) => (
                 <div
                   key={day.day}
-                  className={`p-3 rounded-lg border flex flex-col items-center gap-1.5 transition-all ${
+                  className={`p-1.5 sm:p-3 rounded-lg border flex flex-col items-center gap-1 sm:gap-1.5 transition-all ${
                     day.completed
                       ? 'bg-paper border-ink-blue/40 shadow-xs'
                       : 'bg-surface-container-lowest border-hairline opacity-60'
                   }`}
                 >
-                  <span className="font-label-mono text-[11px] text-graphite uppercase font-bold">
+                  <span className="font-label-mono text-[9px] sm:text-[11px] text-graphite uppercase font-bold">
                     {day.day}
                   </span>
                   <div
-                    className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${
+                    className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm ${
                       day.completed
                         ? 'bg-ink-blue text-white shadow-xs'
                         : 'bg-paper border border-hairline text-graphite'
@@ -492,7 +492,7 @@ export default function StitchProfileRoadmap({
                   >
                     {day.completed ? '✓' : '—'}
                   </div>
-                  <span className="font-label-mono text-[10px] text-graphite text-center truncate max-w-full">
+                  <span className="font-label-mono text-[8px] sm:text-[10px] text-graphite text-center truncate max-w-full">
                     {day.wordsRead > 0 ? `${day.wordsRead}W` : '0W'}
                   </span>
                 </div>
