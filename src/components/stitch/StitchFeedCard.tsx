@@ -3,6 +3,7 @@
 import React from 'react';
 import MeasuringRail from '@/components/feed/MeasuringRail';
 import { hueForTopic } from '@/lib/design/topicHue';
+import { useAudioPlayer, requestTTS } from '@/hooks/useAudioPlayer';
 
 export interface FeedArticle {
   id: string;
@@ -33,6 +34,17 @@ interface StitchFeedCardProps {
   onShareMilestone?: (article: FeedArticle) => void;
 }
 
+/** Build the text to narrate from article fields — strips nothing displayed */
+function buildNarration(article: FeedArticle): string {
+  const parts: string[] = [];
+  if (article.title) parts.push(article.title + '.');
+  if (article.excerpt) parts.push(article.excerpt);
+  if (article.paragraphs?.length) parts.push(article.paragraphs.join('\n\n'));
+  if (article.analogy) parts.push('In simple words: ' + article.analogy);
+  if (article.keyTakeaway) parts.push('Key insight: ' + article.keyTakeaway);
+  return parts.join('\n\n');
+}
+
 function StitchFeedCardComponent({
   article,
   onRead,
@@ -42,6 +54,20 @@ function StitchFeedCardComponent({
 }: StitchFeedCardProps) {
   const hueVar = hueForTopic(article.topic);
   const difficulty = (article.difficultyLevel || 'Beginner').toUpperCase();
+
+  const { articleId, status } = useAudioPlayer();
+  const isThisLoading = articleId === article.id && status === 'loading';
+  const isThisPlaying = articleId === article.id && status === 'playing';
+
+  const handleListen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    requestTTS({
+      id: article.id,
+      title: article.title ?? article.topic,
+      topic: article.topic,
+      text: buildNarration(article),
+    });
+  };
 
   return (
     <div className="w-full flex items-stretch gap-2 sm:gap-[16px]">
@@ -144,6 +170,22 @@ function StitchFeedCardComponent({
               Share
             </button>
           )}
+
+          {/* ▶ Listen — TTS */}
+          <button
+            type="button"
+            aria-label={isThisLoading ? 'Generating audio' : isThisPlaying ? 'Now playing' : `Listen to ${article.title ?? 'this article'}`}
+            onClick={handleListen}
+            className={`t-ui cursor-pointer transition-colors ${
+              isThisPlaying
+                ? 'font-semibold text-[var(--ink)]'
+                : isThisLoading
+                ? 'text-[var(--graphite)] opacity-50'
+                : 'text-[var(--graphite)] hover:text-[var(--ink)]'
+            }`}
+          >
+            {isThisLoading ? '▶ …' : isThisPlaying ? '▶ Playing' : '▶ Listen'}
+          </button>
 
           <button
             type="button"
