@@ -81,3 +81,79 @@
   line-height: 14px;
   letter-spacing: 0.08em;
 }
+
+/* ─── Feed card typography overrides ────────────────────────────────────────
+   Scoped to .feed-card so only the Stitch feed cards use Roboto.
+   All other components (reader, nav, overlays, etc.) are unaffected.
+   The existing .t-title / .t-body classes are preserved globally — only their
+   appearance *inside* .feed-card is overridden here.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.feed-card .t-title {
+  font-family: var(--font-card), Roboto, system-ui, sans-serif;
+  font-size: 22px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+.feed-card .t-body {
+  font-family: var(--font-card), Roboto, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 400;
+  max-width: 34rem;
+}
+
+.feed-card .t-quote {
+  font-family: var(--font-card), Roboto, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 24px;
+  font-style: normal;   /* remove italic */
+  font-weight: 400;
+}
+
+/* ─── Library typography ─────────────────────────────────────────────────────
+   Scoped to .library-section. Matches the feed-card Roboto treatment.
+   Uses specific class overrides so the global token classes are unaffected.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* Page-level heading (h2 "Your Library & Reading Memory") */
+.library-section .library-heading {
+  font-family: var(--font-card), Roboto, system-ui, sans-serif;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+  font-style: normal;
+  color: var(--ink);
+}
+
+/* Page-level subtext / intro line */
+.library-section .library-subtext {
+  font-family: var(--font-card), Roboto, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--graphite);
+}
+
+/* Per-card article heading (h3 title) */
+.library-section .library-card-title {
+  font-family: var(--font-card), Roboto, system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 700;
+  font-style: normal;
+  color: var(--ink);
+}
+
+/* Per-card excerpt / body text */
+.library-section .library-card-body {
+  font-family: var(--font-card), Roboto, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--graphite);
+}

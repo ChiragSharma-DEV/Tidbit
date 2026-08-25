@@ -77,7 +77,7 @@ function StitchFeedCardComponent({
       {/* Card Body Container */}
       <article
         onClick={() => onRead(article)}
-        className="flex-1 min-w-0 bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] p-4 sm:p-[20px] flex flex-col justify-between cursor-pointer transition-shadow shadow-[0_1px_2px_rgba(26,24,20,0.04)] hover:shadow-md"
+        className="feed-card flex-1 min-w-0 bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] p-4 sm:p-[20px] flex flex-col justify-between cursor-pointer transition-shadow shadow-[0_1px_2px_rgba(26,24,20,0.04)] hover:shadow-md"
       >
         <div>
           {/* Top Label Row: Topic Name (in topic hue #1) + Difficulty & Word Count */}
@@ -95,7 +95,7 @@ function StitchFeedCardComponent({
 
           {/* Headline Title */}
           {article.title && (
-            <h2 className="t-title mb-2 font-display">
+            <h2 className="t-title mb-2">
               {article.title}
             </h2>
           )}

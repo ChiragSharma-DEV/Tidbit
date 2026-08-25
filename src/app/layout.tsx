@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Newsreader, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Instrument_Serif, Newsreader, Instrument_Sans, IBM_Plex_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers/Providers";
 import AudioPlayer from "@/components/ui/AudioPlayer";
@@ -32,6 +32,14 @@ const fontMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+// Roboto — used for feed card headings and body text only
+const fontCard = Roboto({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-card",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Tidbit · Calibrated Reader",
   description: "Train cognitive bandwidth with calibrated, distraction-free reading tracks.",
@@ -43,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${fontDisplay.variable} ${fontBody.variable} ${fontUi.variable} ${fontMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${fontDisplay.variable} ${fontBody.variable} ${fontUi.variable} ${fontMono.variable} ${fontCard.variable}`}>
       <head>
         <link
           rel="stylesheet"
