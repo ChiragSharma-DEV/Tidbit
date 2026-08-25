@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { useAttentionTrainer } from '@/contexts/AttentionTrainerContext';
+import { logout } from '@/lib/auth/simpleAuth';
 
 interface StitchTopAppBarProps {
   currentTab: string;
@@ -17,6 +19,7 @@ export default function StitchTopAppBar({
   onOpenSearch,
   onOpenMenu,
 }: StitchTopAppBarProps) {
+  const router = useRouter();
   const {
     calibratedLevel,
     currentUser,
@@ -25,6 +28,11 @@ export default function StitchTopAppBar({
     realtimeSyncStatus,
     triggerRealtimeSync,
   } = useAttentionTrainer();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/start');
+  };
 
   return (
     <header className="w-full bg-[var(--stock)] border-b border-[var(--rule)] sticky top-0 z-40">
@@ -107,11 +115,18 @@ export default function StitchTopAppBar({
             </button>
           )}
 
+          {/* Username display — desktop only */}
+          <span className="t-ui text-[var(--graphite)] cursor-default hidden sm:inline">
+            {currentUser?.name || 'Guest'}
+          </span>
+
+          {/* Logout */}
           <button
-            onClick={() => onTabChange('stats')}
-            className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer"
+            onClick={handleLogout}
+            aria-label="Log out"
+            className="t-ui text-[var(--graphite)] hover:text-[var(--ink)] cursor-pointer transition-colors"
           >
-            {currentUser?.name || 'Account'}
+            Logout
           </button>
         </div>
       </div>

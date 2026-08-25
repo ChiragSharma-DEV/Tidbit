@@ -1,10 +1,22 @@
-import StitchApp from '@/components/stitch/StitchApp';
+'use client';
 
-export const metadata = {
-  title: 'Tidbit · Attention Trainer & Calibrated Reader',
-  description: 'Reclaim your attention span through calibrated, distraction-free reading, interactive learning paths, and stamina metrics.',
-};
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { isLoggedIn } from '@/lib/auth/simpleAuth';
 
-export default function HomePage() {
-  return <StitchApp initialTab="feed" />;
+/**
+ * Root route: redirect to /feed if logged in, otherwise to /start (login page).
+ */
+export default function RootPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      router.replace('/feed');
+    } else {
+      router.replace('/start');
+    }
+  }, [router]);
+
+  return null;
 }
