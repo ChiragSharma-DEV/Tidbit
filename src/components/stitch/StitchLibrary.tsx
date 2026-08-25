@@ -46,13 +46,13 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
   });
 
   return (
-    <main className="max-w-3xl mx-auto px-4 md:px-margin-page py-8 flex flex-col gap-6 pb-28">
+    <main className="library-section max-w-3xl mx-auto px-4 md:px-margin-page py-8 flex flex-col gap-6 pb-28">
       {/* Header */}
       <div>
-        <h2 className="font-headline-md text-[28px] md:text-headline-md text-on-surface font-serif">
+        <h2 className="library-heading">
           Your Library & Reading Memory
         </h2>
-        <p className="font-article-body-mobile text-graphite mt-1">
+        <p className="library-subtext mt-1">
           Your bookmarked essays, active reads, and attention mastery history.
         </p>
       </div>
@@ -128,7 +128,7 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
                       </span>
                     )}
                   </div>
-                  <h3 className="font-headline-md text-[20px] md:text-[22px] leading-[1.2] text-on-surface group-hover:text-ink-blue transition-colors font-serif">
+                  <h3 className="library-card-title group-hover:text-[var(--graphite)] transition-colors">
                     {article.title}
                   </h3>
                 </div>
@@ -159,7 +159,7 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
                 </div>
               </div>
 
-              <p className="font-article-body-mobile text-graphite line-clamp-2 text-[15px] leading-relaxed">
+              <p className="library-card-body line-clamp-2">
                 {article.excerpt}
               </p>
             </div>
@@ -171,10 +171,10 @@ export default function StitchLibrary({ onReadArticle }: StitchLibraryProps) {
             <span className="material-symbols-outlined text-[36px] text-graphite/40 mb-2">
               book_2
             </span>
-            <p className="font-headline-md text-[20px] text-on-surface font-serif">
+            <p className="library-heading text-[20px]">
               No essays in this view.
             </p>
-            <p className="font-article-body-mobile text-graphite text-[14px] mt-1">
+            <p className="library-subtext text-[14px] mt-1">
               Explore your feed and bookmark or start reading essays to populate your library.
             </p>
           </div>
