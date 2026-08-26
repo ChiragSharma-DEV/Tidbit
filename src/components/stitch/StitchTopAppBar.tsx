@@ -74,7 +74,6 @@ export default function StitchTopAppBar({
             { id: 'path', label: 'Skill Trees' },
             { id: 'library', label: 'Library' },
             { id: 'stats', label: 'Profile' },
-            { id: 'design-system', label: 'Design System' },
           ].map((tab) => (
             <button
               key={tab.id}

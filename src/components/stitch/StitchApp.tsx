@@ -90,8 +90,6 @@ export default function StitchApp({ initialTab, forceSplash = false }: StitchApp
       router.push('/library');
     } else if (tab === 'stats' && pathname !== '/stats' && pathname !== '/profile') {
       router.push('/stats');
-    } else if (tab === 'design-system' && pathname !== '/design-system') {
-      router.push('/design-system');
     }
   };
 
@@ -263,8 +261,6 @@ export default function StitchApp({ initialTab, forceSplash = false }: StitchApp
             onOpenQuickCheck={(a) => openQuickCheck(a)}
           />
         )}
-
-        {currentTab === 'design-system' && <StitchDesignSystem />}
       </div>
 
       {/* Bottom Navigation for Mobile */}
@@ -498,7 +494,6 @@ export default function StitchApp({ initialTab, forceSplash = false }: StitchApp
                   { id: 'path', label: 'Skill Trees' },
                   { id: 'library', label: 'Saved Library' },
                   { id: 'stats', label: 'Profile & Session Stamina' },
-                  { id: 'design-system', label: 'Design System' },
                 ].map((item) => (
                   <button
                     key={item.id}
