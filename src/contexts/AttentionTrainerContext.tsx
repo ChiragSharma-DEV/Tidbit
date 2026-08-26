@@ -259,6 +259,378 @@ export const DEFAULT_ARTICLES: ArticleWithQuiz[] = [
       explanation: 'A 3:1 ratio provides a strong margin of safety while leaving enough capital to reinvest in acquisition and product development.',
     },
   },
+
+  // ── AI & Machine Learning — 3 new cards ──────────────────────
+  {
+    id: 'art-ai-training',
+    type: 'short',
+    topic: 'AI & Machine Learning',
+    difficultyLevel: 'Beginner',
+    title: 'How AI Actually Learns From Data',
+    excerpt: 'AI does not memorise answers. It adjusts millions of tiny dials called weights until its guesses get closer and closer to the right answer.',
+    analogy: 'Like tuning a guitar by ear — you tighten or loosen each string a little at a time until the chord sounds right.',
+    paragraphs: [
+      `Training an AI model is essentially a loop of guessing and correcting. The model makes a prediction, compares it to the known correct answer, measures the gap (called the loss), and then nudges its internal weights slightly to reduce that gap next time.`,
+      `This nudging process is called gradient descent. It runs millions or billions of times across vast datasets until the model's predictions become reliably accurate.`,
+      `What makes modern AI remarkable is not any single clever rule — it is the sheer scale of this trial-and-error process, run at speeds no human could match.`,
+    ],
+    wordCount: 110,
+    progressPercent: 0,
+    highlightWords: ['weights', 'gradient descent', 'loss', 'training'],
+    keyTakeaway: 'AI learns by repeatedly adjusting internal weights to minimise the gap between its predictions and correct answers.',
+    saved: false,
+    quiz: {
+      question: 'What is the core mechanism by which an AI model improves during training?',
+      nodeStep: 'ESSAY CHECK · AI LEARNING',
+      options: [
+        { key: 'A', text: 'Adjusting weights via gradient descent to reduce prediction error', isCorrect: true },
+        { key: 'B', text: 'Memorising every correct answer in a lookup table', isCorrect: false },
+        { key: 'C', text: 'Randomly selecting the best answer from a dictionary', isCorrect: false },
+        { key: 'D', text: 'Asking a human programmer to correct each mistake manually', isCorrect: false },
+      ],
+      explanation: 'Gradient descent iteratively reduces the loss by adjusting weights — this is the foundation of all modern AI training.',
+    },
+  },
+  {
+    id: 'art-ai-neural-nets',
+    type: 'medium',
+    topic: 'AI & Machine Learning',
+    difficultyLevel: 'Intermediate',
+    title: 'Why Neural Networks Are Useful',
+    excerpt: 'Neural networks can learn patterns that no programmer could write rules for — things like recognising a face, translating a sentence, or detecting fraud in real time.',
+    analogy: 'Teaching a child to recognise a cat by showing thousands of photos, not by listing every feature of a cat in a rulebook.',
+    paragraphs: [
+      `Traditional software follows explicit rules. If this, then that. Neural networks do something different — they learn the rules themselves from examples.`,
+      `A neural network is a stack of layers, each transforming its input slightly. Early layers detect simple patterns like edges or word frequencies. Deeper layers combine those into complex concepts like "this is a face" or "this sentence is negative in tone."`,
+      `This ability to learn hierarchical representations from raw data is why neural networks power voice assistants, medical imaging, recommendation systems, and language translation — tasks where hand-coding rules would be impossible.`,
+    ],
+    wordCount: 140,
+    progressPercent: 0,
+    highlightWords: ['layers', 'patterns', 'representations', 'hierarchical'],
+    keyTakeaway: 'Neural networks learn complex patterns automatically from examples, making them useful wherever explicit rules are impossible to write.',
+    saved: false,
+    quiz: {
+      question: 'Why are neural networks particularly useful for tasks like image recognition?',
+      nodeStep: 'ESSAY CHECK · NEURAL NETWORKS',
+      options: [
+        { key: 'A', text: 'They learn hierarchical patterns from data without needing hand-coded rules', isCorrect: true },
+        { key: 'B', text: 'They store every possible image in a compressed database', isCorrect: false },
+        { key: 'C', text: 'They use a fixed set of rules written by expert programmers', isCorrect: false },
+        { key: 'D', text: 'They only work when connected to the internet', isCorrect: false },
+      ],
+      explanation: 'Neural networks build layered representations of data automatically, which is why they outperform rule-based systems on complex perception tasks.',
+    },
+  },
+  {
+    id: 'art-ai-bias',
+    type: 'medium',
+    topic: 'AI & Machine Learning',
+    difficultyLevel: 'Intermediate',
+    title: 'AI Bias: Why Models Reflect the Data They Eat',
+    excerpt: 'If the data used to train an AI model is skewed, the model will be skewed too. Garbage in, garbage out — but at machine speed and massive scale.',
+    analogy: 'If you only ever read newspapers from one city, you would assume that city represents the whole world.',
+    paragraphs: [
+      `AI models learn from human-generated data — and humans have biases. Hiring algorithms trained on historical data may favour certain demographics simply because those demographics were historically overrepresented in successful hires.`,
+      `Bias can enter at multiple stages: in the data collected, in the labels assigned to that data, and in the metrics chosen to evaluate success. Each step is a place where human assumptions quietly get baked in.`,
+      `Addressing bias requires diverse training data, careful metric design, and ongoing auditing of model outputs in real-world conditions. Awareness of the problem is the essential first step.`,
+    ],
+    wordCount: 130,
+    progressPercent: 0,
+    highlightWords: ['bias', 'training data', 'labels', 'auditing'],
+    keyTakeaway: 'AI bias originates in training data and human assumptions — diverse data and regular auditing are the main defences.',
+    saved: false,
+    quiz: {
+      question: 'What is the primary source of bias in AI models?',
+      nodeStep: 'ESSAY CHECK · AI BIAS',
+      options: [
+        { key: 'A', text: 'Skewed or unrepresentative training data reflecting human biases', isCorrect: true },
+        { key: 'B', text: 'The programming language used to write the model', isCorrect: false },
+        { key: 'C', text: 'The speed of the hardware running the model', isCorrect: false },
+        { key: 'D', text: 'The number of layers in the neural network', isCorrect: false },
+      ],
+      explanation: 'Models learn patterns from data — if that data reflects historical biases, the model will reproduce and amplify them.',
+    },
+  },
+
+  // ── Cognitive Science — 3 new cards ──────────────────────────
+  {
+    id: 'art-cog-attention',
+    type: 'short',
+    topic: 'Cognitive Science',
+    difficultyLevel: 'Beginner',
+    title: 'How Attention Works: Your Brain\'s Spotlight',
+    excerpt: 'Your brain cannot process everything at once. Attention is the mechanism that decides what gets in and what gets filtered out.',
+    analogy: 'A spotlight on a dark stage — it illuminates one area clearly while everything else stays in shadow.',
+    paragraphs: [
+      `Every second, your senses deliver an enormous stream of information. Your brain handles this by running a filtering system called selective attention — it boosts signals that seem relevant and suppresses everything else.`,
+      `This filtering is not passive. It requires mental energy. When you deliberately focus on a difficult task, you are actively holding competing stimuli at bay, which is why sustained concentration feels tiring.`,
+      `Understanding this helps explain why a noisy environment hurts complex thinking, why multitasking is largely a myth, and why brief, intentional breaks restore focus more effectively than pushing through fatigue.`,
+    ],
+    wordCount: 105,
+    progressPercent: 0,
+    highlightWords: ['selective attention', 'filtering', 'stimuli', 'focus'],
+    keyTakeaway: 'Attention is an active, energy-consuming filter — not a passive state. Protecting it is the foundation of productive thinking.',
+    saved: false,
+    quiz: {
+      question: 'Why does sustained concentration feel mentally tiring?',
+      nodeStep: 'ESSAY CHECK · ATTENTION',
+      options: [
+        { key: 'A', text: 'Because attention actively suppresses competing stimuli, consuming mental energy', isCorrect: true },
+        { key: 'B', text: 'Because the brain increases heart rate during focused tasks', isCorrect: false },
+        { key: 'C', text: 'Because focused tasks require more oxygen in the bloodstream', isCorrect: false },
+        { key: 'D', text: 'Because the brain stops processing background information completely', isCorrect: false },
+      ],
+      explanation: 'Selective attention is an active process — holding distractions at bay costs cognitive resources, which is why deep focus is genuinely fatiguing.',
+    },
+  },
+  {
+    id: 'art-cog-forgetting',
+    type: 'medium',
+    topic: 'Cognitive Science',
+    difficultyLevel: 'Beginner',
+    title: 'Why We Forget: The Ebbinghaus Forgetting Curve',
+    excerpt: 'Within 24 hours of learning something new, most people forget roughly half of it. This is not a flaw — it is your brain being efficient.',
+    analogy: 'Your brain is like a smart filing system that archives rarely accessed files to free up space for what matters today.',
+    paragraphs: [
+      `In the 1880s, psychologist Hermann Ebbinghaus mapped exactly how memory decays over time. His forgetting curve shows a steep drop-off in the first day, then a flatter decline over the following weeks.`,
+      `Forgetting is not random failure — it is the brain deprioritising information that has not been reinforced. If you never revisit a fact, your brain interprets it as unimportant and lets it fade.`,
+      `The antidote is spaced repetition: reviewing information at increasing intervals forces your brain to re-encode it as important, dramatically flattening the forgetting curve and moving knowledge into long-term memory.`,
+    ],
+    wordCount: 135,
+    progressPercent: 0,
+    highlightWords: ['forgetting curve', 'spaced repetition', 'memory', 'Ebbinghaus'],
+    keyTakeaway: 'Memory fades predictably unless reinforced. Spaced repetition — reviewing at growing intervals — is the most effective counter.',
+    saved: false,
+    quiz: {
+      question: 'According to the Ebbinghaus forgetting curve, when does memory decay happen most rapidly?',
+      nodeStep: 'ESSAY CHECK · MEMORY',
+      options: [
+        { key: 'A', text: 'In the first 24 hours after learning, with a steep initial drop-off', isCorrect: true },
+        { key: 'B', text: 'Uniformly and slowly over many months', isCorrect: false },
+        { key: 'C', text: 'Only during sleep, when the brain consolidates memories', isCorrect: false },
+        { key: 'D', text: 'After the age of 40, when neuroplasticity decreases significantly', isCorrect: false },
+      ],
+      explanation: 'Ebbinghaus found that forgetting is sharpest in the first day and flattens over time — which is why reviewing new material quickly is so effective.',
+    },
+  },
+  {
+    id: 'art-cog-habits',
+    type: 'medium',
+    topic: 'Cognitive Science',
+    difficultyLevel: 'Intermediate',
+    title: 'How Habits Work: The Loop Your Brain Runs on Autopilot',
+    excerpt: 'Up to 40% of your daily actions are not conscious decisions — they are habits running on autopilot in the basal ganglia, freeing your thinking brain for harder problems.',
+    analogy: 'Like a well-worn path through a field — the more you walk it, the easier it becomes, until you follow it without even thinking.',
+    paragraphs: [
+      `Habits are stored in the basal ganglia, a region deep in the brain separate from the prefrontal cortex where conscious decisions happen. Once a behaviour becomes habitual, it requires almost no deliberate thought to execute.`,
+      `Every habit follows a three-part loop: cue, routine, reward. The cue triggers the habit, the routine is the behaviour itself, and the reward reinforces the loop. Understanding this structure is the key to changing habits deliberately.`,
+      `To build a new habit, stack it onto an existing cue. To break a bad habit, identify the underlying reward it delivers and find a healthier routine that provides the same reward. The cue and reward stay — only the routine changes.`,
+    ],
+    wordCount: 150,
+    progressPercent: 0,
+    highlightWords: ['basal ganglia', 'habit loop', 'cue', 'routine', 'reward'],
+    keyTakeaway: 'Habits run on a cue-routine-reward loop stored in the basal ganglia. Change the routine while keeping the cue and reward to reshape behaviour.',
+    saved: false,
+    quiz: {
+      question: 'What are the three components of the habit loop identified by neuroscience?',
+      nodeStep: 'ESSAY CHECK · HABITS',
+      options: [
+        { key: 'A', text: 'Cue, routine, and reward', isCorrect: true },
+        { key: 'B', text: 'Intention, action, and reflection', isCorrect: false },
+        { key: 'C', text: 'Stimulus, memory, and decision', isCorrect: false },
+        { key: 'D', text: 'Goal, effort, and outcome', isCorrect: false },
+      ],
+      explanation: 'The cue triggers the behaviour, the routine is the behaviour, and the reward reinforces the loop — this structure applies to virtually all habitual actions.',
+    },
+  },
+
+  // ── Philosophy & Stoicism — 3 new cards ──────────────────────
+  {
+    id: 'art-stoic-negative-viz',
+    type: 'short',
+    topic: 'Philosophy & Stoicism',
+    difficultyLevel: 'Beginner',
+    title: 'Negative Visualisation: Wanting What You Already Have',
+    excerpt: 'The Stoics practised imagining the worst — not to be pessimistic, but to jolt themselves out of taking what they had for granted.',
+    analogy: 'Like imagining losing your favourite coffee shop before you visit it — suddenly the coffee tastes better and the chair feels more comfortable.',
+    paragraphs: [
+      `Modern culture pushes us to always want more. The Stoic practice of negative visualisation runs in the opposite direction: spend a few moments each day imagining losing what you currently have — your health, your relationships, your work.`,
+      `This is not a morbid exercise. When you vividly picture losing something, you reconnect with how valuable it actually is. The gratitude that follows is immediate and genuine, not forced.`,
+      `Seneca wrote that we suffer more in imagination than reality. Negative visualisation turns this on its head — by briefly suffering the imagined loss, we inoculate ourselves against the quiet dissatisfaction of taking life for granted.`,
+    ],
+    wordCount: 115,
+    progressPercent: 0,
+    highlightWords: ['negative visualisation', 'gratitude', 'Stoic', 'Seneca'],
+    keyTakeaway: 'Briefly imagining the loss of what you value resets appreciation and counters the hedonic adaptation that dulls everyday satisfaction.',
+    saved: false,
+    quiz: {
+      question: 'What is the Stoic purpose of negative visualisation?',
+      nodeStep: 'ESSAY CHECK · STOICISM',
+      options: [
+        { key: 'A', text: 'To cultivate genuine gratitude by imagining the loss of what you value', isCorrect: true },
+        { key: 'B', text: 'To prepare a detailed disaster recovery plan for daily life', isCorrect: false },
+        { key: 'C', text: 'To train the mind to expect only bad outcomes', isCorrect: false },
+        { key: 'D', text: 'To suppress positive emotions and achieve emotional numbness', isCorrect: false },
+      ],
+      explanation: 'Negative visualisation resets appreciation by making you feel — briefly and vividly — what it would be like to lose what you already have.',
+    },
+  },
+  {
+    id: 'art-stoic-reactions',
+    type: 'medium',
+    topic: 'Philosophy & Stoicism',
+    difficultyLevel: 'Intermediate',
+    title: 'Why Your Reactions Matter More Than Events',
+    excerpt: 'Between stimulus and response there is a space. In that space lies your power and your freedom. The Stoics built an entire philosophy around cultivating that gap.',
+    analogy: 'A rubber band being stretched — the tension is there, but you decide whether to snap back or hold steady.',
+    paragraphs: [
+      `Marcus Aurelius wrote: "You have power over your mind — not outside events. Realise this and you will find strength." The Stoics were not arguing that bad things do not happen. They were arguing that events themselves are neutral — it is our interpretation that makes them good or bad.`,
+      `When something goes wrong, there is always a pause — however brief — between the event and your response. Stoic practice trains you to notice that pause and use it deliberately rather than reacting from raw emotion.`,
+      `This is not about suppressing feelings. It is about widening the gap between stimulus and response so that your actions reflect your values rather than your worst impulses. Over time, this gap becomes a source of genuine personal freedom.`,
+    ],
+    wordCount: 155,
+    progressPercent: 0,
+    highlightWords: ['stimulus', 'response', 'Marcus Aurelius', 'interpretation'],
+    pullQuote: {
+      quote: 'You have power over your mind — not outside events. Realise this and you will find strength.',
+      author: 'MARCUS AURELIUS',
+    },
+    keyTakeaway: 'Events are neutral — your interpretation creates suffering or strength. Training the pause between stimulus and response is the core Stoic practice.',
+    saved: false,
+    quiz: {
+      question: 'What is the Stoic view on the relationship between events and suffering?',
+      nodeStep: 'ESSAY CHECK · STOIC REACTIONS',
+      options: [
+        { key: 'A', text: 'Events are neutral — it is our interpretation and response that creates suffering or strength', isCorrect: true },
+        { key: 'B', text: 'Suffering is always caused directly by external events beyond our control', isCorrect: false },
+        { key: 'C', text: 'Emotional reactions should be completely suppressed to achieve wisdom', isCorrect: false },
+        { key: 'D', text: 'Only positive events should be acknowledged; negative ones ignored', isCorrect: false },
+      ],
+      explanation: 'The Stoics held that events have no inherent emotional charge — our judgements about them are what produce positive or negative emotional responses.',
+    },
+  },
+  {
+    id: 'art-stoic-present',
+    type: 'short',
+    topic: 'Philosophy & Stoicism',
+    difficultyLevel: 'Beginner',
+    title: 'Amor Fati: Loving What Happens',
+    excerpt: 'Friedrich Nietzsche coined it, but the Stoics lived it: amor fati — love of fate. Not just accepting what happens, but actively embracing it.',
+    analogy: 'A sailor who does not fight the wind but adjusts the sails to use it — every gust becomes an advantage rather than an obstacle.',
+    paragraphs: [
+      `Most of us divide events into things we want and things we do not want. We resist the second category, which creates a constant low-level friction with reality. Amor fati proposes something more radical: love everything that happens, including setbacks.`,
+      `This is not passivity or resignation. It is the recognition that resistance to what has already happened wastes energy that could be spent responding usefully. The event is done — only your relationship to it remains open.`,
+      `Practised consistently, amor fati converts obstacles into fuel. Every difficulty becomes an opportunity to demonstrate character and build capability. What looked like misfortune reveals itself as material for growth.`,
+    ],
+    wordCount: 120,
+    progressPercent: 0,
+    highlightWords: ['amor fati', 'fate', 'resistance', 'obstacles'],
+    keyTakeaway: 'Amor fati — loving fate — means treating everything that happens, good or bad, as exactly what was needed for growth.',
+    saved: false,
+    quiz: {
+      question: 'What does the Stoic concept of amor fati ask us to do with setbacks?',
+      nodeStep: 'ESSAY CHECK · AMOR FATI',
+      options: [
+        { key: 'A', text: 'Actively embrace them as necessary material for growth and character', isCorrect: true },
+        { key: 'B', text: 'Ignore them and focus exclusively on positive events', isCorrect: false },
+        { key: 'C', text: 'Analyse them endlessly to assign blame', isCorrect: false },
+        { key: 'D', text: 'Avoid situations where setbacks are possible', isCorrect: false },
+      ],
+      explanation: 'Amor fati reframes every event — especially difficult ones — as exactly what was required. Resistance to what has already happened is seen as wasted energy.',
+    },
+  },
+
+  // ── Growth & Marketing — 3 new cards ─────────────────────────
+  {
+    id: 'art-growth-consistency',
+    type: 'short',
+    topic: 'Growth & Marketing',
+    difficultyLevel: 'Beginner',
+    title: 'Why Consistency Beats Motivation Every Time',
+    excerpt: 'Motivation is a feeling — it comes and goes. Consistency is a system — it shows up regardless of how you feel. One builds careers; the other makes for good intentions.',
+    analogy: 'A dripping tap fills a bathtub overnight. Waiting to feel inspired is like waiting for a flood that might never come.',
+    paragraphs: [
+      `Motivation is peak-driven. It spikes after a great talk, a good book, or a bold decision — then fades within days. Anyone who has started a gym routine in January knows this cycle well.`,
+      `Consistency works differently. It removes the decision entirely. When the action is scheduled and habitual, you do not need to feel like doing it — you just do it. The system overrides the mood.`,
+      `The compounding effect of consistent small actions vastly outperforms the occasional heroic effort. A writer who produces 300 words every day will publish more in a year than someone who waits for inspiration and writes 3,000 words once a month.`,
+    ],
+    wordCount: 115,
+    progressPercent: 0,
+    highlightWords: ['consistency', 'motivation', 'system', 'compounding'],
+    keyTakeaway: 'Motivation is unreliable fuel. Consistency — showing up daily regardless of mood — is the actual engine of long-term progress.',
+    saved: false,
+    quiz: {
+      question: 'Why does consistency outperform motivation for long-term goals?',
+      nodeStep: 'ESSAY CHECK · CONSISTENCY',
+      options: [
+        { key: 'A', text: 'Consistency creates a system that operates independently of mood or inspiration', isCorrect: true },
+        { key: 'B', text: 'Motivation produces higher quality output than consistent daily effort', isCorrect: false },
+        { key: 'C', text: 'Consistent routines eliminate the need for any planning or goals', isCorrect: false },
+        { key: 'D', text: 'Motivation compounds over time in the same way consistency does', isCorrect: false },
+      ],
+      explanation: 'Consistent action removes the need for motivation entirely by turning the behaviour into a scheduled, automatic system rather than a mood-dependent choice.',
+    },
+  },
+  {
+    id: 'art-growth-brand-trust',
+    type: 'medium',
+    topic: 'Growth & Marketing',
+    difficultyLevel: 'Intermediate',
+    title: 'How Brands Build Trust: The Consistency Equation',
+    excerpt: 'Trust is not built in a single moment. It is the accumulated result of many small promises made and kept — across every customer interaction, over a long period of time.',
+    analogy: 'Like a savings account: each kept promise is a small deposit, and the total builds slowly into something that compounds over years.',
+    paragraphs: [
+      `Customers do not fall in love with brands because of one great campaign. They develop trust because expectations were set and then consistently met — the product worked, the support was helpful, the experience matched the promise.`,
+      `Brand trust is built across three dimensions: competence (you can do what you claim), reliability (you do it consistently), and integrity (you do the right thing when it costs you something). A brand can score high on the first two and destroy trust with a single failure on the third.`,
+      `For growing companies, this means that brand-building is not a marketing department task — it is an operational one. Every product decision, pricing choice, and customer service interaction is a trust deposit or a trust withdrawal.`,
+    ],
+    wordCount: 150,
+    progressPercent: 0,
+    highlightWords: ['trust', 'competence', 'reliability', 'integrity'],
+    keyTakeaway: 'Brand trust is built through consistent delivery across competence, reliability, and integrity — not through advertising alone.',
+    saved: false,
+    quiz: {
+      question: 'Which three dimensions combine to create genuine brand trust?',
+      nodeStep: 'ESSAY CHECK · BRAND TRUST',
+      options: [
+        { key: 'A', text: 'Competence, reliability, and integrity', isCorrect: true },
+        { key: 'B', text: 'Advertising spend, social media presence, and product pricing', isCorrect: false },
+        { key: 'C', text: 'Logo design, colour palette, and brand voice', isCorrect: false },
+        { key: 'D', text: 'Customer acquisition rate, churn rate, and NPS score', isCorrect: false },
+      ],
+      explanation: 'Competence shows you can deliver, reliability shows you consistently do, and integrity shows you do the right thing even when it hurts — all three are required for deep trust.',
+    },
+  },
+  {
+    id: 'art-growth-storytelling',
+    type: 'medium',
+    topic: 'Growth & Marketing',
+    difficultyLevel: 'Beginner',
+    title: 'Why Storytelling Works: Facts Tell, Stories Sell',
+    excerpt: 'A list of product features might inform a decision. A story about a real person whose problem your product solved makes someone feel the decision. Feeling drives action.',
+    analogy: 'A map shows you where a place is. A story about someone who went there and what they found makes you want to pack your bags.',
+    paragraphs: [
+      `The human brain processes stories differently from facts. When you hear a statistic, the language areas of the brain activate. When you hear a story, multiple regions light up — including those responsible for sensory experience and emotion — making the information feel real and personal.`,
+      `This neurological response is why case studies outperform feature lists in sales, why origin stories build brand loyalty, and why the most memorable TED talks are built around a single narrative thread rather than a slideshow of data.`,
+      `Effective marketing storytelling follows a simple structure: introduce a character the audience identifies with, give them a problem, show the journey to a solution, and make the resolution emotionally satisfying. Your product is the tool — not the hero.`,
+    ],
+    wordCount: 145,
+    progressPercent: 0,
+    highlightWords: ['storytelling', 'narrative', 'emotion', 'character'],
+    keyTakeaway: 'Stories activate emotion and memory in ways that facts alone cannot. In marketing, the customer is the hero — your product is the tool that enables their transformation.',
+    saved: false,
+    quiz: {
+      question: 'Why do stories outperform plain facts in marketing communication?',
+      nodeStep: 'ESSAY CHECK · STORYTELLING',
+      options: [
+        { key: 'A', text: 'Stories activate emotion and sensory brain regions, making information feel personal and memorable', isCorrect: true },
+        { key: 'B', text: 'Stories are shorter than factual descriptions and easier to skim', isCorrect: false },
+        { key: 'C', text: 'Customers distrust factual claims but always believe narrative content', isCorrect: false },
+        { key: 'D', text: 'Stories avoid the need to demonstrate product benefits directly', isCorrect: false },
+      ],
+      explanation: 'Neuroscience shows that narrative engages multiple brain regions simultaneously — including those for emotion and sensory experience — creating stronger encoding and recall than data alone.',
+    },
+  },
 ];
 
 export const NICHE_SKILL_TREES: Record<string, SkillTreeNode[]> = {
@@ -1154,7 +1526,27 @@ export function AttentionTrainerProvider({ children }: { children: React.ReactNo
     if (!parsed) return;
     isRemoteSyncingRef.current = true;
     try {
-      if (parsed.articles) setArticles(parsed.articles);
+      if (parsed.articles) {
+        // Merge: keep persisted save/progress/completed state for existing cards,
+        // but always include every card from DEFAULT_ARTICLES so new cards are never hidden.
+        const storedMap = new Map<string, ArticleWithQuiz>(
+          (parsed.articles as ArticleWithQuiz[]).map((a) => [a.id, a])
+        );
+        const merged = DEFAULT_ARTICLES.map((defaultCard) => {
+          const stored = storedMap.get(defaultCard.id);
+          // Preserve user-specific mutable fields; keep default content fields
+          return stored
+            ? {
+                ...defaultCard,
+                saved: stored.saved,
+                progressPercent: stored.progressPercent,
+                completed: stored.completed,
+                lastReadAt: stored.lastReadAt,
+              }
+            : defaultCard;
+        });
+        setArticles(merged);
+      }
       if (parsed.pathNodes) setPathNodes(parsed.pathNodes);
       if (parsed.calibratedLevel) setCalibratedLevel(parsed.calibratedLevel);
       if (parsed.staminaLevel) setStaminaLevel(parsed.staminaLevel);
