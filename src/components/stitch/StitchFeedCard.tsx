@@ -77,9 +77,10 @@ function StitchFeedCardComponent({
       {/* Card Body Container */}
       <article
         onClick={() => onRead(article)}
-        className="feed-card flex-1 min-w-0 bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] p-4 sm:p-[20px] flex flex-col justify-between cursor-pointer transition-shadow shadow-[0_1px_2px_rgba(26,24,20,0.04)] hover:shadow-md"
+        className="feed-card flex-1 min-w-0 bg-[var(--insert)] border border-[var(--rule)] rounded-[var(--r-card)] overflow-hidden flex flex-col justify-between cursor-pointer transition-shadow shadow-[0_1px_2px_rgba(26,24,20,0.04)] hover:shadow-md"
       >
-        <div>
+        {/* ── Header area: slightly darker background for visual hierarchy ── */}
+        <div className="bg-[var(--rule)] px-4 sm:px-[20px] pt-4 sm:pt-[20px] pb-3 border-b border-[var(--rule)]">
           {/* Top Label Row: Topic Name (in topic hue #1) + Difficulty & Word Count */}
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
             <span
@@ -95,11 +96,14 @@ function StitchFeedCardComponent({
 
           {/* Headline Title */}
           {article.title && (
-            <h2 className="t-title mb-2">
+            <h2 className="t-title">
               {article.title}
             </h2>
           )}
+        </div>
 
+        {/* ── Content area: white background ── */}
+        <div className="flex-1 px-4 sm:px-[20px] pt-4 pb-0">
           {/* Body Prose Excerpt */}
           <p className="t-body mb-4">
             {article.excerpt}
@@ -129,7 +133,7 @@ function StitchFeedCardComponent({
         </div>
 
         {/* Action Row: Identical .t-ui 14px in graphite, responsive gap */}
-        <div className="mt-5 pt-3 border-t border-[var(--rule)] flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-[24px]">
+        <div className="px-4 sm:px-[20px] py-3 mt-2 border-t border-[var(--rule)] flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-[24px]">
           <button
             type="button"
             onClick={(e) => {
